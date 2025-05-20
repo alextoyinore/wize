@@ -1,11 +1,8 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
-import { auth } from '@/lib/firebase'
 
 export default function RoleManagement() {
-  const router = useRouter()
   const [users, setUsers] = useState([])
   const [roles, setRoles] = useState({})
   const [loading, setLoading] = useState(false)
@@ -18,34 +15,8 @@ export default function RoleManagement() {
   const [bulkReason, setBulkReason] = useState('')
 
   useEffect(() => {
-    // Check if user is super admin
-    const checkSuperAdmin = async () => {
-      try {
-        const user = auth.currentUser
-        if (!user) {
-          router.push('/admin/login')
-          return
-        }
-
-        const userData = await fetch('/api/admin/user', {
-          method: 'GET',
-          credentials: 'include'
-        }).then(res => res.json())
-
-        if (!userData?.role?.includes('super_admin')) {
-          router.push('/admin')
-          return
-        }
-
-        // Fetch all users
-        fetchUsers()
-      } catch (error) {
-        console.error('Error checking super admin:', error)
-        router.push('/admin/login')
-      }
-    }
-
-    checkSuperAdmin()
+    // Fetch all users
+    fetchUsers()
   }, [])
 
   const fetchUsers = async () => {

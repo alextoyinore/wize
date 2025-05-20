@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import clientPromise, { usersCollection } from '@/lib/mongodb'
+import clientPromise, { usersCollection, coursesCollection } from '@/lib/mongodb'
 import { getSession } from '@/lib/auth'
 import { uploadImage } from '@/lib/cloudinary'
 import courseSchema from '@/lib/schemas/course'
@@ -14,7 +14,7 @@ export async function GET(request) {
       )
     }
 
-    console.log('Session received', session)
+    // console.log('Session received', session)
 
     // Verify admin access
     const adminUser = await usersCollection.findOne({ email: session.email })
@@ -32,11 +32,6 @@ export async function GET(request) {
     const page = parseInt(new URL(request.url).searchParams.get('page') || '1')
     const limit = parseInt(new URL(request.url).searchParams.get('limit') || '20')
     const search = new URL(request.url).searchParams.get('search') || ''
-
-    // Connect to MongoDB
-    const client = await clientPromise
-    const db = client.db()
-    const coursesCollection = db.collection('courses')
 
     // Build query
     const query = {}
@@ -90,7 +85,7 @@ export async function POST(request) {
 
     // Verify admin access
     const adminUser = await usersCollection.findOne({ email: session.email })
-    if (!adminUser?.role?.includes('super_admin') || !adminUser?.role?.includes('facilitator')) {
+    if (!adminUser?.role?.includes('super_admin')) {
       return NextResponse.json(
         { success: false, error: 'Unauthorized: Super admin access required' },
         { status: 403 }
@@ -114,11 +109,6 @@ export async function POST(request) {
       const imageUrl = await uploadImage(imageFile)
       courseData.image = imageUrl
     }
-
-    // Connect to MongoDB
-    const client = await clientPromise
-    const db = client.db()
-    const coursesCollection = db.collection('courses')
 
     // Insert the course
     const result = await coursesCollection.insertOne({

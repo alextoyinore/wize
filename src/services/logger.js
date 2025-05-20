@@ -1,4 +1,3 @@
-import { db } from './mongodb'
 import { usersCollection } from '@/lib/mongodb'
 import { auth } from '@/lib/firebase'
 import { sendNotification } from '@/services/notifications'

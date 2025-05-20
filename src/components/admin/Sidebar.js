@@ -75,7 +75,7 @@ export default function Sidebar({ className }) {
                 <div className="">
                   <button
                     onClick={() => setIsCoursesOpen(!isCoursesOpen)}
-                    className={`px-4 py-3 text-sm rounded transition-colors w-full flex justify-between items-center ${
+                    className={`px-4 py-3 text-sm rounded transition-all w-full flex justify-between items-center ${
                       pathname === item.href
                         ? 'bg-gray-100'
                         : 'hover:bg-gray-50'

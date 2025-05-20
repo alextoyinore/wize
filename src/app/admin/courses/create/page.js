@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 
 export default function NewCourse() {
@@ -15,8 +15,17 @@ export default function NewCourse() {
     instructor: '',
     price: '',
     duration: '',
-    lessons: []
+    lessons: [],
+    image: null
   })
+  const [imagePreview, setImagePreview] = useState(null)
+
+  useEffect(() => {
+    if (courseData.image) {
+      // If image is a URL (from edit mode)
+      setImagePreview(courseData.image)
+    }
+  }, [courseData.image])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -27,14 +36,12 @@ export default function NewCourse() {
     try {
       const formData = new FormData()
       Object.entries(courseData).forEach(([key, value]) => {
-        formData.append(key, value)
+        if (key === 'lessons') {
+          formData.append(key, JSON.stringify(value))
+        } else {
+          formData.append(key, value)
+        }
       })
-
-      // Add image file if selected
-      const imageFile = e.target.image.files[0]
-      if (imageFile) {
-        formData.append('image', imageFile)
-      }
 
       const response = await fetch('/api/admin/courses', {
         method: 'POST',
@@ -56,7 +63,7 @@ export default function NewCourse() {
         })
         router.push('/admin/courses')
       } else {
-        throw new Error(data.error || 'Failed to create course')
+        setError(data.error || 'Failed to create course')
       }
     } catch (err) {
       setError(err.message)
@@ -110,7 +117,7 @@ export default function NewCourse() {
             required
             value={courseData.title}
             onChange={(e) => setCourseData({ ...courseData, title: e.target.value })}
-            className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50 transition-all duration-200"
+            className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-indigo-500 transition-all duration-200"
             placeholder="Enter course title"
           />
         </div>
@@ -122,7 +129,7 @@ export default function NewCourse() {
             value={courseData.description}
             onChange={(e) => setCourseData({ ...courseData, description: e.target.value })}
             rows={4}
-            className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50 transition-all duration-200"
+            className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-indigo-500 transition-all duration-200"
             placeholder="Enter course description"
           />
         </div>
@@ -133,7 +140,7 @@ export default function NewCourse() {
             required
             value={courseData.category}
             onChange={(e) => setCourseData({ ...courseData, category: e.target.value })}
-            className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50 transition-all duration-200"
+            className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-indigo-500 transition-all duration-200"
           >
             <option value="">Select category</option>
             <option value="web-development">Web Development</option>
@@ -150,7 +157,7 @@ export default function NewCourse() {
             required
             value={courseData.instructor}
             onChange={(e) => setCourseData({ ...courseData, instructor: e.target.value })}
-            className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50 transition-all duration-200"
+            className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-indigo-500 transition-all duration-200"
             placeholder="Enter instructor name"
           />
         </div>
@@ -166,7 +173,7 @@ export default function NewCourse() {
               step="0.01"
               value={courseData.price}
               onChange={(e) => setCourseData({ ...courseData, price: e.target.value })}
-              className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50 transition-all duration-200"
+              className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-indigo-500 transition-all duration-200"
               placeholder="0.00"
             />
           </div>
@@ -180,26 +187,28 @@ export default function NewCourse() {
             <input
               type="number"
               required
-              min="0"
-              value={courseData.duration.split(' ')[0] || ''}
+              value={courseData.duration ? courseData.duration.split(' ')[0]?.replace('h', '') : ''}
               onChange={(e) => {
                 const hours = e.target.value
-                setCourseData({ ...courseData, duration: `${hours}h ${courseData.duration.split(' ')[1] || '00m'}` })
+                const currentDuration = courseData.duration || '0h 00m'
+                const minutes = currentDuration.split(' ')[1]
+                setCourseData({ ...courseData, duration: `${hours}h ${minutes}` })
               }}
-              className="w-20 px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50 transition-all duration-200"
+              className="w-32 px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-indigo-500 transition-all duration-200"
               placeholder="Hours"
             />
+
             <input
               type="number"
               required
-              min="0"
-              max="59"
-              value={courseData.duration.split(' ')[1]?.replace('m', '') || ''}
+              value={courseData.duration ? courseData.duration.split(' ')[1]?.replace('m', '') : ''}
               onChange={(e) => {
                 const minutes = e.target.value
-                setCourseData({ ...courseData, duration: `${courseData.duration.split(' ')[0] || '0'}h ${minutes}m` })
+                const currentDuration = courseData.duration || '0h 00m'
+                const hours = currentDuration.split(' ')[0]
+                setCourseData({ ...courseData, duration: `${hours}h ${minutes}m` })
               }}
-              className="w-20 px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50 transition-all duration-200"
+              className="w-32 px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-indigo-500 transition-all duration-200"
               placeholder="Minutes"
             />
           </div>
@@ -217,9 +226,10 @@ export default function NewCourse() {
                   // Preview the image
                   const reader = new FileReader()
                   reader.onload = (e) => {
-                    // You can use e.target.result for preview
+                    setImagePreview(e.target.result)
                   }
                   reader.readAsDataURL(file)
+                  setCourseData(prev => ({ ...prev, image: file }))
                 }
               }}
               className="hidden"
@@ -239,6 +249,19 @@ export default function NewCourse() {
 
         </div>
 
+        {imagePreview && (
+            <div className="mt-4">
+              <div className="w-full h-64 bg-gray-100 rounded-lg overflow-hidden">
+                <img
+                  src={imagePreview}
+                  alt="Course preview"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </div>
+          )}
+
+        {/* Lessons */ }
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">Lessons</label>
           <div className="mt-4 space-y-4">
@@ -299,15 +322,15 @@ export default function NewCourse() {
                           type="number"
                           required
                           min="0"
-                          value={lesson.duration.split(' ')[0] || ''}
+                          value={lesson.duration.split(' ')[0]?.replace('h', '') || ''}
                           onChange={(e) => {
                             const hours = e.target.value
-                            handleLessonChange(index, 'duration', `${hours}h ${lesson.duration.split(' ')[1] || '00m'}`)
+                            handleLessonChange(index, 'duration', `${hours}h ${lesson.duration.split(' ')[1]?.replace('m', '') || '00m'}`)
                           }}
-                          className="w-20 px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50 transition-all duration-200"
+                          className="w-32 px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50 transition-all duration-200"
                           placeholder="Hours"
                         />
-                        <input
+                        <input  
                           type="number"
                           required
                           min="0"
@@ -315,9 +338,9 @@ export default function NewCourse() {
                           value={lesson.duration.split(' ')[1]?.replace('m', '') || ''}
                           onChange={(e) => {
                             const minutes = e.target.value
-                            handleLessonChange(index, 'duration', `${lesson.duration.split(' ')[0] || '0'}h ${minutes}m`)
+                            handleLessonChange(index, 'duration', `${lesson.duration.split(' ')[0]?.replace('h', '') || '0'}h ${minutes}m`)
                           }}
-                          className="w-20 px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50 transition-all duration-200"
+                          className="w-32 px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50 transition-all duration-200"
                           placeholder="Minutes"
                         />
                       </div>

@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import { auth } from '@/lib/firebase'
 import { usersCollection } from '@/lib/mongodb'
-import { logEvent } from '@/services/logger'
+// import { logEvent } from '@/services/logger'
 
 // Role permissions configuration
 const ROLE_PERMISSIONS = {
@@ -185,4 +185,4 @@ export async function PUT(request) {
     )
   }
 }
-}
+

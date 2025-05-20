@@ -4,6 +4,7 @@ import { getSession } from '@/lib/auth'
 
 export async function GET(request) {
   try {
+    const session = await getSession(request)
 
     // Get the session from auth route
     if (!session) {
