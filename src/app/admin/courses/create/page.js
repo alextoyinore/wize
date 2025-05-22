@@ -32,8 +32,23 @@ export default function NewCourse() {
     image: null
   })
   const [imagePreview, setImagePreview] = useState(null)
+  const [categories, setCategories] = useState([])
+
+  const fetchCategories = async () => {
+    try {
+      const response = await fetch('/api/admin/categories')
+      const data = await response.json()
+      setCategories(data.categories)
+    } catch (error) {
+      console.error('Error fetching categories:', error)
+      setError('Failed to load categories. Please refresh the page or contact support.')
+    }
+  }
 
   useEffect(() => {
+    // Fetch categories on component mount
+    fetchCategories()
+
     const adminData = Cookies.get('admin_data')
     if (adminData) {
       try {
@@ -59,13 +74,13 @@ export default function NewCourse() {
   }, [])
 
   useEffect(() => {
+    // Set image preview if image is a URL (from edit mode)
     if (courseData.image) {
-      // If image is a URL (from edit mode)
       setImagePreview(courseData.image)
     }
   }, [courseData.image])
 
-  const handleSubmit = async (e) => {
+    const handleSubmit = async (e) => {
     e.preventDefault()
     setLoading(true)
     setError('')
@@ -199,22 +214,9 @@ export default function NewCourse() {
             className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-indigo-500 transition-all duration-200"
           >
             <option value="">Select category</option>
-            <option value="software-engineering">Software Engineering</option>
-            <option value="vocational">Vocational</option>
-            <option value="design">Design</option>
-            <option value="business">Business</option>
-            <option value="health">Health</option>
-            <option value="arts">Arts</option>
-            <option value="sports">Sports</option>
-            <option value="music">Music</option>
-            <option value="cooking">Cooking</option>
-            <option value="travel">Travel</option>
-            <option value="language">Language</option>
-            <option value="photography">Photography</option>
-            <option value="gaming">Gaming</option>
-            <option value="fitness">Fitness</option>
-            <option value="finance">Finance</option>
-            <option value="entrepreneurship">Entrepreneurship</option>
+            {categories.map((cat) => (
+              <option key={cat._id} value={cat.name.toLowerCase().replace(/\s+/g, '-')}>{cat.name}</option>
+            ))}
           </select>
         </div>
 

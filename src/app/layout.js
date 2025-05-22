@@ -10,6 +10,12 @@ export const metadata = {
   icons: {
     icon: '/icon.svg',
   },
+  alternates: {
+    explore: {
+      title: 'Explore Courses | Uwise',
+      description: 'Discover a wide range of courses in various categories',
+    },
+  },
 };
 
 export default function RootLayout({ children }) {

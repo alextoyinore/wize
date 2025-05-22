@@ -6,6 +6,8 @@ import Link from 'next/link'
 import Logo from '@assets/uwise.svg'
 import MenuIcon from '@components/icons/MenuIcon'
 import CloseIcon from '@components/icons/CloseIcon'
+import Announcements from './Announcements'
+import EarthIcon from './icons/EarthIcon'
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
@@ -89,9 +91,13 @@ export default function Navbar() {
 
   return (
     <nav className="bg-white/90 backdrop-blur-sm text-gray-900 sticky top-0 z-50 border-b border-gray-200">
+      {/* Announcements Section */}
+      <div>
+        <Announcements />
+      </div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
-          <div className="flex items-center">
+          <div className="flex items-center space-x-4">
             <Link href="/" className="flex items-center rounded-md py-2 transition-colors">
               <Image
                 src={Logo}
@@ -101,6 +107,11 @@ export default function Navbar() {
                 width={40}
                 height={40}
               />
+            </Link>
+
+            <Link href="/explore" className="flex items-center space-x-2">
+              <EarthIcon className="h-5 w-5 text-gray-500 hover:text-indigo-600" />
+              <span className="text-gray-700 hover:text-indigo-600">Explore</span>
             </Link>
           </div>
           

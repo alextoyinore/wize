@@ -27,6 +27,8 @@ export const usersCollection = db.collection('users')
 export const adminSessionsCollection = db.collection('admin_sessions')
 export const userSessionsCollection = db.collection('user_sessions')
 export const coursesCollection = db.collection('courses')
+export const categoriesCollection = db.collection('categories')
+export const announcementsCollection = db.collection('announcements')
 export const objectId = ObjectId
 
 // Export the client promise for direct database access

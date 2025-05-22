@@ -206,33 +206,17 @@ export default function Courses() {
                       Delete
                     </button>
 
-                    {deleteConfirm && (
-                      <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50">
-                        <div className="bg-white p-6 rounded-lg w-96">
-                          <h3 className="text-lg font-semibold mb-4">Confirm Delete</h3>
-                          <p className="text-gray-600 mb-4 whitespace-pre-wrap">
-                            Are you sure you want to delete the course <strong className="text-red-600">{deleteConfirm.title}</strong>? This action cannot be undone.
-                          </p>
-                          <div className="flex justify-end space-x-4">
-                            <button
-                              onClick={() => setDeleteConfirm(null)}
-                              className="px-4 py-2 text-gray-700 hover:text-gray-900"
-                            >
-                              Cancel
-                            </button>
-                            <button
-                              onClick={async () => {
-                                await handleDelete(deleteConfirm._id);
-                                setDeleteConfirm(null);
-                              }}
-                              className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
-                            >
-                              Delete
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    )}
+                    <ConfirmationDialog
+                      open={!!deleteConfirm}
+                      onClose={() => setDeleteConfirm(null)}
+                      onConfirm={async () => {
+                        await handleDelete(deleteConfirm._id);
+                      }}
+                      title="Confirm Delete"
+                      message={`Are you sure you want to delete the course <strong className='text-red-600'>${deleteConfirm.title}</strong>? This action cannot be undone.`}
+                      confirmText="Delete"
+                      confirmButtonClass="bg-red-500 hover:bg-red-600 text-white"
+                    />
                   </td>
                 </tr>
               ))}
