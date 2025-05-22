@@ -1,8 +1,7 @@
 import { NextResponse } from 'next/server'
-import clientPromise, { usersCollection, coursesCollection } from '@/lib/mongodb'
+import { usersCollection, coursesCollection } from '@/lib/mongodb'
 import { getSession } from '@/lib/auth'
 import { uploadImage } from '@/lib/cloudinary'
-import courseSchema from '@/lib/schemas/course'
 
 export async function GET(request) {
   try {
@@ -18,9 +17,7 @@ export async function GET(request) {
 
     // Verify admin access
     const adminUser = await usersCollection.findOne({ email: session.email })
-    console.log('User document:', adminUser)
-    console.log('User roles:', adminUser?.role)
-    
+
     if (!adminUser?.role?.includes('super_admin')) {
       return NextResponse.json(
         { success: false, error: 'Unauthorized: Super admin access required' },
@@ -49,12 +46,19 @@ export async function GET(request) {
     const totalPages = Math.ceil(total / limit)
 
     // Get courses with pagination
-    const courses = await coursesCollection
-      .find(query)
-      .sort({ createdAt: -1 })
-      .skip((page - 1) * limit)
-      .limit(limit)
-      .toArray()
+    const courses = await coursesCollection.aggregate([
+      { $match: query },
+      { $lookup: {
+        from: 'users',
+        localField: 'instructor',
+        foreignField: '_id',
+        as: 'instructor'
+      }},
+      { $unwind: '$instructor' },
+      { $sort: { createdAt: -1 } },
+      { $skip: (page - 1) * limit },
+      { $limit: limit }
+    ]).toArray()
 
     return NextResponse.json({
       success: true,
@@ -100,13 +104,36 @@ export async function POST(request) {
       instructor: formData.get('instructor'),
       price: parseFloat(formData.get('price')),
       duration: formData.get('duration'),
-      lessons: JSON.parse(formData.get('lessons') || '[]'),
+      lessons: [],
     }
 
-    // Handle image upload
+    // Parse lessons from form data
+    const numLessons = formData.getAll('lessons[0][title]').length
+    for (let i = 0; i < numLessons; i++) {
+      const lesson = {
+        title: formData.get(`lessons[${i}][title]`),
+        description: formData.get(`lessons[${i}][description]`),
+        duration: formData.get(`lessons[${i}][duration]`),
+        isLive: formData.get(`lessons[${i}][isLive]`) === 'true',
+        order: i + 1,
+        videoFile: null,
+        videoUrl: ''
+      }
+
+      // Handle video file upload if present
+      const videoFile = formData.get(`lessons[${i}][videoFile]`)
+      if (videoFile && videoFile.size > 0) {
+        const videoUrl = await uploadImage(videoFile, 'video', 'courses/lessons/videos')
+        lesson.videoUrl = videoUrl
+      }
+
+      courseData.lessons.push(lesson)
+    }
+
+    
     const imageFile = formData.get('image')
     if (imageFile && imageFile.size > 0) {
-      const imageUrl = await uploadImage(imageFile)
+      const imageUrl = await uploadImage(imageFile, 'image', 'courses/images')
       courseData.image = imageUrl
     }
 

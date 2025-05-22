@@ -97,6 +97,7 @@ export async function POST(request) {
 
       // Set the user data cookie
       response.cookies.set('admin_data', JSON.stringify({
+        _id: user._id,
         email: user.email,
         role: user.role,
         name: user.name,

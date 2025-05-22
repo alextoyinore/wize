@@ -28,7 +28,7 @@ export default function ToggleButton({
         }`}
       >
         <div className={`w-12 h-6 relative rounded-full transition-all duration-200 ease-in-out ${
-          value ? 'bg-green-500' : 'bg-blue-500'
+          value ? 'bg-green-400' : 'bg-blue-400'
         }`}>
           <div className={`absolute w-6 h-6 rounded-full transition-all duration-200 ease-in-out ${
             value ? 'transform translate-x-6 bg-white' : 'bg-white'

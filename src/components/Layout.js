@@ -1,7 +1,5 @@
 'use client'
 
-import { useState } from 'react';
-import { getAuth, signOut } from 'firebase/auth';
 import Navbar from './Navbar';
 
 export default function Layout({ children }) {

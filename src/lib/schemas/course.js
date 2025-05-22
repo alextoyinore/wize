@@ -1,8 +1,14 @@
+import mongoose from 'mongoose'
+
 const courseSchema = {
   title: { type: String, required: true },
   description: { type: String, required: true },
   category: { type: String, required: true },
-  instructor: { type: String, required: true },
+  instructor: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
+  },
   price: { type: Number, required: true },
   duration: { type: String, required: true },
   image: { type: String, required: true },
@@ -19,3 +25,5 @@ const courseSchema = {
 }
 
 export default courseSchema
+
+const Course = mongoose.model('Course', courseSchema)

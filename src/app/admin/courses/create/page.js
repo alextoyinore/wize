@@ -2,12 +2,17 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import Cookies from 'js-cookie'
+import PencilIcon from '@/components/icons/PencilIcon'
+import PlusIcon from '@/components/icons/PlusIcon'
+import TrashIcon from '@/components/icons/TrashIcon'
 
 export default function NewCourse() {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
+  const [adminData, setAdminData] = useState({})
   const [courseData, setCourseData] = useState({
     title: '',
     description: '',
@@ -15,10 +20,43 @@ export default function NewCourse() {
     instructor: '',
     price: '',
     duration: '',
-    lessons: [],
+    lessons: [{
+      title: '',
+      description: '',
+      videoUrl: '',
+      duration: '',
+      order: 1,
+      isLive: false,
+      videoFile: null
+    }],
     image: null
   })
   const [imagePreview, setImagePreview] = useState(null)
+
+  useEffect(() => {
+    const adminData = Cookies.get('admin_data')
+    if (adminData) {
+      try {
+        const parsedData = JSON.parse(adminData)
+        if (parsedData && parsedData._id) {
+          setAdminData({ _id: parsedData._id, name: parsedData.name || parsedData.email.split('@')[0], email: parsedData.email || '' })
+          setCourseData(prev => ({ ...prev, instructor: parsedData._id }))
+        } else {
+          console.error('Invalid admin data format. Expected format: { _id: string, name: string, email: string }, received:', parsedData)
+          setError('Failed to load instructor data. Please refresh the page or contact support.')
+          setAdminData({ _id: '', name: 'Loading...', email: '' })
+        }
+      } catch (error) {
+        console.error('Error parsing admin data:', error)
+        setError('Failed to load instructor data. Please refresh the page or contact support.')
+        setAdminData({ _id: '', name: 'Loading...', email: '' })
+      }
+    } else {
+      console.error('No admin data found in cookies')
+      setError('Admin data not found. Please log in again.')
+      setAdminData({ _id: '', name: 'Loading...', email: '' })
+    }
+  }, [])
 
   useEffect(() => {
     if (courseData.image) {
@@ -34,37 +72,47 @@ export default function NewCourse() {
     setSuccess('')
 
     try {
+      // Create form data
       const formData = new FormData()
-      Object.entries(courseData).forEach(([key, value]) => {
-        if (key === 'lessons') {
-          formData.append(key, JSON.stringify(value))
-        } else {
-          formData.append(key, value)
+      
+      // Add course data
+      formData.append('title', courseData.title)
+      formData.append('description', courseData.description)
+      formData.append('category', courseData.category)
+      formData.append('instructor', courseData.instructor)
+      formData.append('price', courseData.price)
+      formData.append('duration', courseData.duration)
+      
+      // Add course image if exists
+      if (courseData.image) {
+        formData.append('image', courseData.image)
+      }
+
+      // Add lessons
+      courseData.lessons.forEach((lesson, index) => {
+        formData.append(`lessons[${index}][title]`, lesson.title)
+        formData.append(`lessons[${index}][description]`, lesson.description)
+        formData.append(`lessons[${index}][duration]`, lesson.duration)
+        formData.append(`lessons[${index}][isLive]`, lesson.isLive)
+        
+        // Add video file if exists
+        if (lesson.videoFile) {
+          formData.append(`lessons[${index}][videoFile]`, lesson.videoFile)
         }
       })
 
       const response = await fetch('/api/admin/courses', {
         method: 'POST',
+        credentials: 'include',
         body: formData
       })
 
-      const data = await response.json()
-      
-      if (response.ok) {
-        setSuccess('Course created successfully')
-        setCourseData({
-          title: '',
-          description: '',
-          category: '',
-          instructor: '',
-          price: '',
-          duration: '',
-          lessons: []
-        })
-        router.push('/admin/courses')
-      } else {
-        setError(data.error || 'Failed to create course')
+      if (!response.ok) {
+        throw new Error('Failed to create course')
       }
+
+      setSuccess('Course created successfully')
+      router.push('/admin/courses')
     } catch (err) {
       setError(err.message)
     } finally {
@@ -84,7 +132,15 @@ export default function NewCourse() {
   const addLesson = () => {
     setCourseData({
       ...courseData,
-      lessons: [...courseData.lessons, { title: '', description: '', videoUrl: '', duration: '', order: courseData.lessons.length + 1 }]
+      lessons: [...courseData.lessons, {
+        title: '',
+        description: '',
+        videoUrl: '',
+        duration: '',
+        order: courseData.lessons.length + 1,
+        isLive: false,
+        videoFile: null
+      }]
     })
   }
 
@@ -143,23 +199,46 @@ export default function NewCourse() {
             className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-indigo-500 transition-all duration-200"
           >
             <option value="">Select category</option>
-            <option value="web-development">Web Development</option>
-            <option value="mobile-apps">Mobile Apps</option>
+            <option value="software-engineering">Software Engineering</option>
+            <option value="vocational">Vocational</option>
             <option value="design">Design</option>
             <option value="business">Business</option>
+            <option value="health">Health</option>
+            <option value="arts">Arts</option>
+            <option value="sports">Sports</option>
+            <option value="music">Music</option>
+            <option value="cooking">Cooking</option>
+            <option value="travel">Travel</option>
+            <option value="language">Language</option>
+            <option value="photography">Photography</option>
+            <option value="gaming">Gaming</option>
+            <option value="fitness">Fitness</option>
+            <option value="finance">Finance</option>
+            <option value="entrepreneurship">Entrepreneurship</option>
           </select>
         </div>
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">Instructor</label>
-          <input
-            type="text"
-            required
-            value={courseData.instructor}
-            onChange={(e) => setCourseData({ ...courseData, instructor: e.target.value })}
-            className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-indigo-500 transition-all duration-200"
-            placeholder="Enter instructor name"
-          />
+          <div className="flex items-center space-x-2">
+            <p className="text-gray-600">{adminData?.name || 'Loading...'}</p>
+            <button
+              onClick={() => {
+                const adminData = Cookies.get('admin_data')
+                if (adminData) {
+                  try {
+                    const { _id } = JSON.parse(adminData)
+                    setCourseData(prev => ({ ...prev, instructor: _id }))
+                  } catch (error) {
+                    console.error('Error refreshing admin data:', error)
+                  }
+                }
+              }}
+              className="text-indigo-500 hover:text-indigo-700"
+            >
+              <PencilIcon className="w-4 h-4" />
+            </button>
+          </div>
         </div>
 
         <div>
@@ -180,198 +259,211 @@ export default function NewCourse() {
         </div>
 
         <div className='flex gap-10'>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Duration</label>
+            <div className="flex items-center space-x-2">
+              <input
+                type="number"
+                required
+                value={courseData.duration ? courseData.duration.split(' ')[0]?.replace('h', '') : ''}
+                onChange={(e) => {
+                  const hours = e.target.value
+                  const currentDuration = courseData.duration || '0h 00m'
+                  const minutes = currentDuration.split(' ')[1]
+                  setCourseData({ ...courseData, duration: `${hours}h ${minutes}` })
+                }}
+                className="w-32 px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-indigo-500 transition-all duration-200"
+                placeholder="Hours"
+              />
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Duration</label>
-          <div className="flex items-center space-x-2">
-            <input
-              type="number"
-              required
-              value={courseData.duration ? courseData.duration.split(' ')[0]?.replace('h', '') : ''}
-              onChange={(e) => {
-                const hours = e.target.value
-                const currentDuration = courseData.duration || '0h 00m'
-                const minutes = currentDuration.split(' ')[1]
-                setCourseData({ ...courseData, duration: `${hours}h ${minutes}` })
-              }}
-              className="w-32 px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-indigo-500 transition-all duration-200"
-              placeholder="Hours"
-            />
-
-            <input
-              type="number"
-              required
-              value={courseData.duration ? courseData.duration.split(' ')[1]?.replace('m', '') : ''}
-              onChange={(e) => {
-                const minutes = e.target.value
-                const currentDuration = courseData.duration || '0h 00m'
-                const hours = currentDuration.split(' ')[0]
-                setCourseData({ ...courseData, duration: `${hours}h ${minutes}m` })
-              }}
-              className="w-32 px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-indigo-500 transition-all duration-200"
-              placeholder="Minutes"
-            />
+              <input
+                type="number"
+                required
+                value={courseData.duration ? courseData.duration.split(' ')[1]?.replace('m', '') : ''}
+                onChange={(e) => {
+                  const minutes = e.target.value
+                  const currentDuration = courseData.duration || '0h 00m'
+                  const hours = currentDuration.split(' ')[0]
+                  setCourseData({ ...courseData, duration: `${hours}h ${minutes}m` })
+                }}
+                className="w-32 px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-indigo-500 transition-all duration-200"
+                placeholder="Minutes"
+              />
+            </div>
           </div>
-        </div>
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Course Image</label>
-          <div className="flex items-center">
-            <input
-              type="file"
-              accept="image/*"
-              onChange={(e) => {
-                const file = e.target.files[0]
-                if (file) {
-                  // Preview the image
-                  const reader = new FileReader()
-                  reader.onload = (e) => {
-                    setImagePreview(e.target.result)
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Course Image</label>
+            <div className="flex items-center">
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => {
+                  const file = e.target.files[0]
+                  if (file) {
+                    // Preview the image
+                    const reader = new FileReader()
+                    reader.onload = (e) => {
+                      setImagePreview(e.target.result)
+                    }
+                    reader.readAsDataURL(file)
+                    setCourseData(prev => ({ ...prev, image: file }))
                   }
-                  reader.readAsDataURL(file)
-                  setCourseData(prev => ({ ...prev, image: file }))
-                }
-              }}
-              className="hidden"
-              id="courseImage"
-            />
-            <label
-              htmlFor="courseImage"
-              className="flex items-center justify-center px-6 py-3 border-2 border-dashed border-gray-300 rounded-lg text-sm font-medium text-gray-600 hover:text-gray-900 hover:border-indigo-500 cursor-pointer transition-all duration-200"
-            >
-              <svg className="w-5 h-5 mr-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
-              Upload Image
-            </label>
+                }}
+                className="hidden"
+                id="courseImage"
+              />
+              <label
+                htmlFor="courseImage"
+                className="flex items-center justify-center px-6 py-3 border-2 border-dashed border-gray-300 rounded-lg text-sm font-medium text-gray-600 hover:text-gray-900 hover:border-indigo-500 cursor-pointer transition-all duration-200"
+              >
+                <svg className="w-5 h-5 mr-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                Upload Image
+              </label>
+            </div>
           </div>
-        </div>
-
         </div>
 
         {imagePreview && (
-            <div className="mt-4">
-              <div className="w-full h-64 bg-gray-100 rounded-lg overflow-hidden">
-                <img
-                  src={imagePreview}
-                  alt="Course preview"
-                  className="w-full h-full object-cover"
-                />
-              </div>
+          <div className="mt-4">
+            <div className="w-full h-64 bg-gray-100 rounded-lg overflow-hidden">
+              <img
+                src={imagePreview}
+                alt="Course preview"
+                className="w-full h-full object-cover"
+              />
             </div>
-          )}
+          </div>
+        )}
 
-        {/* Lessons */ }
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Lessons</label>
-          <div className="mt-4 space-y-4">
-            {courseData.lessons.map((lesson, index) => (
-              <div key={index} className="border border-gray-200 rounded-lg p-4 bg-white shadow-sm">
-                <div className="flex justify-between items-center mb-4">
-                  <div>
-                    <h3 className="text-sm font-medium text-gray-900">Lesson {index + 1}</h3>
-                    <p className="text-xs text-gray-500">Order: {lesson.order}</p>
-                  </div>
-                  <button
-                    onClick={() => removeLesson(index)}
-                    className="flex items-center space-x-1 text-red-600 hover:text-red-800 transition-all duration-200"
-                  >
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                    </svg>
-                    <span>Remove</span>
-                  </button>
+        <div className="mt-8">
+          <h2 className="text-2xl font-semibold mb-4">Lessons</h2>
+          {courseData.lessons.map((lesson, index) => (
+            <div key={index} className="bg-white p-6 rounded-lg shadow mb-4">
+              <div className="flex justify-between items-center mb-4">
+                <h3 className="text-lg font-semibold">Lesson {index + 1}</h3>
+                <button
+                  onClick={() => removeLesson(index)}
+                  className="text-red-500 hover:text-red-700"
+                >
+                  <TrashIcon className="w-5 h-5" />
+                </button>
+              </div>
+
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Title</label>
+                  <input
+                    type="text"
+                    required
+                    value={lesson.title}
+                    onChange={(e) => handleLessonChange(index, 'title', e.target.value)}
+                    className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-indigo-500 transition-all duration-200"
+                    placeholder="Enter lesson title"
+                  />
                 </div>
-                <div className="space-y-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Title</label>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Description</label>
+                  <textarea
+                    required
+                    value={lesson.description}
+                    onChange={(e) => handleLessonChange(index, 'description', e.target.value)}
+                    rows={3}
+                    className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-indigo-500 transition-all duration-200"
+                    placeholder="Enter lesson description"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Duration</label>
+                  <input
+                    type="number"
+                    required
+                    value={lesson.duration}
+                    onChange={(e) => handleLessonChange(index, 'duration', e.target.value)}
+                    className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-indigo-500 transition-all duration-200"
+                    placeholder="Enter duration in minutes"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Live Lesson</label>
+                  <div className="mt-2">
                     <input
-                      type="text"
-                      required
-                      value={lesson.title}
-                      onChange={(e) => handleLessonChange(index, 'title', e.target.value)}
-                      className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50 transition-all duration-200"
-                      placeholder="Enter lesson title"
+                      type="checkbox"
+                      checked={lesson.isLive}
+                      onChange={(e) => handleLessonChange(index, 'isLive', e.target.checked)}
+                      className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                     />
                   </div>
+                </div>
+
+                {!lesson.isLive && (
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Description</label>
-                    <textarea
-                      value={lesson.description}
-                      onChange={(e) => handleLessonChange(index, 'description', e.target.value)}
-                      rows={3}
-                      className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50 transition-all duration-200"
-                      placeholder="Enter lesson description"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Video URL</label>
-                    <input
-                      type="text"
-                      value={lesson.videoUrl}
-                      onChange={(e) => handleLessonChange(index, 'videoUrl', e.target.value)}
-                      className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50 transition-all duration-200"
-                      placeholder="https://example.com/lesson-video"
-                    />
-                  </div>
-                  <div className="flex items-center space-x-4">
-                    <div className="flex-1">
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Duration</label>
-                      <div className="flex items-center space-x-2">
-                        <input
-                          type="number"
-                          required
-                          min="0"
-                          value={lesson.duration.split(' ')[0]?.replace('h', '') || ''}
-                          onChange={(e) => {
-                            const hours = e.target.value
-                            handleLessonChange(index, 'duration', `${hours}h ${lesson.duration.split(' ')[1]?.replace('m', '') || '00m'}`)
-                          }}
-                          className="w-32 px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50 transition-all duration-200"
-                          placeholder="Hours"
-                        />
-                        <input  
-                          type="number"
-                          required
-                          min="0"
-                          max="59"
-                          value={lesson.duration.split(' ')[1]?.replace('m', '') || ''}
-                          onChange={(e) => {
-                            const minutes = e.target.value
-                            handleLessonChange(index, 'duration', `${lesson.duration.split(' ')[0]?.replace('h', '') || '0'}h ${minutes}m`)
-                          }}
-                          className="w-32 px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50 transition-all duration-200"
-                          placeholder="Minutes"
-                        />
-                      </div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Video Upload</label>
+                    <div className="flex items-center">
+                      <input
+                        type="file"
+                        accept="video/*"
+                        onChange={(e) => {
+                          const file = e.target.files[0]
+                          if (file) {
+                            handleLessonChange(index, 'videoFile', file)
+                          }
+                        }}
+                        className="hidden"
+                        id={`lessonVideo${index}`}
+                      />
+                      <label
+                        htmlFor={`lessonVideo${index}`}
+                        className="flex items-center justify-center px-6 py-3 border-2 border-dashed border-gray-300 rounded-lg text-sm font-medium text-gray-600 hover:text-gray-900 hover:border-indigo-500 cursor-pointer transition-all duration-200"
+                      >
+                        <svg className="w-5 h-5 mr-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                        Upload Video
+                      </label>
                     </div>
                   </div>
-                </div>
+                )}
+
+                {lesson.videoFile && (
+                  <div className="mt-4">
+                    <p className="text-sm text-gray-600">Selected video: {lesson.videoFile.name}</p>
+                  </div>
+                )}
               </div>
-            ))}
-            <button
-              onClick={addLesson}
-              type="button"
-              className="flex justify-center py-3 px-6 rounded-lg bg-indigo-600/5 text-indigo-600 font-medium text-lg hover:bg-indigo-600/10 hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50 transition-all duration-200"
-            >
-              <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" />
-              </svg>
-              Add New Lesson
-            </button>
-          </div>
+            </div>
+          ))}
+
+          <button
+            onClick={addLesson}
+            className="w-full px-4 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-all duration-200 flex items-center justify-center"
+          >
+            <PlusIcon className="w-5 h-5 mr-2" />
+            Add New Lesson
+          </button>
         </div>
 
-        <button
-          type="submit"
-          className="w-full flex justify-center py-3 px-6 rounded-lg bg-indigo-600 text-white font-medium text-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          <svg className={`w-5 h-5 mr-2 ${loading ? 'animate-spin' : 'hidden'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-          </svg>
-          {loading ? 'Creating Course...' : 'Create Course'}
-        </button>
+        <div className="flex justify-end space-x-4 mt-8">
+          <button
+            type="button"
+            onClick={() => router.push('/admin/courses')}
+            className="px-6 py-3 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-all duration-200"
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            disabled={loading}
+            className="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {loading ? 'Creating...' : 'Create Course'}
+          </button>
+        </div>
       </form>
     </div>
   )

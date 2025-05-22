@@ -15,6 +15,7 @@ export default function Courses() {
   const [page, setPage] = useState(1)
   const [totalPages, setTotalPages] = useState(1)
   const [totalCourses, setTotalCourses] = useState(0)
+  const [deleteConfirm, setDeleteConfirm] = useState(null)
 
   useEffect(() => {
     const fetchCourses = async () => {
@@ -158,7 +159,7 @@ export default function Courses() {
             <tbody className="bg-white divide-y divide-gray-200">
               {courses.map((course) => (
                 <tr key={course._id} className="hover:bg-gray-50 cursor-pointer">
-                  <td className="px-4 py-2">
+                  <td onClick={() => router.push(`/admin/courses/${course._id}`)} className="px-4 py-4">
                     <div className="flex items-center">
                       {course.image && (
                         <img
@@ -169,12 +170,12 @@ export default function Courses() {
                       )}
                       <div className="ml-4">
                         <div className="text-sm font-medium text-gray-900">{course.title}</div>
-                        {/* <div className="text-sm text-gray-500 line-clamp-3">{course.description}</div> */}
+
                       </div>
                     </div>
                   </td>
                   <td className="px-4 py-2">
-                    <div className="text-sm text-gray-900">{course.instructor}</div>
+                    <div className="text-sm text-gray-900">{course.instructor.name}</div>
                   </td>
                   <td className="px-4 py-2">
                     <div className="text-sm text-gray-900 capitalize">{course.category}</div>
@@ -199,17 +200,39 @@ export default function Courses() {
                   </td>
                   <td className="px-4 py-2 whitespace-nowrap text-sm font-medium">
                     <button
-                      onClick={() => router.push(`/admin/courses/edit/${course._id}`)}
-                      className="text-indigo-600 hover:text-indigo-900"
-                    >
-                      Edit
-                    </button>
-                    <button
-                      onClick={() => handleDelete(course._id)}
+                      onClick={() => setDeleteConfirm(course)}
                       className="ml-2 text-red-600 hover:text-red-900"
                     >
                       Delete
                     </button>
+
+                    {deleteConfirm && (
+                      <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50">
+                        <div className="bg-white p-6 rounded-lg w-96">
+                          <h3 className="text-lg font-semibold mb-4">Confirm Delete</h3>
+                          <p className="text-gray-600 mb-4 whitespace-pre-wrap">
+                            Are you sure you want to delete the course <strong className="text-red-600">{deleteConfirm.title}</strong>? This action cannot be undone.
+                          </p>
+                          <div className="flex justify-end space-x-4">
+                            <button
+                              onClick={() => setDeleteConfirm(null)}
+                              className="px-4 py-2 text-gray-700 hover:text-gray-900"
+                            >
+                              Cancel
+                            </button>
+                            <button
+                              onClick={async () => {
+                                await handleDelete(deleteConfirm._id);
+                                setDeleteConfirm(null);
+                              }}
+                              className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
+                            >
+                              Delete
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    )}
                   </td>
                 </tr>
               ))}

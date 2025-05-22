@@ -6,16 +6,42 @@ import { useState } from 'react';
 
 export default function Sidebar({ className }) {
   const pathname = usePathname();
-  const [isCoursesOpen, setIsCoursesOpen] = useState(false);
+  const [openSection, setOpenSection] = useState(null);
+
+  const handleSectionToggle = (sectionName) => {
+    setOpenSection(openSection === sectionName ? null : sectionName);
+  };
 
   const navItems = [
     {
       name: 'Dashboard',
-      href: '/admin',
+      href: '/admin/dashboard',
     },
     {
       name: 'Users',
       href: '/admin/users',
+      subItems: [
+        {
+          name: 'All',
+          href: '/admin/users'
+        },
+        {
+          name: 'New',
+          href: '/admin/users/create'
+        },
+        {
+          name: 'Roles',
+          href: '/admin/users/roles'
+        },
+        {
+          name: 'Facilitators',
+          href: '/admin/users/facilitators'
+        },
+        {
+          name: 'Staff',
+          href: '/admin/users/staff'
+        }
+      ]
     },
     {
       name: 'Courses',
@@ -44,18 +70,6 @@ export default function Sidebar({ className }) {
       href: '/admin/messages',
     },
     {
-      name: 'Facilitators',
-      href: '/admin/facilitators',
-    },
-    {
-      name: 'Roles',
-      href: '/admin/roles',
-    },
-    {
-      name: 'Staff',
-      href: '/admin/staff',
-    },
-    {
       name: 'Analytics',
       href: '/admin/analytics',
     },
@@ -66,7 +80,7 @@ export default function Sidebar({ className }) {
   ];
 
   return (
-    <div className={`w-72 text-gray-600 border-r border-gray-100 ${className}`}>
+    <div className={`w-60 text-gray-600 border-r border-gray-100 ${className}`}>
       <div className="p-4">
         <nav className="flex flex-col">
           {navItems.map((item) => (
@@ -74,19 +88,19 @@ export default function Sidebar({ className }) {
               {item.subItems ? (
                 <div className="">
                   <button
-                    onClick={() => setIsCoursesOpen(!isCoursesOpen)}
+                    onClick={() => handleSectionToggle(item.name)}
                     className={`px-4 py-3 text-sm rounded transition-all w-full flex justify-between items-center ${
-                      pathname === item.href
+                      pathname === item.href || openSection === item.name
                         ? 'bg-gray-100'
                         : 'hover:bg-gray-50'
                     }`}
                   >
                     {item.name}
-                    <svg className={`w-4 h-4 transition-transform ${isCoursesOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className={`w-4 h-4 transition-transform ${openSection === item.name ? 'rotate-180' : ''} text-gray-400`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                     </svg>
                   </button>
-                  {isCoursesOpen && (
+                  {openSection === item.name && (
                     <div className="flex flex-col bg-gray-50">
                       {item.subItems.map((subItem) => (
                         <Link
