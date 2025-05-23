@@ -109,10 +109,12 @@ export default function Navbar() {
               />
             </Link>
 
-            <Link href="/explore" className="flex items-center space-x-2">
-              <EarthIcon className="h-5 w-5 text-gray-500 hover:text-indigo-600" />
-              <span className="text-gray-700 hover:text-indigo-600">Explore</span>
-            </Link>
+            {!window.location.pathname.includes('/admin') && (
+              <Link href="/explore" className="flex items-center space-x-2">
+                <EarthIcon className="h-5 w-5 text-gray-500 hover:text-indigo-600" />
+                <span className="text-gray-700 hover:text-indigo-600">Explore</span>
+              </Link>
+            )}
           </div>
           
           {/* Mobile menu button */}

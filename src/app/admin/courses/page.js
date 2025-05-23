@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import ToggleButton from '@/components/ToggleButton'
 import { useRouter } from 'next/navigation'
+import ConfirmationDialog from '@/components/ConfirmationDialog'
 
 export default function Courses() {
   const router = useRouter()
@@ -213,7 +214,7 @@ export default function Courses() {
                         await handleDelete(deleteConfirm._id);
                       }}
                       title="Confirm Delete"
-                      message={`Are you sure you want to delete the course <strong className='text-red-600'>${deleteConfirm.title}</strong>? This action cannot be undone.`}
+                      message={`Are you sure you want to delete the course <strong className='text-red-600'>${deleteConfirm?.title}</strong>? This action cannot be undone.`}
                       confirmText="Delete"
                       confirmButtonClass="bg-red-500 hover:bg-red-600 text-white"
                     />

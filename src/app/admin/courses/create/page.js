@@ -20,17 +20,58 @@ export default function NewCourse() {
     instructor: '',
     price: '',
     duration: '',
-    lessons: [{
+    curriculum: [{
       title: '',
-      description: '',
-      videoUrl: '',
-      duration: '',
-      order: 1,
-      isLive: false,
-      videoFile: null
+      lessons: [{
+        title: '',
+        description: '',
+        videoUrl: '',
+        duration: '',
+        order: 1,
+        isLive: false,
+        videoFile: null
+      }]
     }],
-    image: null
+    requirements: [''],
+    image: null,
+    requirements: [''],
+    whatYoullLearn: ['']
   })
+
+  // ... existing code ...
+
+  const addRequirement = () => {
+    setCourseData(prev => ({
+      ...prev,
+      requirements: [...prev.requirements, '']
+    }))
+  }
+
+  const removeRequirement = (index) => {
+    setCourseData(prev => {
+      const newRequirements = [...prev.requirements]
+      newRequirements.splice(index, 1)
+      return { ...prev, requirements: newRequirements }
+    })
+  }
+
+  const addWhatYoullLearn = () => {
+    setCourseData(prev => ({
+      ...prev,
+      whatYoullLearn: [...prev.whatYoullLearn, '']
+    }))
+  }
+
+  const removeWhatYoullLearn = (index) => {
+    setCourseData(prev => {
+      const newWhatYoullLearn = [...prev.whatYoullLearn]
+      newWhatYoullLearn.splice(index, 1)
+      return { ...prev, whatYoullLearn: newWhatYoullLearn }
+    })
+  }
+
+  // ... existing code ...
+  
   const [imagePreview, setImagePreview] = useState(null)
   const [categories, setCategories] = useState([])
 
@@ -90,7 +131,6 @@ export default function NewCourse() {
       // Create form data
       const formData = new FormData()
       
-      // Add course data
       formData.append('title', courseData.title)
       formData.append('description', courseData.description)
       formData.append('category', courseData.category)
@@ -98,22 +138,37 @@ export default function NewCourse() {
       formData.append('price', courseData.price)
       formData.append('duration', courseData.duration)
       
+      // Add requirements
+      courseData.requirements.forEach((requirement, index) => {
+        formData.append('requirements', requirement)
+      })
+      
+      // Add whatYoullLearn
+      courseData.whatYoullLearn.forEach((item, index) => {
+        formData.append('whatYoullLearn', item)
+      })
+      
       // Add course image if exists
       if (courseData.image) {
         formData.append('image', courseData.image)
       }
 
-      // Add lessons
-      courseData.lessons.forEach((lesson, index) => {
-        formData.append(`lessons[${index}][title]`, lesson.title)
-        formData.append(`lessons[${index}][description]`, lesson.description)
-        formData.append(`lessons[${index}][duration]`, lesson.duration)
-        formData.append(`lessons[${index}][isLive]`, lesson.isLive)
+      // Add curriculum
+      courseData.curriculum.forEach((section, sectionIndex) => {
+        formData.append(`curriculum[${sectionIndex}][title]`, section.title)
         
-        // Add video file if exists
-        if (lesson.videoFile) {
-          formData.append(`lessons[${index}][videoFile]`, lesson.videoFile)
-        }
+        // Add lessons within this section
+        section.lessons.forEach((lesson, lessonIndex) => {
+          formData.append(`curriculum[${sectionIndex}][lessons][${lessonIndex}][title]`, lesson.title)
+          formData.append(`curriculum[${sectionIndex}][lessons][${lessonIndex}][description]`, lesson.description)
+          formData.append(`curriculum[${sectionIndex}][lessons][${lessonIndex}][duration]`, lesson.duration)
+          formData.append(`curriculum[${sectionIndex}][lessons][${lessonIndex}][isLive]`, lesson.isLive)
+          
+          // Add video file if exists
+          if (lesson.videoFile) {
+            formData.append(`curriculum[${sectionIndex}][lessons][${lessonIndex}][videoFile]`, lesson.videoFile)
+          }
+        })
       })
 
       const response = await fetch('/api/admin/courses', {
@@ -135,34 +190,72 @@ export default function NewCourse() {
     }
   }
 
-  const handleLessonChange = (index, field, value) => {
-    const newLessons = [...courseData.lessons]
-    if (!newLessons[index]) {
-      newLessons[index] = {}
-    }
-    newLessons[index][field] = value
-    setCourseData({ ...courseData, lessons: newLessons })
-  }
-
-  const addLesson = () => {
-    setCourseData({
-      ...courseData,
-      lessons: [...courseData.lessons, {
-        title: '',
-        description: '',
-        videoUrl: '',
-        duration: '',
-        order: courseData.lessons.length + 1,
-        isLive: false,
-        videoFile: null
-      }]
+  const handleSectionChange = (sectionIndex, field, value) => {
+    setCourseData(prev => {
+      const newCurriculum = [...prev.curriculum]
+      newCurriculum[sectionIndex][field] = value
+      return { ...prev, curriculum: newCurriculum }
     })
   }
 
-  const removeLesson = (index) => {
-    const newLessons = courseData.lessons.filter((_, i) => i !== index)
-    setCourseData({ ...courseData, lessons: newLessons })
+  const handleLessonChange = (sectionIndex, lessonIndex, field, value) => {
+    setCourseData(prev => {
+      const newCurriculum = [...prev.curriculum]
+      const section = newCurriculum[sectionIndex]
+      const newLessons = [...section.lessons]
+      newLessons[lessonIndex][field] = value
+      section.lessons = newLessons
+      return { ...prev, curriculum: newCurriculum }
+    })
   }
+
+  const addSection = () => {
+    setCourseData(prev => ({
+      ...prev,
+      curriculum: [...prev.curriculum, {
+        title: '',
+        lessons: [{
+          title: '',
+          description: '',
+          duration: '',
+          isLive: false,
+          videoFile: null
+        }]
+      }]
+    }))
+  }
+
+  const removeSection = (index) => {
+    setCourseData(prev => ({
+      ...prev,
+      curriculum: prev.curriculum.filter((_, i) => i !== index)
+    }))
+  }
+
+  const addLesson = (sectionIndex) => {
+    setCourseData(prev => {
+      const newCurriculum = [...prev.curriculum]
+      const section = newCurriculum[sectionIndex]
+      section.lessons.push({
+        title: '',
+        description: '',
+        duration: '',
+        isLive: false,
+        videoFile: null
+      })
+      return { ...prev, curriculum: newCurriculum }
+    })
+  }
+
+  const removeLesson = (sectionIndex, lessonIndex) => {
+    setCourseData(prev => {
+      const newCurriculum = [...prev.curriculum]
+      const section = newCurriculum[sectionIndex]
+      section.lessons = section.lessons.filter((_, i) => i !== lessonIndex)
+      return { ...prev, curriculum: newCurriculum }
+    })
+  }
+
 
   return (
     <div className="max-w-4xl mx-auto px-6 py-8 bg-white border border-gray-100">
@@ -341,13 +434,83 @@ export default function NewCourse() {
         )}
 
         <div className="mt-8">
-          <h2 className="text-2xl font-semibold mb-4">Lessons</h2>
-          {courseData.lessons.map((lesson, index) => (
-            <div key={index} className="bg-white p-6 rounded-lg shadow mb-4">
-              <div className="flex justify-between items-center mb-4">
-                <h3 className="text-lg font-semibold">Lesson {index + 1}</h3>
+          <h2 className="text-2xl font-semibold mb-4">Requirements</h2>
+          <div className="space-y-4">
+            {courseData.requirements.map((requirement, index) => (
+              <div key={index} className="flex items-center space-x-4">
+                <input
+                  type="text"
+                  value={requirement}
+                  onChange={(e) => {
+                    setCourseData(prev => {
+                      const newRequirements = [...prev.requirements]
+                      newRequirements[index] = e.target.value
+                      return { ...prev, requirements: newRequirements }
+                    })
+                  }}
+                  className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  placeholder="Enter requirement"
+                  required
+                />
                 <button
-                  onClick={() => removeLesson(index)}
+                  onClick={() => removeRequirement(index)}
+                  className="text-red-500 hover:text-red-600"
+                >
+                  <TrashIcon className="w-5 h-5" />
+                </button>
+              </div>
+            ))}
+            <button
+              onClick={addRequirement}
+              className="w-full px-4 py-3 bg-indigo-300/10 border border-indigo-500 text-indigo-600 rounded-lg hover:bg-indigo-600 hover:text-white transition-all duration-200 flex items-center justify-center"
+            >
+              <PlusIcon className="w-5 h-5 mr-2" />
+              Add New Requirement
+            </button>
+          </div>
+
+          <h2 className="text-2xl font-semibold mb-4 mt-8">What You'll Learn</h2>
+          <div className="space-y-4">
+            {courseData.whatYoullLearn.map((item, index) => (
+              <div key={index} className="flex items-center space-x-4">
+                <input
+                  type="text"
+                  value={item}
+                  onChange={(e) => {
+                    setCourseData(prev => {
+                      const newWhatYoullLearn = [...prev.whatYoullLearn]
+                      newWhatYoullLearn[index] = e.target.value
+                      return { ...prev, whatYoullLearn: newWhatYoullLearn }
+                    })
+                  }}
+                  className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  placeholder="Enter what you'll learn"
+                  required
+                />
+                <button
+                  onClick={() => removeWhatYoullLearn(index)}
+                  className="text-red-500 hover:text-red-600"
+                >
+                  <TrashIcon className="w-5 h-5" />
+                </button>
+              </div>
+            ))}
+            <button
+              onClick={addWhatYoullLearn}
+              className="w-full px-4 py-3 bg-indigo-300/10 border border-indigo-500 text-indigo-600 rounded-lg hover:bg-indigo-600 hover:text-white transition-all duration-200 flex items-center justify-center"
+            >
+              <PlusIcon className="w-5 h-5 mr-2" />
+              Add New Item
+            </button>
+          </div>
+
+          <h2 className="text-2xl font-semibold mb-4 mt-8">Curriculum</h2>
+          {courseData.curriculum.map((section, sectionIndex) => (
+            <div key={sectionIndex} className="bg-white p-6 rounded-lg shadow mb-4">
+              <div className="flex justify-between items-center mb-4">
+                <h3 className="text-lg font-semibold">Section {sectionIndex + 1}</h3>
+                <button
+                  onClick={() => removeSection(sectionIndex)}
                   className="text-red-500 hover:text-red-700"
                 >
                   <TrashIcon className="w-5 h-5" />
@@ -356,97 +519,134 @@ export default function NewCourse() {
 
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Title</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Section Title</label>
                   <input
                     type="text"
                     required
-                    value={lesson.title}
-                    onChange={(e) => handleLessonChange(index, 'title', e.target.value)}
+                    value={section.title}
+                    onChange={(e) => handleSectionChange(sectionIndex, 'title', e.target.value)}
                     className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-indigo-500 transition-all duration-200"
-                    placeholder="Enter lesson title"
+                    placeholder="Enter section title"
                   />
                 </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Description</label>
-                  <textarea
-                    required
-                    value={lesson.description}
-                    onChange={(e) => handleLessonChange(index, 'description', e.target.value)}
-                    rows={3}
-                    className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-indigo-500 transition-all duration-200"
-                    placeholder="Enter lesson description"
-                  />
-                </div>
+                <div className="space-y-4">
+                  {section.lessons.map((lesson, lessonIndex) => (
+                    <div key={lessonIndex} className="bg-gray-50 p-4 rounded-lg">
+                      <div className="flex justify-between items-center mb-4">
+                        <h3 className="text-lg font-semibold">Lesson {lessonIndex + 1}</h3>
+                        <button
+                          onClick={() => removeLesson(sectionIndex, lessonIndex)}
+                          className="text-red-500 hover:text-red-700"
+                        >
+                          <TrashIcon className="w-5 h-5" />
+                        </button>
+                      </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Duration</label>
-                  <input
-                    type="number"
-                    required
-                    value={lesson.duration}
-                    onChange={(e) => handleLessonChange(index, 'duration', e.target.value)}
-                    className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-indigo-500 transition-all duration-200"
-                    placeholder="Enter duration in minutes"
-                  />
-                </div>
+                      <div className="space-y-4">
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-2">Title</label>
+                          <input
+                            type="text"
+                            required
+                            value={lesson.title}
+                            onChange={(e) => handleLessonChange(sectionIndex, lessonIndex, 'title', e.target.value)}
+                            className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-indigo-500 transition-all duration-200"
+                            placeholder="Enter lesson title"
+                          />
+                        </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Live Lesson</label>
-                  <div className="mt-2">
-                    <input
-                      type="checkbox"
-                      checked={lesson.isLive}
-                      onChange={(e) => handleLessonChange(index, 'isLive', e.target.checked)}
-                      className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                    />
-                  </div>
-                </div>
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-2">Description</label>
+                          <textarea
+                            required
+                            value={lesson.description}
+                            onChange={(e) => handleLessonChange(sectionIndex, lessonIndex, 'description', e.target.value)}
+                            rows={3}
+                            className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-indigo-500 transition-all duration-200"
+                            placeholder="Enter lesson description"
+                          />
+                        </div>
 
-                {!lesson.isLive && (
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Video Upload</label>
-                    <div className="flex items-center">
-                      <input
-                        type="file"
-                        accept="video/*"
-                        onChange={(e) => {
-                          const file = e.target.files[0]
-                          if (file) {
-                            handleLessonChange(index, 'videoFile', file)
-                          }
-                        }}
-                        className="hidden"
-                        id={`lessonVideo${index}`}
-                      />
-                      <label
-                        htmlFor={`lessonVideo${index}`}
-                        className="flex items-center justify-center px-6 py-3 border-2 border-dashed border-gray-300 rounded-lg text-sm font-medium text-gray-600 hover:text-gray-900 hover:border-indigo-500 cursor-pointer transition-all duration-200"
-                      >
-                        <svg className="w-5 h-5 mr-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                        </svg>
-                        Upload Video
-                      </label>
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-2">Duration</label>
+                          <input
+                            type="number"
+                            required
+                            value={lesson.duration}
+                            onChange={(e) => handleLessonChange(sectionIndex, lessonIndex, 'duration', e.target.value)}
+                            className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-indigo-500 transition-all duration-200"
+                            placeholder="Enter duration in minutes"
+                          />
+                        </div>
+
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-2">Live Lesson</label>
+                          <div className="mt-2">
+                            <input
+                              type="checkbox"
+                              checked={lesson.isLive}
+                              onChange={(e) => handleLessonChange(sectionIndex, lessonIndex, 'isLive', e.target.checked)}
+                              className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                            />
+                          </div>
+                        </div>
+
+                        {!lesson.isLive && (
+                          <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">Video Upload</label>
+                            <div className="flex items-center">
+                              <input
+                                type="file"
+                                accept="video/*"
+                                onChange={(e) => {
+                                  const file = e.target.files[0]
+                                  if (file) {
+                                    handleLessonChange(sectionIndex, lessonIndex, 'videoFile', file)
+                                  }
+                                }}
+                                className="hidden"
+                                id={`lessonVideo${sectionIndex}-${lessonIndex}`}
+                              />
+                              <label
+                                htmlFor={`lessonVideo${sectionIndex}-${lessonIndex}`}
+                                className="flex items-center justify-center px-6 py-3 border-2 border-dashed border-gray-300 rounded-lg text-sm font-medium text-gray-600 hover:text-gray-900 hover:border-indigo-500 cursor-pointer transition-all duration-200"
+                              >
+                                <svg className="w-5 h-5 mr-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                </svg>
+                                Upload Video
+                              </label>
+                            </div>
+                          </div>
+                        )}
+
+                        {lesson.videoFile && (
+                          <div className="mt-4">
+                            <p className="text-sm text-gray-600">Selected video: {lesson.videoFile.name}</p>
+                          </div>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                )}
+                  ))}
+                </div>
 
-                {lesson.videoFile && (
-                  <div className="mt-4">
-                    <p className="text-sm text-gray-600">Selected video: {lesson.videoFile.name}</p>
-                  </div>
-                )}
+                <button
+                  onClick={() => addLesson(sectionIndex)}
+                  className="w-full px-4 py-3 bg-indigo-300/10 border border-indigo-500 text-indigo-600 rounded-lg hover:bg-indigo-600 hover:text-white transition-all duration-200 flex items-center justify-center"
+                >
+                  <PlusIcon className="w-5 h-5 mr-2" />
+                  Add New Lesson
+                </button>
               </div>
             </div>
           ))}
-
           <button
-            onClick={addLesson}
-            className="w-full px-4 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-all duration-200 flex items-center justify-center"
+            onClick={addSection}
+            className="w-full px-4 py-3 bg-indigo-300/10 border border-indigo-500 text-indigo-600 rounded-lg hover:bg-indigo-600 hover:text-white transition-all duration-200 flex items-center justify-center"
           >
             <PlusIcon className="w-5 h-5 mr-2" />
-            Add New Lesson
+            Add New Section
           </button>
         </div>
 

@@ -2,6 +2,46 @@ import { NextResponse } from 'next/server'
 import { coursesCollection, usersCollection } from '@/lib/mongodb'
 import { ObjectId } from 'mongodb'
 
+export async function POST(request) {
+  try {
+    const data = await request.json()
+    const token = request.headers.get('Authorization')?.split(' ')[1]
+
+    // Verify admin token (you might want to implement proper auth middleware)
+    if (!token) {
+      return NextResponse.json(
+        { error: 'Unauthorized' },
+        { status: 401 }
+      )
+    }
+
+    const course = {
+      ...data,
+      requirements: data.requirements || [],
+      whatYoullLearn: data.whatYoullLearn || [],
+      createdAt: new Date(),
+      updatedAt: new Date()
+    }
+
+    const result = await coursesCollection.insertOne(course)
+
+    if (!result.acknowledged) {
+      return NextResponse.json(
+        { error: 'Failed to create course' },
+        { status: 500 }
+      )
+    }
+
+    return NextResponse.json({ success: true, courseId: result.insertedId.toString() })
+  } catch (error) {
+    console.error('Error creating course:', error)
+    return NextResponse.json(
+      { error: 'Failed to create course' },
+      { status: 500 }
+    )
+  }
+}
+
 export async function GET(request) {
   try {
     const { searchParams } = new URL(request.url)

@@ -104,6 +104,8 @@ export async function POST(request) {
       instructor: formData.get('instructor'),
       price: parseFloat(formData.get('price')),
       duration: formData.get('duration'),
+      requirements: formData.getAll('requirements').filter(req => req.trim()),
+      whatYoullLearn: formData.getAll('whatYoullLearn').filter(item => item.trim()),
       lessons: [],
     }
 

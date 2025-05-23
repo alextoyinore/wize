@@ -110,8 +110,8 @@ export default function CoursePage() {
 
   return (
     <div className="p-6">
-      <h1 className="text-2xl font-bold mb-6">Course Details</h1>
-      
+      <h1 className="text-3xl font-bold text-gray-900 mb-8">{course?.title}</h1>
+
         <div className="space-y-8">
           {/* Description */}
           <div className="border border-gray-200 rounded-lg p-6 mb-8">
@@ -323,9 +323,9 @@ export default function CoursePage() {
             </div>
           </div> 
     
-          {/* Lessons */}
+          {/* Curriculum */}
           <div className="border border-gray-200 rounded-lg p-6 mb-8">
-            <h2 className="text-xl font-semibold mb-4">Lessons</h2>
+            <h2 className="text-xl font-semibold mb-4">Curriculum</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="col-span-2">
                 <div className="flex flex-col gap-4">
@@ -337,118 +337,97 @@ export default function CoursePage() {
                     {showLessonForm ? 'Hide Lesson Form' : 'Add New Lesson'}
                   </button>
                   {showLessonForm && (
-                <div className="bg-white p-6 rounded-lg border border-gray-200">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Lesson Title</label>
-                      <input
-                        type="text"
-                        value={newLesson.title}
-                        onChange={(e) => setNewLesson(prev => ({ ...prev, title: e.target.value }))}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                        placeholder="Enter lesson title"
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Duration (minutes)</label>
-                      <input
-                        type="number"
-                        value={newLesson.duration}
-                        onChange={(e) => setNewLesson(prev => ({ ...prev, duration: e.target.value }))}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                        placeholder="Enter duration in minutes"
-                      />
-                    </div>
-                  </div>
+                    <div className="bg-white p-6 rounded-lg border border-gray-200">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-1">Section Title</label>
+                          <input
+                            type="text"
+                            value={newLesson.sectionTitle}
+                            onChange={(e) => setNewLesson(prev => ({ ...prev, sectionTitle: e.target.value }))}
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            placeholder="Enter section title"
+                            required
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-1">Lesson Title</label>
+                          <input
+                            type="text"
+                            value={newLesson.title}
+                            onChange={(e) => setNewLesson(prev => ({ ...prev, title: e.target.value }))}
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            placeholder="Enter lesson title"
+                            required
+                          />
+                        </div>
+                      </div>
 
-                  <div className="mt-4">
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
-                    <textarea
-                      value={newLesson.description}
-                      onChange={(e) => setNewLesson(prev => ({ ...prev, description: e.target.value }))}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 min-h-[100px]"
-                      placeholder="Enter lesson description"
-                      required
-                    />
-                  </div>
+                      <div className="mt-4">
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                        <textarea
+                          value={newLesson.description}
+                          onChange={(e) => setNewLesson(prev => ({ ...prev, description: e.target.value }))}
+                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 min-h-[100px]"
+                          placeholder="Enter lesson description"
+                          required
+                        />
+                      </div>
 
-                  <div className="mt-4">
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Video URL</label>
-                    <input
-                      type="url"
-                      value={newLesson.videoUrl}
-                      onChange={(e) => setNewLesson(prev => ({ ...prev, videoUrl: e.target.value }))}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                      placeholder="Enter video URL (optional)"
-                    />
-                  </div>
+                      <div className="mt-4">
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Duration (minutes)</label>
+                        <input
+                          type="number"
+                          value={newLesson.duration}
+                          onChange={(e) => setNewLesson(prev => ({ ...prev, duration: e.target.value }))}
+                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                          placeholder="Enter duration in minutes"
+                        />
+                      </div>
 
-                  <div className="mt-4">
-                    <div className="flex items-center space-x-2">
-                      <input
-                        type="checkbox"
-                        checked={newLesson.isLive}
-                        onChange={(e) => setNewLesson(prev => ({ ...prev, isLive: e.target.checked }))}
-                        className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                      />
-                      <label className="text-sm text-gray-700">Is this a live class?</label>
-                    </div>
-                  </div>
+                      <div className="mt-4">
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Video URL</label>
+                        <input
+                          type="url"
+                          value={newLesson.videoUrl}
+                          onChange={(e) => setNewLesson(prev => ({ ...prev, videoUrl: e.target.value }))}
+                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                          placeholder="Enter video URL (optional)"
+                        />
+                      </div>
 
-                  {newLesson.isLive && (
-                    <div className="mt-4">
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Live Class URL</label>
-                      <input
-                        type="url"
-                        value={newLesson.liveClassUrl}
-                        onChange={(e) => setNewLesson(prev => ({ ...prev, liveClassUrl: e.target.value }))}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                        placeholder="Enter live class URL"
-                        required
-                      />
-                    </div>
-                  )}
+                      <div className="mt-4">
+                        <div className="flex items-center space-x-2">
+                          <input
+                            type="checkbox"
+                            checked={newLesson.isLive}
+                            onChange={(e) => setNewLesson(prev => ({ ...prev, isLive: e.target.checked }))}
+                            className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                          />
+                          <label className="text-sm text-gray-700">Is this a live class?</label>
+                        </div>
+                      </div>
 
-                  <div className="mt-4 flex justify-end space-x-4">
-                    <button
-                      onClick={() => {
-                        setShowLessonForm(false);
-                        setNewLesson({
-                          title: '',
-                          description: '',
-                          videoUrl: '',
-                          duration: '',
-                          liveClassUrl: '',
-                          isLive: false
-                        });
-                      }}
-                      className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors duration-200"
-                    >
-                      Cancel
-                    </button>
-                    <button
-                      onClick={async () => {
-                        if (!newLesson.title.trim() || !newLesson.description.trim()) return;
-                        
-                        try {
-                          setLoading(true);
-                          const response = await fetch(`/api/admin/courses/${courseId}/lessons`, {
-                            method: 'POST',
-                            credentials: 'include',
-                            headers: {
-                              'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify({
-                              ...newLesson,
-                              duration: parseInt(newLesson.duration) || 0
-                            })
-                          });
-                          
-                          if (response.ok) {
-                            setSuccess('Lesson added successfully');
+                      {newLesson.isLive && (
+                        <div className="mt-4">
+                          <label className="block text-sm font-medium text-gray-700 mb-1">Live Class URL</label>
+                          <input
+                            type="url"
+                            value={newLesson.liveClassUrl}
+                            onChange={(e) => setNewLesson(prev => ({ ...prev, liveClassUrl: e.target.value }))}
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            placeholder="Enter live class URL"
+                            required
+                          />
+                        </div>
+                      )}
+
+                      <div className="mt-4 flex justify-end space-x-4">
+                        <button
+                          onClick={() => {
                             setShowLessonForm(false);
                             setNewLesson({
+                              sectionTitle: '',
                               title: '',
                               description: '',
                               videoUrl: '',
@@ -456,119 +435,115 @@ export default function CoursePage() {
                               liveClassUrl: '',
                               isLive: false
                             });
-                            await fetchCourse();
-                          } else {
-                            setError('Failed to add lesson');
-                          }
-                        } catch (error) {
-                          console.error('Error adding lesson:', error);
-                          setError('Failed to add lesson');
-                        } finally {
-                          setLoading(false);
-                        }
-                      }}
-                      className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition-colors duration-200"
-                      disabled={loading}
-                    >
-                      {loading ? 'Adding...' : 'Add Lesson'}
-                    </button>
-                  </div>
+                          }}
+                          className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors duration-200"
+                        >
+                          Cancel
+                        </button>
+                        <button
+                          onClick={async () => {
+                            if (!newLesson.sectionTitle.trim() || !newLesson.title.trim() || !newLesson.description.trim()) return;
+                            
+                            try {
+                              setLoading(true);
+                              const response = await fetch(`/api/admin/courses/${courseId}/curriculum`, {
+                                method: 'POST',
+                                credentials: 'include',
+                                headers: {
+                                  'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify({
+                                  ...newLesson,
+                                  duration: parseInt(newLesson.duration) || 0
+                                })
+                              });
+                              
+                              if (response.ok) {
+                                setSuccess('Lesson added successfully');
+                                setShowLessonForm(false);
+                                setNewLesson({
+                                  sectionTitle: '',
+                                  title: '',
+                                  description: '',
+                                  videoUrl: '',
+                                  duration: '',
+                                  liveClassUrl: '',
+                                  isLive: false
+                                });
+                                await fetchCourse();
+                              } else {
+                                setError('Failed to add lesson');
+                              }
+                            } catch (error) {
+                              console.error('Error adding lesson:', error);
+                              setError('Failed to add lesson');
+                            } finally {
+                              setLoading(false);
+                            }
+                          }}
+                          className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition-colors duration-200"
+                          disabled={loading}
+                        >
+                          {loading ? 'Adding...' : 'Add Lesson'}
+                        </button>
+                      </div>
+                    </div>
+                  )}
                 </div>
-              )}
-                  {course?.lessons?.map((lesson, index) => (
-                    <div key={index} className="border border-gray-200 rounded-lg p-4">
-                      <div className="flex justify-between items-start">
+              </div>
+
+              <div className="col-span-2">
+                <div className="space-y-6">
+                  {course?.curriculum?.map((section, sectionIndex) => (
+                    <div key={sectionIndex} className="bg-gray-50 p-4 rounded-lg">
+                      <div className="flex justify-between items-start mb-4">
                         <div>
-                        <div className="flex items-center space-x-2 mb-2">
-                      {/* <h3 className="font-medium">Lesson {index + 1}</h3> */}
-                      {editingField !== `lesson-${index}-title` ? (
-                        <>
-                          <p className="text-black font-medium">{lesson.title ? lesson.title : 'N/A'}</p>
+                          <h3 className="font-semibold text-lg">{section.title}</h3>
+                        </div>
+                        <div className="flex space-x-2">
                           <button
-                            onClick={() => setEditingField(`lesson-${index}-title`)}
-                            className="text-indigo-500 hover:text-indigo-700"
+                            onClick={() => handleEditSection(sectionIndex)}
+                            className="text-blue-500 hover:text-blue-700"
                           >
-                            <PencilIcon className="w-4 h-4" />
-                          </button>
-                        </>
-                      ) : (
-                        <div className="flex items-center space-x-2">
-                          <input
-                            type="text"
-                            value={lesson.title}
-                            onChange={(e) => {
-                              const newLessons = [...course.lessons];
-                              newLessons[index] = { ...newLessons[index], title: e.target.value };
-                              setCourse(prev => ({ ...prev, lessons: newLessons }));
-                            }}
-                            onBlur={() => {
-                              handleUpdate({ lessons: course.lessons });
-                              setEditingField(null);
-                            }}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                          />
-                          <button
-                            onClick={() => {
-                              handleUpdate({ lessons: course.lessons });
-                              setEditingField(null);
-                            }}
-                            className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600"
-                          >
-                            Save
+                            <PencilIcon className="w-5 h-5" />
                           </button>
                           <button
-                            onClick={() => setEditingField(null)}
-                            className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
+                            onClick={() => handleDeleteSection(sectionIndex)}
+                            className="text-red-500 hover:text-red-700"
                           >
-                            Cancel
+                            <TrashIcon className="w-5 h-5" />
                           </button>
                         </div>
-                      )}
-                    </div>
-                          <div className="space-y-2">
-                            <p className="text-sm text-gray-600 leading-6">Description: {lesson.description}</p>
-                            <p className="text-sm text-gray-600">Duration: {lesson.duration}</p>
-                            <div className="flex items-center space-x-4">
+                      </div>
+                      <div className="space-y-4">
+                        {section.lessons.map((lesson, lessonIndex) => (
+                          <div key={lessonIndex} className="p-3 bg-white rounded-lg">
+                            <div className="flex justify-between items-start">
                               <div>
-                                <span className="font-medium">Video URL:</span>
-                                <a
-                                  href={lesson.videoUrl}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="text-indigo-600 hover:text-indigo-800 ml-2"
-                                >
-                                  {lesson.videoUrl}
-                                </a>
+                                <h4 className="font-medium">{lesson.title}</h4>
+                                <p className="text-gray-600">{lesson.description}</p>
+                                <p className="text-gray-600">Duration: {lesson.duration} minutes</p>
+                                {lesson.isLive && (
+                                  <p className="text-green-600">Live Class</p>
+                                )}
                               </div>
-                              <div className="flex items-center space-x-2">
-                                <span className="font-medium">Live Class:</span>
-                                <span
-                                  className={`px-2 py-1 rounded-full text-sm ${
-                                    lesson.isLive
-                                      ? 'bg-green-100 text-green-800'
-                                      : 'bg-red-100 text-red-800'
-                                  }`}
+                              <div className="flex space-x-2">
+                                <button
+                                  onClick={() => handleEditLesson(sectionIndex, lessonIndex)}
+                                  className="text-blue-500 hover:text-blue-700"
                                 >
-                                  {lesson.isLive ? 'Live' : 'Not Live'}
-                                </span>
+                                  <PencilIcon className="w-5 h-5" />
+                                </button>
+                                <button
+                                  onClick={() => handleDeleteLesson(sectionIndex, lessonIndex)}
+                                  className="text-red-500 hover:text-red-700"
+                                >
+                                  <TrashIcon className="w-5 h-5" />
+                                </button>
                               </div>
                             </div>
                           </div>
-                        </div>
-                        <div className="flex space-x-2">
-                          {/* <button
-                            onClick={() => setShowLessonForm(true)}
-                            className="text-indigo-500 hover:text-indigo-600 p-1"
-                          >
-                            <PencilIcon className="w-4 h-4" />
-                          </button> */}
-                          <button
-                            onClick={() => updateLesson({lessons: course.lessons.filter(l => l._id !== lesson._id)})}
-                            className="text-red-500 hover:text-red-600 p-1"
-                          >
-                            <TrashIcon className="w-4 h-4" />
-                          </button>
-                        </div>
+                        ))}
                       </div>
                     </div>
                   ))}
@@ -576,8 +551,7 @@ export default function CoursePage() {
               </div>
             </div>
           </div>
-          
-    
+
           {/* Actions */}
           <div className="flex justify-end space-x-4">
             <button
