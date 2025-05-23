@@ -71,3 +71,63 @@ export async function GET(request) {
     )
   }
 }
+
+export async function POST(request) {
+  try {
+    // Check if user has super admin permissions
+    const session = await auth.getSession(request)
+    if (!session?.user?.role?.includes('super_admin')) {
+      return NextResponse.json(
+        { success: false, error: 'Insufficient permissions' },
+        { status: 403 }
+      )
+    }
+
+    const { userData } = await request.json()
+    
+    // Validate required fields
+    if (!userData.email || !userData.password || !userData.role) {
+      return NextResponse.json(
+        { success: false, error: 'Missing required fields' },
+        { status: 400 }
+      )
+    }
+
+    // Check if email already exists
+    const existingUser = await usersCollection.findOne({ email: userData.email })
+    if (existingUser) {
+      return NextResponse.json(
+        { success: false, error: 'Email already exists' },
+        { status: 400 }
+      )
+    }
+
+    // Create new user
+    const user = await auth.createUser({
+      email: userData.email,
+      password: userData.password,
+      emailVerified: false
+    })
+
+    // Add additional user data to MongoDB
+    await usersCollection.insertOne({
+      _id: user.uid,
+      email: userData.email,
+      displayName: userData.displayName || userData.email.split('@')[0],
+      role: userData.role,
+      createdAt: new Date(),
+      lastLogin: null
+    })
+
+    return NextResponse.json({
+      success: true,
+      message: 'User created successfully'
+    })
+  } catch (error) {
+    console.error('Error creating user:', error)
+    return NextResponse.json(
+      { success: false, error: error.message },
+      { status: 500 }
+    )
+  }
+}

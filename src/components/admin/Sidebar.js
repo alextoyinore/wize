@@ -27,19 +27,7 @@ export default function Sidebar({ className }) {
         },
         {
           name: 'New',
-          href: '/admin/users/create'
-        },
-        {
-          name: 'Roles',
-          href: '/admin/users/roles'
-        },
-        {
-          name: 'Facilitators',
-          href: '/admin/users/facilitators'
-        },
-        {
-          name: 'Staff',
-          href: '/admin/users/staff'
+          href: '/admin/users/new'
         }
       ]
     },
