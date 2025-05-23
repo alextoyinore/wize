@@ -4,11 +4,21 @@ import { useEffect, useState } from "react"
 
 export default function Home() {
   const [courses, setCourses] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState('')
   
   const fetchCourses = async () => {
-    const res = await fetch('/api/courses?limit=6')
-    const data = await res.json()
-    setCourses(data.courses || []) // Ensure we always have an array
+    setLoading(true)
+    try {
+      const res = await fetch('/api/courses?limit=6')
+      const data = await res.json()
+      setCourses(data.courses || []) 
+    } catch (error) {
+      setError('Failed to fetch courses')
+      // console.error('Error:', error)
+    } finally {
+      setLoading(false)
+    }
   }
 
   useEffect(() => {
@@ -174,7 +184,12 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {courses.map((course, index) => (
+            {loading ? (
+              <div className="flex items-center justify-center h-48">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
+              </div>
+            ) : (
+               courses.map((course, index) => (
               <div key={course._id} className="group bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-all duration-300">
                 <div className="relative h-48 mb-6">
                   <img 
@@ -212,7 +227,7 @@ export default function Home() {
                   {course.isNew ? 'Enroll Now' : 'Learn More'}
                 </a>
               </div>
-            ))}
+            )))}
           </div>
 
           <div className="text-center mt-12">
@@ -357,7 +372,7 @@ export default function Home() {
       </section>
 
       <footer className="bg-white text-gray-900 py-12 mt-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div>
               <h3 className="text-xl font-semibold mb-4">Wize</h3>
