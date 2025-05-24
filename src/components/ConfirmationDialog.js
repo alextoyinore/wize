@@ -46,7 +46,7 @@ export default function ConfirmationDialog({
           </button>
           <button
             onClick={handleConfirm}
-            className={`px-4 py-2 rounded-md transition-colors ${confirmButtonClass}`}
+            className={`px-4 py-2 flex items-center justify-center rounded-md transition-colors ${confirmButtonClass}`}
             disabled={loading}
           >
             {loading ? (

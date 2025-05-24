@@ -20,7 +20,7 @@ export async function GET(request) {
       const usersCollection = db.collection('users')
       const user = await usersCollection.findOne({ email: session.email })
   
-      if (!user?.role?.includes('super_admin')) {
+      if (!user?.role?.includes('super_admin') || !user?.role?.includes('facilitator') || !user?.role?.includes('admin') || !user?.role?.includes('user')) {
         return NextResponse.json({ error: 'Unauthorized' }, { status: 403 })
       }
   
@@ -29,3 +29,5 @@ export async function GET(request) {
       return NextResponse.json({ error: 'Invalid session' }, { status: 401 })
     }
 }
+
+

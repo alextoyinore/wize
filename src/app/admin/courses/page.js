@@ -20,17 +20,29 @@ export default function Courses() {
 
   useEffect(() => {
     const fetchCourses = async () => {
-      setLoading(true)
+      search.length === 0 ? setLoading(true) : setLoading(false)
       try {
         const response = await fetch(`/api/admin/courses?search=${encodeURIComponent(search)}&page=${page}&limit=20`, {
           credentials: 'include'
         })
         const data = await response.json()
+        console.log('API Response:', {
+          success: data.success,
+          courses: data.courses?.length,
+          totalPages: data.totalPages,
+          total: data.total,
+          responseStatus: response.status
+        });
 
         if (data?.success) {
           setCourses(data.courses)
           setTotalPages(data.totalPages)
-          setTotalCourses(data.totalCourses)
+          setTotalCourses(data.total)
+          console.log('Updated State:', {
+            courses: courses.length,
+            totalPages: totalPages,
+            totalCourses: totalCourses
+          });
         } else {
           setError(data.error || 'Failed to fetch courses')
         }
@@ -214,7 +226,7 @@ export default function Courses() {
                         await handleDelete(deleteConfirm._id);
                       }}
                       title="Confirm Delete"
-                      message={`Are you sure you want to delete the course <strong className='text-red-600'>${deleteConfirm?.title}</strong>? This action cannot be undone.`}
+                      message={`Are you sure you want to delete the course "${deleteConfirm?.title}"? This action cannot be undone.`}
                       confirmText="Delete"
                       confirmButtonClass="bg-red-500 hover:bg-red-600 text-white"
                     />

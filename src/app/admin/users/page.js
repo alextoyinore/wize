@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { auth } from '@/lib/firebase'
+import Link from 'next/link'
 
 export default function UsersPage() {
   const router = useRouter()
@@ -100,12 +101,7 @@ export default function UsersPage() {
       <div className="bg-white px-4 w-full">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-2xl font-bold text-gray-900">Users Management</h1>
-          <Link
-            href="/admin/users/new"
-            className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-          >
-            Create New User
-          </Link>
+    
           <div className="flex space-x-4">
             <div className="relative">
               <input
@@ -123,6 +119,13 @@ export default function UsersPage() {
               Search
             </button>
           </div>
+
+          <Link
+            href="/admin/users/new"
+            className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+          >
+            Create New User
+          </Link>
         </div>
 
         <div className="flex justify-between items-center mb-6">

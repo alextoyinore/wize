@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server'
 import { clientPromise, usersCollection } from '@/lib/mongodb'
 import { getSession } from '@/lib/auth'
+import { createUserWithEmailAndPassword } from '@/lib/firebase'
+import { hashPassword } from '@/lib/auth'
 
 export async function GET(request) {
   try {
@@ -75,10 +77,21 @@ export async function GET(request) {
 export async function POST(request) {
   try {
     // Check if user has super admin permissions
-    const session = await auth.getSession(request)
-    if (!session?.user?.role?.includes('super_admin')) {
+    const session = await getSession(request)
+    
+    // Get the session from auth route
+    if (!session) {
       return NextResponse.json(
-        { success: false, error: 'Insufficient permissions' },
+        { success: false, error: 'Unauthorized: No valid session' },
+        { status: 401 }
+      )
+    }
+
+    // Verify admin access
+    const adminUser = await usersCollection.findOne({ email: session.email })
+    if (!adminUser?.role?.includes('super_admin')) {
+      return NextResponse.json(
+        { success: false, error: 'Unauthorized: Super admin access required' },
         { status: 403 }
       )
     }
@@ -102,19 +115,14 @@ export async function POST(request) {
       )
     }
 
-    // Create new user
-    const user = await auth.createUser({
-      email: userData.email,
-      password: userData.password,
-      emailVerified: false
-    })
+    const password = await hashPassword(userData.password)
 
     // Add additional user data to MongoDB
     await usersCollection.insertOne({
-      _id: user.uid,
       email: userData.email,
       displayName: userData.displayName || userData.email.split('@')[0],
       role: userData.role,
+      password,
       createdAt: new Date(),
       lastLogin: null
     })

@@ -54,19 +54,20 @@ export default function CourseDetail() {
   }
 
   return (
-    <main className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-          <div className="relative h-64">
+    <main className="min-h-screen">
+      <div className="max-w-7xl mx-auto px-4">
+        <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
+          <div className="relative h-80">
             <img 
               src={course.image} 
               alt={course.title}
               className="w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
-            <div className="absolute bottom-4 left-4 text-white">
-              <h1 className="text-2xl md:text-3xl font-bold">{course.title}</h1>
-              <p className="mt-2 text-gray-300">{course.category}</p>
+            <div className="absolute bottom-4 left-4 text-white p-4">
+              <h1 className="text-4xl md:text-5xl font-bold mb-5 capitalize w-1/2">{course.title}</h1>
+              <p className="text-white text-sm w-1/2">{course.description}</p>
+              <p className="mt-2 text-gray-300 capitalize">{course.category}</p>
             </div>
           </div>
 
@@ -95,11 +96,6 @@ export default function CourseDetail() {
 
             <div className="space-y-6">
               <div>
-                <h2 className="text-xl font-semibold mb-2">Course Description</h2>
-                <p className="text-gray-600">{course.description}</p>
-              </div>
-
-              <div>
                 <h2 className="text-xl font-semibold mb-2">What You'll Learn</h2>
                 <ul className="list-disc list-inside text-gray-600 space-y-2">
                   {course.whatYoullLearn.map((item, index) => (
@@ -116,7 +112,7 @@ export default function CourseDetail() {
                       <h3 className="font-semibold">{section.title}</h3>
                       <ul className="list-disc list-inside text-gray-600 space-y-1">
                         {section.lessons.map((lesson, lessonIndex) => (
-                          <li key={lessonIndex}>{lesson}</li>
+                          <li key={lessonIndex}>{lesson.title}</li>
                         ))}
                       </ul>
                     </div>
@@ -136,19 +132,19 @@ export default function CourseDetail() {
               <div>
                 <h2 className="text-xl font-semibold mb-2">Instructor</h2>
                 <div className="flex items-center space-x-4">
-                  <div className="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center">
-                    {course.instructor.photoURL ? (
+                  <div className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center">
+                    {course.instructor.photoURL && course.instructor.photoURL !== '' ? (
                       <img 
                         src={course.instructor.photoURL} 
-                        alt={course.instructor.name}
+                        alt={course.instructor.displayName}
                         className="w-full h-full rounded-full object-cover"
                       />
                     ) : (
-                      <span className="text-2xl">{course.instructor.name[0]}</span>
+                      <span className="text-2xl text-gray-600 font-bold">{course.instructor.displayName[0]}</span>
                     )}
                   </div>
                   <div>
-                    <h3 className="font-semibold">{course.instructor.name}</h3>
+                    <h3 className="font-semibold">{course.instructor.displayName}</h3>
                     <p className="text-gray-600">{course.instructor.bio}</p>
                   </div>
                 </div>

@@ -12,7 +12,9 @@ export async function GET(request) {
 
     const user = await usersCollection.findOne({ email: session.email })
 
-    if (!user?.role?.includes('super_admin')) {
+    const roles = ['super_admin', 'facilitator', 'admin']
+
+    if (!roles.includes(user?.role)) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 403 })
     }
 
@@ -42,16 +44,16 @@ export async function POST(request) {
 
     // Validate credentials against MongoDB
     try {
-      const user = await usersCollection.findOne({ 
-        email
-      })
+      const user = await usersCollection.findOne({ email })
       
       if (!user) {
         return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 })
       }
 
-      if (!user?.role?.includes('super_admin')) {
-        return NextResponse.json({ error: 'Unauthorized: Super admin access required' }, { status: 403 })
+      const roles = ['super_admin', 'facilitator', 'admin']
+
+      if (!roles.includes(user?.role)) {
+        return NextResponse.json({ error: 'Unauthorized: Admin access required' }, { status: 403 })
       }
 
       // Verify password
@@ -82,7 +84,7 @@ export async function POST(request) {
         user: { 
           email: user.email,
           role: user.role,
-          name: user.name,
+          name: user.displayName,
           photoURL: user.photoURL,
           lastLogin: new Date().toISOString()
         }
@@ -100,7 +102,7 @@ export async function POST(request) {
         _id: user._id,
         email: user.email,
         role: user.role,
-        name: user.name,
+        name: user.displayName,
         photoURL: user.photoURL,
         lastLogin: new Date().toISOString()
       }), {

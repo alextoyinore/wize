@@ -45,7 +45,7 @@ export async function GET(request, { params }) {
     const { id } = params
     
     // Convert string ID to MongoDB ObjectId
-    const courseId = new objectId(id)
+    const courseId = await new objectId(id)
     
     // Find course by ID
     const course = await coursesCollection.findOne({ _id: courseId })
@@ -57,7 +57,8 @@ export async function GET(request, { params }) {
       )
     }
 
-    const instructor = await usersCollection.findOne({ _id: course.instructor })
+    const instructor = await usersCollection.findOne({ _id: new objectId(course.instructor) })
+    console.log('Instructor:', instructor)
 
     // Convert ObjectId to string for JSON serialization
     const courseWithIdString = { ...course, _id: course._id.toString() }
