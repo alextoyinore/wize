@@ -1,13 +1,6 @@
 import { NextResponse } from 'next/server'
 import { db, usersCollection } from '@/lib/mongodb'
-import { auth } from '@/lib/firebase'
-import rateLimit from '@/middleware/rateLimit'
-
-// Apply rate limiting
-const rateLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100 // limit each IP to 100 requests per windowMs
-})
+import { getSession } from '@/lib/auth'
 
 // Cache for profile data
 const profileCache = new Map()
@@ -15,12 +8,8 @@ const CACHE_DURATION = 60 * 1000 // 1 minute
 
 export async function POST(request) {
   try {
-    // Apply rate limiting
-    const rateLimitResponse = await rateLimiter(request)
-    if (rateLimitResponse) return rateLimitResponse
-
     const { userData } = await request.json()
-    const session = await auth.verifyIdToken(userData.token)
+    const session = await getSession(request)
 
     // Validate input data
     const requiredFields = ['displayName', 'photoURL', 'bio', 'phone', 'location', 'socialLinks']
@@ -65,13 +54,7 @@ export async function POST(request) {
 
 export async function GET(request) {
   try {
-    // Apply rate limiting
-    const rateLimitResponse = await rateLimiter(request)
-    if (rateLimitResponse) return rateLimitResponse
-
-    const { searchParams } = new URL(request.url)
-    const token = searchParams.get('token')
-    const session = await auth.verifyIdToken(token)
+    const session = await getSession(request)
 
     // Check cache first
     const cacheKey = `profile_${session.uid}`
@@ -108,13 +91,7 @@ export async function GET(request) {
 
 export async function DELETE(request) {
   try {
-    // Apply rate limiting
-    const rateLimitResponse = await rateLimiter(request)
-    if (rateLimitResponse) return rateLimitResponse
-
-    const { searchParams } = new URL(request.url)
-    const token = searchParams.get('token')
-    const session = await auth.verifyIdToken(token)
+    const session = await getSession(request)
 
     // Verify admin access
     const user = await usersCollection.findOne({ _id: session.uid })

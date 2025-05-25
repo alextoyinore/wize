@@ -1,22 +1,11 @@
 import { NextResponse } from 'next/server'
 import { auth } from '@/lib/firebase'
-import { rateLimit } from '@/middleware/rateLimit'
 import { UserService } from '@/lib/services/user'
-
-// Rate limit for user operations (100 requests per minute per IP)
-const limiter = rateLimit({
-  windowMs: 60 * 1000, // 1 minute
-  max: 100, // 100 requests
-  message: 'Too many requests. Please try again later.'
-})
 
 const userService = new UserService()
 
 export async function POST(request) {
   try {
-    // Apply rate limiting
-    await limiter(request)
-
     const session = await auth.verifyIdToken(request.cookies.get('admin_token')?.value)
 
     if (!session?.uid) {
@@ -51,9 +40,6 @@ export async function POST(request) {
 
 export async function GET(request) {
   try {
-    // Apply rate limiting
-    await limiter(request)
-
     const session = await auth.verifyIdToken(request.cookies.get('admin_token')?.value)
 
     if (!session?.uid) {
@@ -91,9 +77,6 @@ export async function GET(request) {
 
 export async function PUT(request) {
   try {
-    // Apply rate limiting
-    await limiter(request)
-
     const session = await auth.verifyIdToken(request.cookies.get('admin_token')?.value)
 
     if (!session?.uid) {
@@ -124,9 +107,6 @@ export async function PUT(request) {
 
 export async function DELETE(request) {
   try {
-    // Apply rate limiting
-    await limiter(request)
-
     const session = await auth.verifyIdToken(request.cookies.get('admin_token')?.value)
 
     if (!session?.uid) {
