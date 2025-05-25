@@ -222,7 +222,7 @@ export default function Navbar() {
             ) : (
               <div className="flex items-center space-x-4">
                 <Link
-                  href="/login"
+                  href={window.location.pathname.includes('/admin') ? '/admin/login' : '/login'}
                   className="text-sm font-medium text-gray-700 hover:text-gray-900"
                 >
                   Sign in
@@ -278,7 +278,7 @@ export default function Navbar() {
               </>
             ) : (
               <>
-                <Link href="/login" className="block px-3 py-2 text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 transition-colors">
+                <Link href={window.location.pathname.includes('/admin') ? '/admin/login' : '/login'} className="block px-3 py-2 text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 transition-colors">
                   Login
                 </Link>
                 <Link href="/register" className="block px-3 py-2 text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 transition-colors">

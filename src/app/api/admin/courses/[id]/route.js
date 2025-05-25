@@ -13,18 +13,22 @@ export async function GET(request, { params }) {
       )
     }
 
-    const { id } = params
-    const courseId = new objectId(id)
-    const course = await coursesCollection.aggregate([
-      { $match: { _id: courseId } },
-      { $lookup: {
-        from: 'users',
-        localField: 'instructor',
-        foreignField: '_id',
-        as: 'instructor'
-      }},
-      { $unwind: '$instructor' }
-    ]).next()
+    // Get the ID from params and handle it properly
+    const { id } = await params
+    
+    // First try to find the course without ObjectId conversion
+    let course = await coursesCollection.findOne({ _id: id })
+
+    // If not found, try with ObjectId conversion
+    if (!course) {
+      const courseId = new objectId(id)
+      course = await coursesCollection.findOne({ _id: courseId })
+    }
+
+    // If still not found, try a different query format
+    if (!course) {
+      course = await coursesCollection.findOne({ _id: { $eq: id } })
+    }
 
     if (!course) {
       return NextResponse.json(
@@ -32,11 +36,42 @@ export async function GET(request, { params }) {
         { status: 404 }
       )
     }
+
+    // First try direct lookup with proper ObjectId conversion
+    const instructor = await usersCollection.findOne({ _id: new objectId(course.instructor) });
+
+    // If we found the instructor, return the course with instructor data
+    if (instructor) {
+      return NextResponse.json({
+        success: true,
+        course: { ...course, instructor }
+      });
+    }
+
+    // If instructor lookup failed, try aggregation as a fallback
+    try {
+      const courseWithInstructor = await coursesCollection.aggregate([
+        { $match: { _id: { $eq: course._id } } },
+        { $lookup: {
+          from: 'users',
+          localField: 'instructor',
+          foreignField: '_id',
+          as: 'instructor'
+        }},
+        { $unwind: '$instructor' }
+      ]).next();
+
+      return NextResponse.json({
+        success: true,
+        course: courseWithInstructor
+      });
+    } catch (aggError) {
+      return NextResponse.json({
+        success: true,
+        course: course
+      });
+    }
     
-    return NextResponse.json({
-      success: true,
-      course
-    })
   } catch (error) {
     console.error('Error fetching course:', error)
     return NextResponse.json(

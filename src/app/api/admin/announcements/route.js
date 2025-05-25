@@ -54,9 +54,36 @@ export async function POST(request) {
 
     const data = await request.json()
     
+    // Validate required fields
     if (!data.title || !data.content || !data.type) {
       return NextResponse.json(
         { success: false, error: 'Title, content, and type are required' },
+        { status: 400 }
+      )
+    }
+
+    // Get user role from session
+    const userRole = session?.role
+    
+    // Validate announcement type based on user role
+    if (userRole === 'facilitator' && data.type !== 'course') {
+      return NextResponse.json(
+        { success: false, error: 'Facilitators can only create course announcements' },
+        { status: 403 }
+      )
+    }
+
+    if (data.type !== 'general' && data.type !== 'course') {
+      return NextResponse.json(
+        { success: false, error: 'Invalid announcement type' },
+        { status: 400 }
+      )
+    }
+
+    // Validate course ID for course announcements
+    if (data.type === 'course' && !data.courseId) {
+      return NextResponse.json(
+        { success: false, error: 'Course ID is required for course announcements' },
         { status: 400 }
       )
     }

@@ -5,16 +5,28 @@ import { useRouter } from 'next/navigation'
 import Cookies from 'js-cookie'
 import CourseSearch from '@/components/CourseSearch'
 import ConfirmationDialog from '@/components/ConfirmationDialog'
+import Spinner from '@/components/Spinner'
+
 
 const NewAnnouncement = ({ onClose }) => {
+
+  const session = Cookies.get('admin_data')
+  const userRole = session.role
+
   const [formData, setFormData] = useState({
     title: '',
     content: '',
-    type: 'general',
-    courseId: ''
+    type: userRole === 'super_admin' ? 'general' : userRole === 'admin' ? 'general' : 'course',
+    courseId: '',
+    courseName: ''
   })
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [showCourseSearch, setShowCourseSearch] = useState(userRole === 'facilitator')
+
+  useEffect(() => {
+    setShowCourseSearch(formData.type === 'course')
+  }, [formData.type])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -79,12 +91,28 @@ const NewAnnouncement = ({ onClose }) => {
         <label className="block text-sm font-medium text-gray-700 mb-2">Type</label>
         <select
           value={formData.type}
-          onChange={(e) => setFormData({ ...formData, type: e.target.value })}
+          onChange={(e) => {
+            const newType = e.target.value
+            setFormData({ ...formData, type: newType })
+            // Reset course fields when switching from course to general
+            if (newType === 'general') {
+              setFormData(prev => ({ ...prev, courseId: '', courseName: '' }))
+            }
+          }}
           className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:border-indigo-500"
           required
+          disabled={userRole === 'facilitator'}
         >
-          <option value="general">General Announcement</option>
-          <option value="course">Course Announcement</option>
+          {userRole === 'super_admin' ? (
+            <>
+              <option value="general">General Announcement</option>
+              <option value="course">Course Announcement</option>
+            </>
+          ) : userRole === 'admin' ? (
+            <option value="general">General Announcement</option>
+          ) : (
+            <option value="course">Course Announcement</option>
+          )}
         </select>
       </div>
 
@@ -135,6 +163,7 @@ export default function Announcements() {
   const [announcements, setAnnouncements] = useState([])
   const [showNewAnnouncement, setShowNewAnnouncement] = useState(false)
   const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
   const [deleteConfirm, setDeleteConfirm] = useState(null)
   const router = useRouter()
 
@@ -150,6 +179,7 @@ export default function Announcements() {
 
   const fetchAnnouncements = async () => {
     try {
+      setLoading(true)
       const response = await fetch('/api/admin/announcements')
       const data = await response.json()
       
@@ -161,12 +191,14 @@ export default function Announcements() {
     } catch (error) {
       setError('Failed to fetch announcements')
       console.error('Error:', error)
+    } finally {
+      setLoading(false)
     }
   }
 
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`/api/admin/announcements?id=${id}`, {
+        const response = await fetch(`/api/admin/announcements?id=${id}`, {
         method: 'DELETE'
       })
 
@@ -181,8 +213,17 @@ export default function Announcements() {
     }
   }
 
+  const handleEdit = (announcement) => {
+    setFormData({
+      ...announcement,
+      courseId: announcement.courseId || '',
+      courseName: announcement.courseName || ''
+    })
+    setShowNewAnnouncement(true)
+  }
+
   return (
-    <div className="p-8">
+    <div className="">
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-bold">Announcements</h1>
         <button
@@ -202,7 +243,9 @@ export default function Announcements() {
       {showNewAnnouncement && (
         <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center p-4">
           <div className="bg-white rounded-lg shadow-xl w-full max-w-2xl">
-            <NewAnnouncement onClose={() => setShowNewAnnouncement(false)} />
+            <NewAnnouncement 
+            onClose={() => setShowNewAnnouncement(false)} 
+          />
           </div>
         </div>
       )}
@@ -225,12 +268,21 @@ export default function Announcements() {
               </th>
             </tr>
           </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
-            {announcements.map((announcement) => (
-              <tr key={announcement._id}>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm font-medium text-gray-900">
-                    {announcement.title}
+          {loading ? (
+            <tbody className="bg-white divide-y divide-gray-200">
+              <tr>
+                <td colSpan={4} className="px-6 py-4">
+                  <Spinner />
+                </td>
+              </tr>
+            </tbody>
+          ) : (
+            <tbody className="bg-white divide-y divide-gray-200">
+              {announcements.map((announcement) => (
+                <tr key={announcement._id}>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <div className="text-sm font-medium text-gray-900">
+                      {announcement.title}
                   </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
@@ -255,7 +307,7 @@ export default function Announcements() {
                 </td>
               </tr>
             ))}
-          </tbody>
+          </tbody> )}
         </table>
       </div>
       <ConfirmationDialog

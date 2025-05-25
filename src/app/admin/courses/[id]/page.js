@@ -6,6 +6,9 @@ import { format } from 'date-fns'
 import PlusIcon from '@/components/icons/PlusIcon'
 import TrashIcon from '@/components/icons/TrashIcon'
 import PencilIcon from '@/components/icons/PencilIcon'
+import XMarkIcon from '@/components/icons/XMarkIcon'
+import ImageUploadModal from '@/components/ImageUploadModal'
+
 
 export default function CoursePage() {
   const [course, setCourse] = useState(null)
@@ -15,6 +18,7 @@ export default function CoursePage() {
   const [editingField, setEditingField] = useState(null)
   const [showLessonForm, setShowLessonForm] = useState(false)
   const [categories, setCategories] = useState([])
+  const [showImageModal, setShowImageModal] = useState(false)
   const [newLesson, setNewLesson] = useState({
     title: '',
     description: '',
@@ -68,7 +72,7 @@ export default function CoursePage() {
   useEffect(() => {
     fetchCourse()
     fetchCategories()
-  }, [])
+  }, [courseId])
 
   const handleUpdate = async (updatedData) => {
     try {
@@ -109,7 +113,19 @@ export default function CoursePage() {
   }
 
   return (
-    <div className="p-6">
+    <div className="">
+       {/* Success/Error Messages */}
+       {success && (
+        <div className="bg-green-50 text-green-700 p-4 rounded">
+          {success}
+        </div>
+      )}
+      {error && (
+        <div className="bg-red-50 text-red-700 p-4 rounded">
+          {error}
+        </div>
+      )}
+
       <h1 className="text-3xl font-bold text-gray-900 mb-8">{course?.title}</h1>
 
         <div className="space-y-8">
@@ -297,11 +313,52 @@ export default function CoursePage() {
                       </div>
                     )}
                     <button
-                      onClick={() => setShowLessonForm(true)}
+                      onClick={() => setShowImageModal(true)}
                       className="border border-indigo-500 mt-5 text-indigo-500 px-4 py-2 rounded-md hover:bg-indigo-50 hover:text-indigo-600 transition-colors"
                     >
                       Change Image
                     </button>
+
+                    <ImageUploadModal
+                      isOpen={showImageModal}
+                      onClose={() => setShowImageModal(false)}
+                      onUpload={async (file) => {
+                        try {
+                          const formData = new FormData()
+                          formData.append('file', file)
+
+                          const response = await fetch(`/api/admin/courses/${courseId}/upload`, {
+                            method: 'POST',
+                            body: formData
+                          })
+
+                          if (!response.ok) {
+                            const errorData = await response.json()
+                            setError(errorData.error || 'Failed to upload image')
+                            console.error('Upload error:', errorData)
+                            return
+                          }
+
+                          const data = await response.json()
+                          if (!data.success) {
+                            setError(data.error || 'Failed to upload image')
+                            console.error('Upload failed:', data)
+                            return
+                          }
+
+                          try {
+                            await handleUpdate({ image: data.url })
+                            setSuccess('Image updated successfully')
+                          } catch (updateError) {
+                            setError('Failed to update course')
+                            console.error('Course update error:', updateError)
+                          }
+                        } catch (error) {
+                          setError('Failed to upload image')
+                          console.error('Upload error:', error)
+                        }
+                      }}
+                    />
                   </div>
                 </div>
               </div>
@@ -312,11 +369,11 @@ export default function CoursePage() {
           <div className="border border-gray-200 rounded-lg p-6 mb-8">
             <h2 className="text-xl font-semibold mb-4">Instructor</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
+              <div className="text-sm">
                 <h3 className="font-medium mb-2">Name</h3>
-                <p className="text-gray-600">{course?.instructor?.name ? course?.instructor?.name : 'N/A'}</p>
+                <p className="text-gray-600">{course?.instructor?.displayName ? course?.instructor?.displayName : 'N/A'}</p>
               </div>
-              <div>
+              <div className="text-sm">
                 <h3 className="font-medium mb-2">Email</h3>
                 <p className="text-gray-600">{course?.instructor?.email ? course?.instructor?.email : 'N/A'}</p>
               </div>
@@ -327,7 +384,7 @@ export default function CoursePage() {
           <div className="border border-gray-200 rounded-lg p-6 mb-8">
             <h2 className="text-xl font-semibold mb-4">Curriculum</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="col-span-2">
+              <div className="col-span-2 text-sm">
                 <div className="flex flex-col gap-4">
                   <button
                     onClick={() => setShowLessonForm(!showLessonForm)}
@@ -553,7 +610,7 @@ export default function CoursePage() {
           </div>
 
           {/* Actions */}
-          <div className="flex justify-end space-x-4">
+          {/* <div className="flex justify-end space-x-4">
             <button
               onClick={() => setEditing(true)}
               className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
@@ -566,19 +623,7 @@ export default function CoursePage() {
             >
               {loading ? 'Updating...' : 'Toggle Status'}
             </button>
-          </div>
-    
-          {/* Success/Error Messages */}
-          {success && (
-            <div className="bg-green-50 text-green-700 p-4 rounded">
-              {success}
-            </div>
-          )}
-          {error && (
-            <div className="bg-red-50 text-red-700 p-4 rounded">
-              {error}
-            </div>
-          )}
+          </div> */}
         </div>
     </div>
   )

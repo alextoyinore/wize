@@ -54,6 +54,10 @@ export default function Sidebar({ className }) {
       href: '/admin/announcements',
     },
     {
+      name: 'Notifications',
+      href: '/admin/notifications',
+    },
+    {
       name: 'Messages',
       href: '/admin/messages',
     },

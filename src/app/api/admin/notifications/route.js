@@ -1,12 +1,12 @@
 import { NextResponse } from 'next/server'
-import { auth } from '@/lib/firebase'
-import { usersCollection } from '@/lib/mongodb'
+import { getSession } from '@/lib/auth'
+import { notificationsCollection, usersCollection, ObjectId } from '@/lib/mongodb'
 import { cache } from 'react'
 import { roleHierarchy } from '@/lib/role-hierarchy'
 
 // Cache notification fetching for 5 minutes
 const getNotifications = cache(async (userId, filter = {}, limit = 20) => {
-  const notifications = await usersCollection
+  const notifications = await notificationsCollection
     .find({
       recipient: userId,
       ...filter
@@ -56,10 +56,12 @@ export async function POST(request) {
   try {
     rateLimit(request)
 
-    const session = await auth.verifyIdToken(request.cookies.get('admin_token')?.value)
-    const user = await usersCollection.findOne({ _id: session.uid })
+    const session = await getSession(request)
+    const user = await usersCollection.findOne({ email: session.email })
 
-    if (!user?.role?.includes('super_admin')) {
+    const roles = ['super_admin', 'admin', 'facilitator']
+
+    if (!roles.includes(user.role)) {
       return NextResponse.json(
         { error: 'Unauthorized' },
         { status: 403 }
@@ -79,7 +81,7 @@ export async function POST(request) {
     }
 
     // Check role hierarchy permissions
-    if (roleHierarchy[user.role[0]] < roleHierarchy[recipient.role[0]]) {
+    if (roleHierarchy[user.role] < roleHierarchy[recipient.role]) {
       throw new Error('Cannot send notifications to users with higher roles')
     }
 
@@ -93,11 +95,11 @@ export async function POST(request) {
       read: false,
       timestamp: new Date().toISOString(),
       sender: session.uid,
-      senderRole: user.role[0]
+      senderRole: user.role
     }
 
     // Store in MongoDB
-    const result = await usersCollection.insertOne(notificationEntry)
+    const result = await notificationsCollection.insertOne(notificationEntry)
 
     if (result.insertedId) {
       // Send notification to WebSocket if connected
@@ -138,10 +140,12 @@ export async function POST(request) {
 
 export async function GET(request) {
   try {
-    const session = await auth.verifyIdToken(request.cookies.get('admin_token')?.value)
-    const user = await usersCollection.findOne({ _id: session.uid })
+    const session = await getSession(request)
+    const user = await usersCollection.findOne({ email: session.email })
 
-    if (!user?.role?.includes('super_admin')) {
+    const roles = ['super_admin', 'admin', 'facilitator']
+
+    if (!roles.includes(user.role)) {
       return NextResponse.json(
         { error: 'Unauthorized' },
         { status: 403 }
@@ -156,7 +160,7 @@ export async function GET(request) {
     const skip = (page - 1) * limit
 
     // Get total count for pagination
-    const total = await usersCollection.countDocuments({
+    const total = await notificationsCollection.countDocuments({
       recipient: userId,
       ...filter
     })
@@ -181,10 +185,12 @@ export async function GET(request) {
 
 export async function PUT(request) {
   try {
-    const session = await auth.verifyIdToken(request.cookies.get('admin_token')?.value)
-    const user = await usersCollection.findOne({ _id: session.uid })
+    const session = await getSession(request)
+    const user = await usersCollection.findOne({ email: session.email })
 
-    if (!user?.role?.includes('super_admin')) {
+    const roles = ['super_admin', 'admin', 'facilitator']
+
+    if (!roles.includes(user.role)) {
       return NextResponse.json(
         { error: 'Unauthorized' },
         { status: 403 }
@@ -236,10 +242,12 @@ export async function PUT(request) {
 
 export async function DELETE(request) {
   try {
-    const session = await auth.verifyIdToken(request.cookies.get('admin_token')?.value)
-    const user = await usersCollection.findOne({ _id: session.uid })
+    const session = await getSession(request)
+    const user = await usersCollection.findOne({ email: session.email })
 
-    if (!user?.role?.includes('super_admin')) {
+    const roles = ['super_admin', 'admin', 'facilitator']
+
+    if (!roles.includes(user.role)) {
       return NextResponse.json(
         { error: 'Unauthorized' },
         { status: 403 }
@@ -288,10 +296,12 @@ export async function DELETE(request) {
 
 export async function markAll(request) {
   try {
-    const session = await auth.verifyIdToken(request.cookies.get('admin_token')?.value)
-    const user = await usersCollection.findOne({ _id: session.uid })
+    const session = await getSession(request)
+    const user = await usersCollection.findOne({ email: session.email })
 
-    if (!user?.role?.includes('super_admin')) {
+    const roles = ['super_admin', 'admin', 'facilitator']
+
+    if (!roles.includes(user.role)) {
       return NextResponse.json(
         { error: 'Unauthorized' },
         { status: 403 }
@@ -333,3 +343,4 @@ export async function markAll(request) {
     )
   }
 }
+

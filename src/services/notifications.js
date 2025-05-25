@@ -1,4 +1,4 @@
-import { auth } from '@/lib/firebase'
+import { getSession } from '@/lib/auth'
 import { sendEmail } from '@/services/email'
 
 // Notification types
@@ -16,7 +16,7 @@ const SEVERITY_LEVELS = {
   critical: 'critical'
 }
 
-export async function sendNotification(notification) {
+export const sendNotification = async (notification) => {
   try {
     // Validate notification
     if (!notification.type || !notification.message) {
@@ -35,17 +35,57 @@ export async function sendNotification(notification) {
 
     // Send email notification if configured
     if (notification.type === NOTIFICATION_TYPES.role_change) {
-      await sendEmail({
-        to: notification.recipient.email,
-        subject: 'Role Change Notification',
-        template: 'role-change',
-        data: {
-          oldRole: notification.metadata.oldRole,
-          newRole: notification.metadata.newRole,
-          changedBy: notification.metadata.changedBy,
-          timestamp: new Date().toISOString()
-        }
-      })
+      try {
+        await sendEmail({
+          to: notification.recipient.email,
+          subject: 'Role Change Notification',
+          template: 'role-change',
+          data: {
+            oldRole: notification.metadata.oldRole,
+            newRole: notification.metadata.newRole,
+            changedBy: notification.metadata.changedBy,
+            timestamp: new Date().toISOString()
+          }
+        })
+      } catch (error) {
+        console.error('Error sending email notification:', error)
+      }
+    }
+
+    // Send email for security alerts
+    if (notification.type === NOTIFICATION_TYPES.security_alert) {
+      try {
+        await sendEmail({
+          to: process.env.SECURITY_EMAIL,
+          subject: `Security Alert - ${notification.severity.toUpperCase()}`,
+          template: 'security-alert',
+          data: {
+            message: notification.message,
+            severity: notification.severity
+          }
+        })
+      } catch (error) {
+        console.error('Error sending security alert email:', error)
+      }
+    }
+
+    // Send email for system alerts (high severity only)
+    if (notification.type === NOTIFICATION_TYPES.system_alert && 
+        notification.severity === SEVERITY_LEVELS.error || 
+        notification.severity === SEVERITY_LEVELS.critical) {
+      try {
+        await sendEmail({
+          to: process.env.ADMIN_EMAIL,
+          subject: `System Alert - ${notification.severity.toUpperCase()}`,
+          template: 'system-alert',
+          data: {
+            message: notification.message,
+            severity: notification.severity
+          }
+        })
+      } catch (error) {
+        console.error('Error sending system alert email:', error)
+      }
     }
 
     return true
@@ -55,9 +95,9 @@ export async function sendNotification(notification) {
   }
 }
 
-export async function getNotifications(userId, filter = {}, limit = 20) {
+export const getNotifications = async (userId, filter = {}, limit = 20) => {
   try {
-    const session = await auth.verifyIdToken(userId)
+    const session = await getSession({ cookies: { admin_token: userId } })
     if (!session) {
       throw new Error('Invalid session')
     }
@@ -83,9 +123,9 @@ export async function getNotifications(userId, filter = {}, limit = 20) {
   }
 }
 
-export async function markNotificationAsRead(notificationId) {
+export const markNotificationAsRead = async (notificationId) => {
   try {
-    const session = await auth.verifyIdToken(notificationId)
+    const session = await getSession({ cookies: { admin_token: notificationId } })
     if (!session) {
       throw new Error('Invalid session')
     }
@@ -106,9 +146,9 @@ export async function markNotificationAsRead(notificationId) {
   }
 }
 
-export async function markAllNotificationsAsRead(userId) {
+export const markAllNotificationsAsRead = async (userId) => {
   try {
-    const session = await auth.verifyIdToken(userId)
+    const session = await getSession({ cookies: { admin_token: userId } })  
     if (!session) {
       throw new Error('Invalid session')
     }

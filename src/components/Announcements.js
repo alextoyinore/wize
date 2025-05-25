@@ -52,18 +52,20 @@ export default function Announcements() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center py-4">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
+      <div className="flex items-center justify-center text-gray-400 text-sm">
+        Loading Announcements...
+        {/* <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div> */}
       </div>
     )
   }
 
   if (error) {
-    return (
-      <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
-        {error}
-      </div>
-    )
+    return
+    // return (
+    //   <div className="bg-red-100 border border-red-400 text-red-700 px-4 rounded">
+    //     {error}
+    //   </div>
+    // )
   }
 
   if (announcements.length === 0) {

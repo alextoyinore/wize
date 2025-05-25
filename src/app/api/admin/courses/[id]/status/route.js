@@ -14,9 +14,11 @@ export async function PUT(request, { params }) {
       )
     }
 
+    const roles = ['super_admin', 'facilitator']
+
     // Verify admin access
     const superAdminUser = await usersCollection.findOne({ email: session.email })
-    if (!superAdminUser?.role?.includes('super_admin')) {
+    if (!roles.includes(superAdminUser?.role)) {
         return NextResponse.json(
         { success: false, error: 'Unauthorized: Super admin access required' },
         { status: 403 }

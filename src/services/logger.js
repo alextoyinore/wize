@@ -1,5 +1,4 @@
-import { usersCollection } from '@/lib/mongodb'
-import { auth } from '@/lib/firebase'
+import { getSession } from '@/lib/auth'
 import { sendNotification } from '@/services/notifications'
 
 const LOG_COLLECTION = 'audit_logs'
@@ -29,22 +28,28 @@ export function validateRoleChange(currentRole, newRole) {
 
 export async function logEvent(event) {
   try {
-    const session = await auth.verifyIdToken(event.userId)
+    const session = await getSession(event.request)
     if (!session) {
       throw new Error('Invalid session')
     }
 
-    const logEntry = {
-      ...event,
-      timestamp: new Date().toISOString(),
-      userId: session.uid,
-      username: session.email,
-      ip: event.ip,
-      userAgent: event.userAgent
-    }
+    // Add user info from session
+    event.userId = session._id
+    event.username = session.email
 
-    const logCollection = db.collection(LOG_COLLECTION)
-    await logCollection.insertOne(logEntry)
+    // Send to API
+    const response = await fetch('/api/admin/logs', {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(event)
+    })
+
+    if (!response.ok) {
+      throw new Error('Failed to create log')
+    }
 
     // Send notification for role changes
     if (event.type === 'ROLE_CHANGE') {
@@ -69,49 +74,67 @@ export async function logEvent(event) {
 
 export async function getAuditLogs(filter = {}, limit = 50) {
   try {
-    const session = await auth.verifyIdToken(filter.userId)
+    const session = await getSession({ cookies: { admin_token: 'token' } })
     if (!session) {
       throw new Error('Invalid session')
     }
 
-    const logCollection = db.collection(LOG_COLLECTION)
-    const logs = await logCollection
-      .find(filter)
-      .sort({ timestamp: -1 })
-      .limit(limit)
-      .toArray()
+    const response = await fetch('/api/admin/logs', {
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      searchParams: {
+        filter: JSON.stringify(filter),
+        limit: limit.toString()
+      }
+    })
 
-    return logs
+    if (!response.ok) {
+      throw new Error('Failed to fetch logs')
+    }
+
+    return await response.json()
   } catch (error) {
-    console.error('Error fetching audit logs:', error)
-    return []
+    console.error('Error fetching logs:', error)
+    throw error
   }
 }
 
 export async function getRoleChangeHistory(userId) {
   try {
-    const session = await auth.verifyIdToken(userId)
+    const session = await getSession({ cookies: { admin_token: 'token' } })
     if (!session) {
       throw new Error('Invalid session')
     }
 
-    const logCollection = db.collection(LOG_COLLECTION)
-    const logs = await logCollection
-      .find({
-        type: 'ROLE_CHANGE',
-        'metadata.userId': userId
-      })
-      .sort({ timestamp: -1 })
-      .toArray()
+    const response = await fetch('/api/admin/logs', {
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      searchParams: {
+        filter: JSON.stringify({
+          type: 'ROLE_CHANGE',
+          userId
+        })
+      }
+    })
 
-    return logs
+    if (!response.ok) {
+      throw new Error('Failed to fetch logs')
+    }
+
+    return await response.json()
   } catch (error) {
     console.error('Error fetching role change history:', error)
-    return []
+    throw error
   }
 }
 
-export const getLogs = async ({
+export async function getLogs({
   type,
   severity,
   startDate,
@@ -119,39 +142,38 @@ export const getLogs = async ({
   userId,
   limit = 100,
   page = 1
-}) => {
+}) {
   try {
-    const logCollection = db.collection(LOG_COLLECTION)
-    const query = {}
-
-    if (type) query.type = type
-    if (severity) query.severity = severity
-    if (userId) query.userId = userId
-
-    if (startDate || endDate) {
-      const dateRange = {}
-      if (startDate) dateRange.$gte = new Date(startDate)
-      if (endDate) dateRange.$lte = new Date(endDate)
-      query.timestamp = dateRange
+    const session = await getSession({ cookies: { admin_token: 'token' } })
+    if (!session) {
+      throw new Error('Invalid session')
     }
 
-    const skip = (page - 1) * limit
-    const logs = await logCollection
-      .find(query)
-      .sort({ timestamp: -1 })
-      .skip(skip)
-      .limit(limit)
-      .toArray()
+    const filter = {}
+    if (type) filter.type = type
+    if (severity) filter.severity = severity
+    if (startDate) filter.timestamp = { $gte: startDate }
+    if (endDate) filter.timestamp = { ...filter.timestamp, $lte: endDate }
+    if (userId) filter.userId = userId
 
-    const total = await logCollection.countDocuments(query)
-    const totalPages = Math.ceil(total / limit)
+    const response = await fetch('/api/admin/logs', {
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      searchParams: {
+        filter: JSON.stringify(filter),
+        limit: limit.toString(),
+        page: page.toString()
+      }
+    })
 
-    return {
-      logs,
-      total,
-      totalPages,
-      currentPage: page
+    if (!response.ok) {
+      throw new Error('Failed to fetch logs')
     }
+
+    return await response.json()
   } catch (error) {
     console.error('Error fetching logs:', error)
     throw error
