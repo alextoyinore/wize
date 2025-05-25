@@ -1,16 +1,10 @@
 import { NextResponse } from 'next/server'
-import { auth } from '@/lib/firebase'
-import { UserService } from '@/lib/services/user'
-
-const userService = new UserService()
+import { getSession } from '@/lib/auth'
+import { db, usersCollection } from '@/lib/mongodb'
 
 export async function POST(request) {
   try {
-    const session = await auth.verifyIdToken(request.cookies.get('admin_token')?.value)
-
-    if (!session?.uid) {
-      return NextResponse.json({ error: 'Invalid token' }, { status: 401 })
-    }
+    const session = await getSession(request)
 
     if (!session.role?.includes('super_admin')) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 403 })
@@ -19,10 +13,8 @@ export async function POST(request) {
     const { userData } = await request.json()
     
     // Create user
-    const user = await userService.createUser({
-      ...userData,
-      createdBy: session.uid,
-      updatedBy: session.uid
+    const user = await usersCollection.insertOne({
+      ...userData
     })
 
     return NextResponse.json({
@@ -40,11 +32,7 @@ export async function POST(request) {
 
 export async function GET(request) {
   try {
-    const session = await auth.verifyIdToken(request.cookies.get('admin_token')?.value)
-
-    if (!session?.uid) {
-      return NextResponse.json({ error: 'Invalid token' }, { status: 401 })
-    }
+    const session = await getSession(request)
 
     if (!session.role?.includes('super_admin')) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 403 })
@@ -60,7 +48,7 @@ export async function GET(request) {
 
     // Get user by email or id
     const query = email ? { email: email.toLowerCase() } : { _id: userId }
-    const user = await userService.getUser(query)
+    const user = await usersCollection.findOne(query)
     
     return NextResponse.json({
       success: true,
@@ -77,11 +65,7 @@ export async function GET(request) {
 
 export async function PUT(request) {
   try {
-    const session = await auth.verifyIdToken(request.cookies.get('admin_token')?.value)
-
-    if (!session?.uid) {
-      return NextResponse.json({ error: 'Invalid token' }, { status: 401 })
-    }
+    const session = await getSession(request)
 
     if (!session.role?.includes('super_admin')) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 403 })
@@ -90,7 +74,7 @@ export async function PUT(request) {
     const { userId, userData } = await request.json()
     
     // Update user
-    const user = await userService.updateUser(userId, userData, session.uid)
+    const user = await usersCollection.updateOne({ _id: userId }, { $set: userData })
 
     return NextResponse.json({
       success: true,
@@ -107,11 +91,7 @@ export async function PUT(request) {
 
 export async function DELETE(request) {
   try {
-    const session = await auth.verifyIdToken(request.cookies.get('admin_token')?.value)
-
-    if (!session?.uid) {
-      return NextResponse.json({ error: 'Invalid token' }, { status: 401 })
-    }
+    const session = await getSession(request)
 
     if (!session.role?.includes('super_admin')) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 403 })
@@ -120,7 +100,7 @@ export async function DELETE(request) {
     const { userId } = await request.json()
     
     // Delete user
-    await userService.deleteUser(userId)
+    await usersCollection.deleteOne({ _id: userId })
 
     return NextResponse.json({ success: true })
   } catch (error) {
