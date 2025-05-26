@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import LoadingIcon from '@/components/icons/LoadingIcon'
 import Cookies from 'js-cookie'
 
 export default function DashboardPage() {
@@ -45,8 +44,8 @@ export default function DashboardPage() {
 
   if (!user) {
     return (
-      <div className="flex items-center justify-center min-h-[50vh]">
-        <LoadingIcon size={48} />
+      <div className="min-h-[50vh] flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
       </div>
     )
   }
