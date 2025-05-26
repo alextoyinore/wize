@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { auth } from '@/lib/firebase'
 import Link from 'next/link'
+import Cookies from 'js-cookie'
 
 export default function Profile() {
   const router = useRouter()
@@ -117,8 +118,8 @@ export default function Profile() {
                   <button
                     onClick={() => {
                       // Clear cookies
-                      document.cookie = 'user_token=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-                      document.cookie = 'user_data=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+                      Cookies.remove('user_token')
+                      Cookies.remove('user_data')
                       
                       // Sign out
                       auth.signOut();

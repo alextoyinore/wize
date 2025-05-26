@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
 import { useRouter } from 'next/navigation'
+import Cookies from 'js-cookie'
 
 export default function CourseDetail() {
   const { id } = useParams()
@@ -36,7 +37,7 @@ export default function CourseDetail() {
 
 
   const handleEnroll = async () => {
-    const token = document.cookie.replace(/(?:(?:^|.*;)\s*user_token\s*\=\s*([^;]*).*$)|^.*$/, '$1')
+    const token = Cookies.get('user_token')
     
     if (!token) {
       router.push('/login')

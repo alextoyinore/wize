@@ -10,6 +10,7 @@ import CloseIcon from '@components/icons/CloseIcon'
 import Announcements from './Announcements'
 import EarthIcon from './icons/EarthIcon'
 import CartIcon from './CartIcon'
+import Cookies from 'js-cookie'
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
@@ -22,10 +23,7 @@ export default function Navbar() {
     const updateUserFromCookie = () => {
       const isAdminRoute = pathname.includes('/admin')
       const cookieName = isAdminRoute ? 'admin_data' : 'user_data'
-      const userSessionString = document.cookie
-        .split('; ')
-        .find(row => row.startsWith(`${cookieName}=`))
-        ?.split('=')[1]
+      const userSessionString = Cookies.get(cookieName)
 
       if (userSessionString) {
         try {
@@ -85,8 +83,8 @@ export default function Navbar() {
     const loginPath = isAdminRoute ? '/admin/login' : '/login'
 
     // Clear both cookies
-    document.cookie = `${tokenCookie}=; path=/; domain=${window.location.hostname}; expires=Thu, 01 Jan 1970 00:00:00 UTC; secure`
-    document.cookie = `${dataCookie}=; path=/; domain=${window.location.hostname}; expires=Thu, 01 Jan 1970 00:00:00 UTC; secure`
+    Cookies.remove(tokenCookie)
+    Cookies.remove(dataCookie)
 
     // Update state and redirect
     setUser(null)

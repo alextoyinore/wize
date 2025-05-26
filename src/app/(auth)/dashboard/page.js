@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import LoadingIcon from '@/components/icons/LoadingIcon'
+import Cookies from 'js-cookie'
 
 export default function DashboardPage() {
   const router = useRouter()
@@ -13,10 +14,7 @@ export default function DashboardPage() {
     try {
 
       // Get user data from cookies
-      const userDataString = document.cookie
-        .split('; ')
-        .find(row => row.startsWith('user_data='))
-        ?.split('=')[1]
+      const userDataString = Cookies.get('user_data')
 
       let userData = null
       if (userDataString) {
