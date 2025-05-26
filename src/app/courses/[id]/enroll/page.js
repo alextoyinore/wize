@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
 import CheckIcon from '@/components/icons/CheckIcon'
 import XIcon from '@/components/icons/XIcon'
+import Cookies from 'js-cookie'
 
 export default function CourseEnroll() {
   const { id } = useParams()
@@ -19,7 +20,7 @@ export default function CourseEnroll() {
   const [token, setToken] = useState('')
 
   useEffect(() => {
-    const token = document.cookie.replace(/(?:(?:^|.*;)\s*user_token\s*\=\s*([^;]*).*$)|^.*$/, '$1')
+    const token = Cookies.get('user_token')
     setToken(token)
 
     const fetchCourse = async () => {

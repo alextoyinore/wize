@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -16,9 +16,11 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const [user, setUser] = useState(null)
+  const dropdownRef = useRef(null)
   const pathname = usePathname()
 
   useEffect(() => {
+
     // Function to update user state from cookie
     const updateUserFromCookie = () => {
       const isAdminRoute = pathname.includes('/admin')
@@ -61,22 +63,24 @@ export default function Navbar() {
     }
   }, [])
 
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (isDropdownOpen && !event.target.closest('.relative')) {
-        setIsDropdownOpen(false)
-      }
+  const handleDropdown = (event) => {
+    if (event.target.closest('.dropdown-toggle')) {
+      setIsDropdownOpen(!isDropdownOpen)
+    } else if (isDropdownOpen && !dropdownRef.current.contains(event.target)) {
+      setIsDropdownOpen(false)
     }
+  }
 
-    document.addEventListener('click', handleClickOutside)
+  useEffect(() => {
+    window.addEventListener('click', handleDropdown)
+
     return () => {
-      document.removeEventListener('click', handleClickOutside)
+      window.removeEventListener('click', handleDropdown)
     }
   }, [isDropdownOpen])
 
   const handleSignOut = () => {
     // Determine which cookies to clear based on current route
-    const pathname = usePathname()
     const isAdminRoute = pathname.includes('/admin')
     const tokenCookie = isAdminRoute ? 'admin_token' : 'user_token'
     const dataCookie = isAdminRoute ? 'admin_data' : 'user_data'
@@ -98,7 +102,7 @@ export default function Navbar() {
         <Announcements />
       </div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
+        <div className="flex justify-between h-16" ref={dropdownRef}>
           <div className="flex items-center space-x-4">
             <Link href="/" className="flex items-center rounded-md py-2 transition-colors">
               <Image
@@ -247,28 +251,22 @@ export default function Navbar() {
             {user ? (
               <>
                 <Link href="/dashboard" className="block px-3 py-2 text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 transition-colors flex items-center">
-                  <span className="text-xl mr-3">📊</span>
                   Dashboard
                 </Link>
                 <Link href="/courses" className="block px-3 py-2 text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 transition-colors flex items-center">
-                  <span className="text-xl mr-3">📚</span>
                   Courses
                 </Link>
                 <Link href="/roomium" className="block px-3 py-2 text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 transition-colors flex items-center">
-                  <span className="text-xl mr-3">💬</span>
                   Messages
                 </Link>
                 <Link href="/profile" className="block px-3 py-2 text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 transition-colors flex items-center">
-                  <span className="text-xl mr-3">👤</span>
                   Profile
                 </Link>
                 <Link href="/settings" className="block px-3 py-2 text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 transition-colors flex items-center">
-                  <span className="text-xl mr-3">⚙️</span>
                   Settings
                 </Link>
                 {user?.role?.includes('admin') && (
                   <Link href="/admin/login" className="block px-3 py-2 text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 transition-colors flex items-center">
-                    <span className="text-xl mr-3">👑</span>
                     Admin
                   </Link>
                 )}
