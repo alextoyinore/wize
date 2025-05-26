@@ -5,6 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import Logo from '@assets/uwise.svg'
+import Icon from '@assets/icon.svg'
 import MenuIcon from '@components/icons/MenuIcon'
 import CloseIcon from '@components/icons/CloseIcon'
 import Announcements from './Announcements'
@@ -109,7 +110,16 @@ export default function Navbar() {
                 src={Logo}
                 alt="Uwise Logo"
                 priority
-                className="h-5 w-auto"
+                className="h-5 w-auto hidden lg:block"
+                width={40}
+                height={40}
+              />
+
+              <Image
+                src={Icon}
+                alt="Uwise Icon"
+                priority
+                className="h-7 w-auto lg:hidden sm:block"
                 width={40}
                 height={40}
               />
@@ -250,23 +260,23 @@ export default function Navbar() {
           <div className="px-2 pt-2 pb-3 space-y-1">
             {user ? (
               <>
-                <Link href="/dashboard" className="block px-3 py-2 text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 transition-colors flex items-center">
+                <Link href="/dashboard" className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-white hover:bg-gray-700 transition-colors flex items-center">
                   Dashboard
                 </Link>
-                <Link href="/courses" className="block px-3 py-2 text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 transition-colors flex items-center">
+                <Link href="/courses" className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-white hover:bg-gray-700 transition-colors flex items-center">
                   Courses
                 </Link>
-                <Link href="/roomium" className="block px-3 py-2 text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 transition-colors flex items-center">
+                <Link href="/roomium" className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-white hover:bg-gray-700 transition-colors flex items-center">
                   Messages
                 </Link>
-                <Link href="/profile" className="block px-3 py-2 text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 transition-colors flex items-center">
+                <Link href="/profile" className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-white hover:bg-gray-700 transition-colors flex items-center">
                   Profile
                 </Link>
-                <Link href="/settings" className="block px-3 py-2 text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 transition-colors flex items-center">
+                <Link href="/settings" className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-white hover:bg-gray-700 transition-colors flex items-center">
                   Settings
                 </Link>
                 {user?.role?.includes('admin') && (
-                  <Link href="/admin/login" className="block px-3 py-2 text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 transition-colors flex items-center">
+                  <Link href="/admin/login" className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-white hover:bg-gray-700 transition-colors flex items-center">
                     Admin
                   </Link>
                 )}
@@ -279,10 +289,10 @@ export default function Navbar() {
               </>
             ) : (
               <>
-                <Link href={pathname.includes('/admin') ? '/admin/login' : '/login'} className="block px-3 py-2 text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 transition-colors">
+                <Link href={pathname.includes('/admin') ? '/admin/login' : '/login'} className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-white hover:bg-gray-700 transition-colors">
                   Login
                 </Link>
-                <Link href="/register" className="block px-3 py-2 text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 transition-colors">
+                <Link href="/register" className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-white hover:bg-gray-700 transition-colors">
                   Register
                 </Link>
               </>

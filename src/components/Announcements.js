@@ -76,7 +76,7 @@ export default function Announcements() {
     <>
     {
       (visibleAnnouncements.length > 0) && (
-        <div className="bg-indigo-600 text-white px-2 py-1">      
+        <div className="bg-indigo-600 text-white text-center px-2 py-1">      
           {visibleAnnouncements.map((announcement) => (
             <div key={announcement._id} className="flex justify-between items-center">
               <div className="flex items-start text-sm gap-1">
