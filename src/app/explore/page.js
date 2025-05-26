@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react'
 import CourseCard from '@/components/CourseCard'
-import { useSearchParams } from 'next/navigation'
 import { motion } from 'framer-motion'
 
 export default function Explore() {
@@ -11,7 +10,6 @@ export default function Explore() {
   const [error, setError] = useState('')
   const [categories, setCategories] = useState([])
   const [selectedCategory, setSelectedCategory] = useState('all')
-  const searchParams = useSearchParams()
 
   useEffect(() => {
     fetchCourses()
