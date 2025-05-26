@@ -39,5 +39,5 @@ export async function getUserSession(request) {
   }
 
   return session
-}
+} 
 

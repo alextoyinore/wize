@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import Logo from '@assets/uwise.svg'
 import MenuIcon from '@components/icons/MenuIcon'
 import CloseIcon from '@components/icons/CloseIcon'
@@ -13,11 +14,12 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const [user, setUser] = useState(null)
+  const pathname = usePathname()
 
   useEffect(() => {
     // Function to update user state from cookie
     const updateUserFromCookie = () => {
-      const isAdminRoute = window.location.pathname.includes('/admin')
+      const isAdminRoute = pathname.includes('/admin')
       const cookieName = isAdminRoute ? 'admin_data' : 'user_data'
       const userSessionString = document.cookie
         .split('; ')
@@ -75,7 +77,8 @@ export default function Navbar() {
 
   const handleSignOut = () => {
     // Determine which cookies to clear based on current route
-    const isAdminRoute = window.location.pathname.includes('/admin')
+    const pathname = usePathname()
+    const isAdminRoute = pathname.includes('/admin')
     const tokenCookie = isAdminRoute ? 'admin_token' : 'user_token'
     const dataCookie = isAdminRoute ? 'admin_data' : 'user_data'
     const loginPath = isAdminRoute ? '/admin/login' : '/login'
@@ -109,7 +112,7 @@ export default function Navbar() {
               />
             </Link>
 
-            {!window.location.pathname.includes('/admin') && (
+            {!pathname.includes('/admin') && (
               <Link href="/explore" className="flex items-center space-x-2">
                 <EarthIcon className="h-5 w-5 text-gray-500 hover:text-indigo-600" />
                 <span className="text-gray-700 hover:text-indigo-600">Explore</span>
@@ -222,7 +225,7 @@ export default function Navbar() {
             ) : (
               <div className="flex items-center space-x-4">
                 <Link
-                  href={window.location.pathname.includes('/admin') ? '/admin/login' : '/login'}
+                  href={pathname.includes('/admin') ? '/admin/login' : '/login'}
                   className="text-sm font-medium text-gray-700 hover:text-gray-900"
                 >
                   Sign in
@@ -278,7 +281,7 @@ export default function Navbar() {
               </>
             ) : (
               <>
-                <Link href={window.location.pathname.includes('/admin') ? '/admin/login' : '/login'} className="block px-3 py-2 text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 transition-colors">
+                <Link href={pathname.includes('/admin') ? '/admin/login' : '/login'} className="block px-3 py-2 text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 transition-colors">
                   Login
                 </Link>
                 <Link href="/register" className="block px-3 py-2 text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 transition-colors">

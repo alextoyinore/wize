@@ -2,12 +2,16 @@
 
 import { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 
 export default function CourseDetail() {
   const { id } = useParams()
+  const router = useRouter()
   const [course, setCourse] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
+  const [enrolled, setEnrolled] = useState(false)
+  const [enrolling, setEnrolling] = useState(false)
 
   useEffect(() => {
     const fetchCourse = async () => {
@@ -16,7 +20,7 @@ export default function CourseDetail() {
         const data = await res.json()
         
         if (!res.ok) {
-          throw new Error(data.error || 'Failed to fetch course')
+          setError(data.error)
         }
 
         setCourse(data.course)
@@ -29,6 +33,19 @@ export default function CourseDetail() {
 
     fetchCourse()
   }, [id])
+
+
+  const handleEnroll = async () => {
+    const token = document.cookie.replace(/(?:(?:^|.*;)\s*user_token\s*\=\s*([^;]*).*$)|^.*$/, '$1')
+    
+    if (!token) {
+      router.push('/login')
+      return
+    }
+
+    router.push(`/courses/${id}/enroll`)
+  }
+
 
   if (loading) {
     return (
@@ -94,8 +111,18 @@ export default function CourseDetail() {
                 </span>
               </div>
               <div className="flex items-center space-x-4">
-                <button className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
-                  Enroll Now
+                <button
+                  onClick={handleEnroll}
+                  disabled={enrolling || enrolled}
+                  className={`px-6 py-2 rounded-lg transition-colors ${
+                    enrolled
+                      ? 'bg-green-600 text-white'
+                      : enrolling
+                      ? 'bg-gray-400 text-white'
+                      : 'bg-blue-600 text-white hover:bg-blue-700'
+                  }`}
+                >
+                  {enrolled ? 'Enrolled' : enrolling ? 'Enrolling...' : 'Enroll Now'}
                 </button>
                 <button className="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
                   Add to Wishlist
@@ -111,7 +138,7 @@ export default function CourseDetail() {
                 <div className="space-y-6">
                   <div>
                     <h3 className="font-medium text-gray-900 mb-4">What you'll learn</h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div className="flex flex-col gap-2">
                       {course.whatYoullLearn.map((item, index) => (
                         <div key={index} className="p-4 border border-gray-100 rounded-lg hover:border-gray-200 transition-colors">
                           <div className="flex items-center space-x-2">

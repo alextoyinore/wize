@@ -1,14 +1,7 @@
 'use client'
 
 import { createContext, useContext, useEffect, useState } from 'react'
-import { auth, getAuth, 
-  onAuthStateChanged, 
-  signInWithEmailAndPassword, 
-  googleProvider, 
-  signOut,
-  getIdToken,
-  sendEmailVerification,
-  signInWithCustomToken } from '@/lib/firebase'
+import {getSession} from '@/lib/auth'
 
 const AuthContext = createContext()
 
@@ -17,24 +10,24 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setUser(user)
-      setLoading(false)
-    })
+    const checkSession = async () => {
+      try {
+        const session = await getSession()
+        setUser(session)
+      } catch (error) {
+        console.error('Error checking session:', error)
+        setUser(null)
+      } finally {
+        setLoading(false)
+      }
+    }
 
-    return () => unsubscribe()
+    checkSession()
   }, [])
 
   const value = {
     user,
     loading,
-    signOut,
-    getAuth,
-    signInWithEmailAndPassword,
-    signInWithCustomToken,
-    googleProvider,
-    getIdToken,
-    sendEmailVerification
   }
 
   return (
@@ -51,3 +44,4 @@ export function useAuth() {
   }
   return context
 }
+

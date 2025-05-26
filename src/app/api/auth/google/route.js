@@ -1,13 +1,10 @@
 import { NextResponse } from 'next/server'
-import { clientPromise, usersCollection, userSessionsCollection } from '@/lib/mongodb'
+import { usersCollection, userSessionsCollection } from '@/lib/mongodb'
 import crypto from 'crypto'
 
 export async function POST(request) {
   try {
     const { credential, name, email, photoURL } = await request.json()
-
-    // Connect to MongoDB
-    await clientPromise
 
     // Check if user exists
     const existingUser = await usersCollection.findOne({ email })

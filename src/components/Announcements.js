@@ -50,14 +50,14 @@ export default function Announcements() {
     }
   }
 
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center text-gray-400 text-sm">
-        Loading Announcements...
-        {/* <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div> */}
-      </div>
-    )
-  }
+  // if (loading) {
+  //   return (
+  //     <div className="flex items-center justify-center text-gray-400 text-sm">
+  //       Loading Announcements...
+  //       {/* <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div> */}
+  //     </div>
+  //   )
+  // }
 
   if (error) {
     return

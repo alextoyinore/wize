@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { auth } from '@/lib/firebase'
 import Link from 'next/link'
-import { useAuth } from '@/contexts/AuthContext'
 
 export default function Profile() {
   const router = useRouter()
@@ -12,24 +11,46 @@ export default function Profile() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
 
-  // Get user data from Firebase Auth
+  // Get user data from API
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user) {
-        setUser(user)
-        setLoading(false)
-      } else {
-        router.push('/auth/login')
-      }
-    })
+    const fetchProfile = async () => {
+      try {
+        const response = await fetch('/api/profile', {
+          method: 'GET'
+        })
 
-    return () => unsubscribe()
+        const data = await response.json()
+        
+        if (data.success && data.user) {
+          setUser(data.user)
+        } else {
+          setError(data.error)
+        }
+      } catch (error) {
+        console.error('Error fetching profile:', error)
+        setError('Failed to fetch profile')
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchProfile()
   }, [router])
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
+      <div className="flex items-center justify-center min-h-screen/2">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="flex items-center justify-center min-h-screen/2">
+        <div className="bg-red-50 border-l-4 border-red-400 p-4">
+          <p className="text-sm text-red-700">{error}</p>
+        </div>
       </div>
     )
   }
@@ -39,7 +60,7 @@ export default function Profile() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen/2 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="bg-white shadow rounded-lg p-6">
           <div className="flex items-center space-x-4 mb-6">
@@ -76,13 +97,13 @@ export default function Profile() {
                       Account Created
                     </label>
                     <p className="mt-1 text-sm text-gray-900">
-                      {new Date(user.metadata.creationTime).toLocaleDateString()}
+                      {new Date(user.createdAt).toLocaleDateString()}
                     </p>
                   </div>
                 </div>
               </div>
 
-              <div>
+              <div className="flex justify-end">
                 <h2 className="text-lg font-medium text-gray-900 mb-4">
                   Actions
                 </h2>
@@ -94,7 +115,15 @@ export default function Profile() {
                     Edit Profile
                   </Link>
                   <button
-                    onClick={() => auth.signOut()}
+                    onClick={() => {
+                      // Clear cookies
+                      document.cookie = 'user_token=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+                      document.cookie = 'user_data=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+                      
+                      // Sign out
+                      auth.signOut();
+                      router.push('/auth/login');
+                    }}
                     className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
                   >
                     Sign Out

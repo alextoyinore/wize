@@ -3,9 +3,8 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { auth } from '@/lib/firebase'
-import { updateProfile as updateAuthProfile } from 'firebase/auth'
-import { uploadImage } from '@/lib/cloudinary'
 import Link from 'next/link'
+import { updateProfile as updateAuthProfile } from 'firebase/auth'
 
 export default function EditProfile() {
   const router = useRouter()
@@ -28,37 +27,40 @@ export default function EditProfile() {
   const [uploading, setUploading] = useState(false)
   const [completion, setCompletion] = useState(0)
 
-  // Get user data from Firebase Auth
+  // Get user data from API
   useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const response = await fetch(`/api/profile/${user?.uid}`)
+        const data = await response.json()
+        
+        if (data.success && data.profile) {
+          setFormData({
+            displayName: data.profile.displayName || '',
+            photoURL: data.profile.photoURL || '',
+            bio: data.profile.bio || '',
+            phone: data.profile.phone || '',
+            location: data.profile.location || '',
+            socialLinks: data.profile.socialLinks || {
+              twitter: '',
+              linkedin: '',
+              github: ''
+            }
+          })
+        }
+      } catch (error) {
+        console.error('Error fetching profile:', error)
+        setError('Failed to fetch profile')
+      } finally {
+        setLoading(false)
+      }
+    }
+
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       if (user) {
         setUser(user)
         setLoading(true)
-        
-        try {
-          // Get profile data from API
-          const response = await fetch(`/api/profile?token=${await user.getIdToken()}`)
-          const data = await response.json()
-          
-          if (data.success && data.user) {
-            setFormData({
-              displayName: user.displayName || '',
-              photoURL: user.photoURL || '',
-              bio: data.user.bio || '',
-              phone: data.user.phone || '',
-              location: data.user.location || '',
-              socialLinks: data.user.socialLinks || {
-                twitter: '',
-                linkedin: '',
-                github: ''
-              }
-            })
-          }
-        } catch (error) {
-          console.error('Error fetching profile:', error)
-        }
-        
-        setLoading(false)
+        await fetchProfile()
       } else {
         router.push('/login')
       }
@@ -102,32 +104,35 @@ export default function EditProfile() {
     setError('')
 
     try {
-      // Update Firebase Auth profile
-      await updateAuthProfile(user, {
-        displayName: formData.displayName,
-        photoURL: formData.photoURL,
-      })
+      let formDataToSend = { ...formData }
+      
+      // Handle profile image upload if present
+      if (profileImage) {
+        setUploading(true)
+        try {
+          const result = await uploadImage(profileImage)
+          formDataToSend.photoURL = result.secure_url
+        } catch (error) {
+          setError('Failed to upload profile image')
+          setUploading(false)
+          return
+        }
+        setUploading(false)
+      }
 
       // Update profile via API
-      try {
-        const response = await fetch('/api/profile', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            token: await user.getIdToken(),
-            ...formData
-          })
-        })
-        const data = await response.json()
-        
-        if (!data.success) {
-          throw new Error(data.error || 'Failed to update profile')
-        }
-      } catch (error) {
-        setError(error.message)
-        return
+      const response = await fetch(`/api/profile/${user.uid}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${await user.getIdToken()}`
+        },
+        body: JSON.stringify(formDataToSend)
+      })
+      
+      const data = await response.json()
+      if (!data.success) {
+        throw new Error(data.error || 'Failed to update profile')
       }
 
       router.push('/profile')

@@ -12,7 +12,7 @@ export function middleware(request) {
   }
 
   // Check if the request is for the dashboard
-  if (request.nextUrl.pathname === '/dashboard') {
+  if (request.nextUrl.pathname === '/dashboard' || request.nextUrl.pathname === '/profile' || request.nextUrl.pathname === '/profile/edit') {
     // Check for user token cookie
     const token = request.cookies.get('user_token')?.value
     if (!token) {
@@ -35,6 +35,6 @@ export function middleware(request) {
 }
 
 export const config = {
-  matcher: ['/login', '/register', '/admin/login', '/dashboard']
+  matcher: ['/login', '/register', '/admin/login', '/dashboard', '/profile', '/profile/edit']
 }
 
