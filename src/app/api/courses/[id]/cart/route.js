@@ -56,7 +56,6 @@ export async function POST(request, { params }) {
           cart: {
             courseId: id,
             plan,
-            course,
             price: plan === 'six-month' ? course.price * 1.5 : plan === 'one-year' ? course.price * 2 : course.price,
             addedAt: new Date()
           }

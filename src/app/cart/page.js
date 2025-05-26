@@ -59,19 +59,15 @@ export default function CartPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen/2 flex items-center justify-center">
-        <motion.div 
-          className="animate-spin rounded-full h-16 w-16 border-2 border-blue-500 border-t-transparent"
-          animate={{ rotate: 360 }}
-          transition={{ duration: 1 }}
-        />
+      <div className="flex items-center justify-center min-h-[50vh]">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
       </div>
     )
   }
 
   if (error) {
     return (
-      <div className="min-h-screen/2 flex items-center justify-center">
+      <div className="flex items-center justify-center min-h-[50vh]">
         <div className="text-center">
           <motion.div 
             initial={{ opacity: 0, scale: 0.9 }}
@@ -94,17 +90,17 @@ export default function CartPage() {
 
   if (cart.length === 0) {
     return (
-      <div className="min-h-screen/2 flex items-center justify-center">
+      <div className="flex items-center justify-center min-h-[50vh]">
         <div className="text-center">
           <motion.div 
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-gray-50 p-8 rounded-xl shadow-lg"
+            className="flex flex-col"
           >
             <h2 className="text-2xl font-bold text-gray-900">Your Cart is Empty</h2>
             <p className="mt-4 text-gray-600">Add some courses to get started!</p>
             <Link 
-              href="/courses"
+              href="/explore"
               className="mt-6 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
             >
               Browse Courses
@@ -116,10 +112,10 @@ export default function CartPage() {
   }
 
   return (
-    <div className="min-h-screen/2">
+    <div className="flex items-center justify-center min-h-[50vh]">
       <div className="max-w-full mx-auto px-4">
         <div className="bg-white rounded-2xl overflow-hidden">
-          <div className="p-8">
+          <div className="">
             <h1 className="text-3xl font-bold text-gray-900 mb-8">Your Cart</h1>
 
             <div className="space-y-6">
@@ -128,18 +124,18 @@ export default function CartPage() {
                   key={item.courseId}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="bg-gray-50 p-6 rounded-xl"
+                  className="rounded-xl py-2"
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-4">
                       <img src={item.course.image} alt={item.course.title} className="w-16 h-16 object-cover rounded-full" /> 
                       <div>
-                        <h3 className="text-lg font-medium text-gray-900">{item.course.title}</h3>
+                        <h3 className="text-md font-medium text-gray-900 w-[70%]">{item.course.title}</h3>
                         <p className="text-sm text-gray-600">{item.plan} Plan</p>
                       </div>
                     </div>
                     <div className="flex items-center space-x-4">
-                      <span className="text-lg font-bold text-blue-600">₦{new Intl.NumberFormat('en-NG').format(item.price)}</span>
+                      <span className="text-md font-bold text-blue-600">₦{new Intl.NumberFormat('en-NG').format(item.price)}</span>
                       <button
                         onClick={() => removeFromCart(item.courseId)}
                         className="text-red-500 hover:text-red-700"
@@ -156,13 +152,13 @@ export default function CartPage() {
               <div className="mt-8">
                 <div className="border-t border-gray-200 pt-6">
                   <div className="flex items-center justify-between">
-                    <h3 className="text-lg font-medium text-gray-900">Total</h3>
-                    <p className="text-lg font-bold text-blue-600">₦{new Intl.NumberFormat('en-NG').format(total)}</p>
+                    <h3 className="text-md font-medium text-gray-900">Total</h3>
+                    <p className="text-md font-bold text-blue-600">₦{new Intl.NumberFormat('en-NG').format(total)}</p>
                   </div>
                   <div className="mt-6">
                     <Link
                       href="/checkout"
-                      className="w-full flex items-center justify-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-blue-600 hover:bg-blue-700"
+                      className="w-full flex items-center justify-center px-6 py-3 rounded-md shadow-sm text-base font-medium text-white bg-blue-600 hover:bg-blue-700"
                     >
                       Proceed to Checkout
                     </Link>

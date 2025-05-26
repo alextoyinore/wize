@@ -44,19 +44,15 @@ export default function CourseEnroll() {
 
   if (loading) {
     return (
-      <div className="min-h-screen/2 flex items-center justify-center">
-        <motion.div 
-          className="animate-spin rounded-full h-16 w-16 border-2 border-blue-500 border-t-transparent"
-          animate={{ rotate: 360 }}
-          transition={{ duration: 1 }}
-        />
+      <div className="flex items-center justify-center min-h-[50vh]">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
       </div>
     )
   }
 
   if (error) {
     return (
-      <div className="min-h-screen/2 flex items-center justify-center">
+      <div className="flex items-center justify-center min-h-[50vh]">
         <div className="text-center">
           <motion.div 
             initial={{ opacity: 0, scale: 0.9 }}
@@ -144,7 +140,7 @@ export default function CourseEnroll() {
   }
 
   return (
-    <div className="min-h-screen/2">
+    <div className="min-h-[50vh]">
       <div className="max-w-full mx-auto px-4">
         <div className="bg-white rounded-2xl overflow-hidden">
           <div className="">

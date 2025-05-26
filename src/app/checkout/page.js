@@ -80,12 +80,8 @@ export default function CheckoutPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen/2 flex items-center justify-center">
-        <motion.div 
-          className="animate-spin rounded-full h-16 w-16 border-2 border-blue-500 border-t-transparent"
-          animate={{ rotate: 360 }}
-          transition={{ duration: 1 }}
-        />
+      <div className="flex items-center justify-center min-h-[50vh]">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
       </div>
     )
   }
@@ -125,7 +121,7 @@ export default function CheckoutPage() {
             <h2 className="text-2xl font-bold text-gray-900">Your Cart is Empty</h2>
             <p className="mt-4 text-gray-600">Add some courses to get started!</p>
             <Link 
-              href="/courses"
+              href="/explore"
               className="mt-6 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
             >
               Browse Courses
@@ -137,16 +133,16 @@ export default function CheckoutPage() {
   }
 
   return (
-    <div className="min-h-screen/2">
+    <div className="flex items-center justify-center min-h-[50vh]">
       <div className="max-w-full mx-auto px-4">
         <div className="bg-white rounded-2xl overflow-hidden">
-          <div className="p-8">
+          <div className="">
             <h1 className="text-3xl font-bold text-gray-900 mb-8">Checkout</h1>
 
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
               {/* Order Summary */}
               <div className="lg:col-span-3 space-y-6">
-                <div className="bg-gray-50 p-6 rounded-xl">
+                <div className="rounded-xl">
                   <h2 className="text-xl font-semibold mb-4">Order Summary</h2>
                   
                   {cart.map((item) => (
@@ -154,7 +150,7 @@ export default function CheckoutPage() {
                       key={item.courseId}
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
-                      className="bg-white p-4 rounded-lg shadow-sm"
+                      className="bg-white p-4 rounded-lg shadow-sm mb-3"
                     >
                       <div className="flex items-center space-x-4">
                         <img 
@@ -183,7 +179,7 @@ export default function CheckoutPage() {
                   </div>
                 </div>
 
-                <div className="bg-gray-50 p-6 rounded-xl">
+                <div className="rounded-xl">
                   <h2 className="text-xl font-semibold mb-4">Shipping Information</h2>
                   <div className="space-y-4">
                     <div className="flex items-center space-x-4">
@@ -210,7 +206,7 @@ export default function CheckoutPage() {
 
               {/* Payment Section */}
               <div className="space-y-6">
-                <div className="bg-gray-50 p-6 rounded-xl">
+                <div className="rounded-xl">
                   <h2 className="text-xl font-semibold mb-4">Payment Details</h2>
                   <div className="space-y-4">
                     <div className="flex items-center space-x-4">
