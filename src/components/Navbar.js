@@ -9,6 +9,7 @@ import MenuIcon from '@components/icons/MenuIcon'
 import CloseIcon from '@components/icons/CloseIcon'
 import Announcements from './Announcements'
 import EarthIcon from './icons/EarthIcon'
+import CartIcon from './CartIcon'
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
@@ -138,6 +139,7 @@ export default function Navbar() {
 
           {/* Desktop menu */}
           <div className="hidden sm:flex sm:items-center sm:space-x-4">
+            <CartIcon />
             {user ? (
               <>
                 <div className="flex items-center space-x-4">

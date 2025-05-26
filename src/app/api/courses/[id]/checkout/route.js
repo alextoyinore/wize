@@ -9,9 +9,9 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
   apiVersion: '2023-10-16',
 })
 
-export async function POST(request) {
+export async function POST(request, {params}) {
   try {
-    const { courseId } = request.params
+    const { id } = await params
     const session = await getUserSession(request)
     const { plan } = await request.json()
 
@@ -22,7 +22,7 @@ export async function POST(request) {
       )
     }
 
-    const course = await coursesCollection.findOne({ _id: new objectId(courseId) })
+    const course = await coursesCollection.findOne({ _id: new objectId(id) })
     if (!course) {
       return NextResponse.json(
         { error: 'Course not found' },
@@ -30,7 +30,7 @@ export async function POST(request) {
       )
     }
 
-    const price = plan === 'premium' ? course.price * 1.5 : course.price
+    const price = plan === 'six-month' ? course.price * 1.5 : plan === 'one-year' ? course.price * 2 : course.price
 
     // Create Stripe Checkout Session
     const checkoutSession = await stripe.checkout.sessions.create({
@@ -49,10 +49,10 @@ export async function POST(request) {
         },
       ],
       mode: 'payment',
-      success_url: `${request.headers.get('origin')}/courses/${courseId}/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${request.headers.get('origin')}/courses/${courseId}/enroll`,
+      success_url: `${request.headers.get('origin')}/courses/${id}/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${request.headers.get('origin')}/courses/${id}/enroll`,
       metadata: {
-        courseId,
+        courseId: id,
         userId: session.userId,
         plan,
       },

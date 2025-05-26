@@ -3,11 +3,13 @@ import { coursesCollection, usersCollection } from '@/lib/mongodb'
 import { getUserSession } from '@/lib/auth'
 import { objectId } from '@/lib/mongodb'
 
-export async function POST(request) {
+export async function POST(request, { params }) {
   try {
-    const { courseId } = request.params
+    const { id } = await params
     const session = await getUserSession(request)
     const { plan } = await request.json()
+
+    console.log(id)
 
     if (!session) {
       return NextResponse.json(
@@ -16,7 +18,9 @@ export async function POST(request) {
       )
     }
 
-    const course = await coursesCollection.findOne({ _id: new objectId(courseId) })
+    const courseId = await new objectId(id)
+
+    const course = await coursesCollection.findOne({ _id: courseId })
     if (!course) {
       return NextResponse.json(
         { error: 'Course not found' },
@@ -34,7 +38,7 @@ export async function POST(request) {
 
     // Check if course is already in cart
     const existingCartItem = user.cart?.find(item => 
-      item.courseId === courseId && item.plan === plan
+      item.courseId === id && item.plan === plan
     )
 
     if (existingCartItem) {
@@ -50,9 +54,10 @@ export async function POST(request) {
       { 
         $push: { 
           cart: {
-            courseId,
+            courseId: id,
             plan,
-            price: plan === 'premium' ? course.price * 1.5 : course.price,
+            course,
+            price: plan === 'six-month' ? course.price * 1.5 : plan === 'one-year' ? course.price * 2 : course.price,
             addedAt: new Date()
           }
         }
