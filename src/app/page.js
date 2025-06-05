@@ -1,5 +1,7 @@
 'use client'
 
+import Footer from "@/components/Footer"
+import HomeHero from "@/components/HomeHero"
 import { useEffect, useState } from "react"
 
 export default function Home() {
@@ -25,91 +27,30 @@ export default function Home() {
     fetchCourses()
   }, [])
 
+  
   return (
     <main className="min-h-screen">
-      {/* Hero Section */}
-      <section className="relative w-full py-20">
-        {/* Background Gradient */}
-        <div className="absolute w-full inset-0 bg-gradient-to-r rounded-2xl from-indigo-50 to-green-50 opacity-50"></div>
-        
-        {/* Hero Content */}
-        <div className="relative w-[90%] mx-auto">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-12">
-            {/* Left Content */}
-            <div className="flex-1 text-center md:text-left">
-              <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-8 leading-10">
-                Learn Skills. Build Your Future.
-              </h1>
-              <p className="text-xl md:text-2xl text-gray-600 mb-8 max-w-2xl mx-auto md:mx-0">
-                Practical online and offline courses in tech, business, design, and more.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-                <a
-                  href="/register"
-                  className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-all duration-200"
-                >
-                  Get Started
-                </a>
-                <a
-                  href="#features"
-                  className="inline-flex items-center px-6 py-3 border border-gray-300 hover:border-green-600 text-base font-medium rounded-md text-gray-700 bg-white hover:bg-green-400 hover:text-white transition-all duration-200"
-                >
-                  Learn More
-                </a>
-              </div>
-            </div>
-            
-            {/* Right Content - Illustration */}
-            <div className="flex-1 text-center md:text-right">
-              <img
-                src="/images/hero-illustration.svg"
-                alt="African professionals learning and working"
-                className="w-full max-w-lg mx-auto"
-              />
-            </div>
-          </div>
 
-          {/* Trust Badges and Stats */}
-          <div className="mt-10">
-            <div className="flex flex-col md:flex-row md:justify-start gap-8 max-w-4xl">
-              <div className="flex items-center gap-2 text-gray-600">
-                <svg className="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-                </svg>
-                <span>100% Nigerian Curriculum</span>
-              </div>
-              <div className="flex items-center gap-2 text-gray-600">
-                <svg className="w-6 h-6 text-green-600" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
-                </svg>
-                <span>95% Student Satisfaction</span>
-              </div>
-              <div className="flex items-center gap-2 text-gray-600">
-                <svg className="w-6 h-6 text-purple-600" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
-                </svg>
-                <span>1000+ Students Served</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Background Gradient */}
+      <div className="absolute w-full inset-0 bg-gradient-to-r md:rounded-2xl from-blue-100 to-green-100 opacity-10 -z-50"></div>
+      
+      <HomeHero />
 
       {/* Why Choose Uwise Section */}
-      <section id="features" className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section id="features" className="pr-5 py-12 w-full h-[80vh] md:rounded-2xl my-16">
+        <div className="pr-4 lg:px-0">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-blue-800 mb-4">
               Why Choose Uwise?
             </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            <p className="text-lg text-gray-800 max-w-2xl mx-auto">
               Discover why thousands of Nigerian learners trust Uwise for their skill development journey
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {/* Card 1 */}
-            <div className="group relative bg-white p-6 rounded-lg shadow transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+            <div className="group relative bg-white/50 p-6 rounded-lg transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
               <div className="absolute -top-4 -right-4 bg-blue-100 rounded-full p-3">
                 <svg className="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
@@ -124,7 +65,7 @@ export default function Home() {
             </div>
 
             {/* Card 2 */}
-            <div className="group relative bg-white p-6 rounded-lg shadow transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+            <div className="group relative bg-white/50 p-6 rounded-lg transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
               <div className="absolute -top-4 -right-4 bg-green-100 rounded-full p-3">
                 <svg className="w-6 h-6 text-green-600" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
@@ -139,7 +80,7 @@ export default function Home() {
             </div>
 
             {/* Card 3 */}
-            <div className="group relative bg-white p-6 rounded-lg shadow transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+            <div className="group relative bg-white/50 p-6 rounded-lg transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
               <div className="absolute -top-4 -right-4 bg-purple-100 rounded-full p-3">
                 <svg className="w-6 h-6 text-purple-600" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
@@ -154,43 +95,45 @@ export default function Home() {
             </div>
 
             {/* Card 4 */}
-            <div className="group relative bg-white p-6 rounded-lg shadow transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
-              <div className="absolute -top-4 -right-4 bg-indigo-100 rounded-full p-3">
-                <svg className="w-6 h-6 text-indigo-600" fill="currentColor" viewBox="0 0 24 24">
+            <div className="group relative bg-white/50 p-6 rounded-lg transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+              <div className="absolute -top-4 -right-4 bg-blue-100 rounded-full p-3">
+                <svg className="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M13 7h-2v5H7v2h4v5h2v-5h4v-2h-4V7zm-1-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
                 </svg>
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-3">
-                Nigerian Curriculum
+                Industry Expert Courses
               </h3>
               <p className="text-gray-600">
-                Courses designed specifically for the Nigerian market
+                Courses designed by industry experts to meet the needs of the African market
               </p>
             </div>
           </div>
         </div>
       </section>
 
+
+
       {/* Course Showcase Section */}
-      <section className="py-16 relative bg-gradient-to-r from-indigo-50 to-green-50 rounded-2xl">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+      <section className="my-16">
+        <div className="max-w-6xl mx-auto px-4 lg:p-0">
+          <div className="text-center mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-blue-800 mb-4">
               Explore Our Courses
             </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            <p className="text-lg text-gray-800 max-w-2xl mx-auto">
               Discover our most popular courses designed by industry experts
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {loading ? (
               <div className="flex items-center justify-center h-48">
                 <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
               </div>
             ) : (
                courses.map((course, index) => (
-              <div key={course._id} className="group bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-all duration-300">
+              <div key={course._id} className="group bg-white/50 p-6 rounded-lg transition-all duration-300 cursor-pointer hover:border-blue-600/10 hover:border-2 hover:-translate-y-1">
                 <div className="relative h-48 mb-6">
                   <img 
                     src={course.image || '/images/course-default.jpg'} 
@@ -206,7 +149,7 @@ export default function Home() {
                     {course.isNew ? 'New' : course.isPopular ? 'Popular' : course.isFeatured ? 'Featured' : ''}
                   </span>
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                <h3 className="text-xl font-semibold text-blue-800 mb-2">
                   {course.title}
                 </h3>
                 <p className="text-gray-600 mb-4">
@@ -230,22 +173,24 @@ export default function Home() {
             )))}
           </div>
 
-          <div className="text-center mt-12">
+          <div className="text-center mt-6">
             <a
               href="/explore"
-              className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200"
+              className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-800 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200"
             >
-              View All Courses
+              Browse All Courses
             </a>
           </div>
         </div>
       </section>
 
+
+
       {/* Testimonials Section */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="my-20">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-blue-800 mb-4">
               What Our Students Say
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
@@ -255,7 +200,7 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Testimonial 1 */}
-            <div className="bg-gray-50 p-6 rounded-lg shadow-sm">
+            <div className="bg-blue-50/50 p-6 rounded-lg border border-blue-50">
               <div className="flex items-center mb-4">
                 <div className="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center mr-4">
                   <svg className="w-8 h-8 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
@@ -263,7 +208,7 @@ export default function Home() {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900">John Adeyemi</h3>
+                  <h3 className="text-lg font-semibold text-blue-800">John Adeyemi</h3>
                   <p className="text-gray-600">Web Development Essentials</p>
                 </div>
               </div>
@@ -273,7 +218,7 @@ export default function Home() {
             </div>
 
             {/* Testimonial 2 */}
-            <div className="bg-gray-50 p-6 rounded-lg shadow-sm">
+            <div className="bg-blue-50/50 p-6 rounded-lg border border-blue-50">
               <div className="flex items-center mb-4">
                 <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mr-4">
                   <svg className="w-8 h-8 text-green-600" fill="currentColor" viewBox="0 0 24 24">
@@ -281,7 +226,7 @@ export default function Home() {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900">Aisha Yusuf</h3>
+                  <h3 className="text-lg font-semibold text-blue-800">Aisha Yusuf</h3>
                   <p className="text-gray-600">Data Science Fundamentals</p>
                 </div>
               </div>
@@ -291,7 +236,7 @@ export default function Home() {
             </div>
 
             {/* Testimonial 3 */}
-            <div className="bg-gray-50 p-6 rounded-lg shadow-sm">
+            <div className="bg-blue-50/50 p-6 rounded-lg border border-blue-50">
               <div className="flex items-center mb-4">
                 <div className="w-16 h-16 rounded-full bg-purple-100 flex items-center justify-center mr-4">
                   <svg className="w-8 h-8 text-purple-600" fill="currentColor" viewBox="0 0 24 24">
@@ -299,7 +244,7 @@ export default function Home() {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900">Tunde Akindele</h3>
+                  <h3 className="text-lg font-semibold text-blue-800">Tunde Akindele</h3>
                   <p className="text-gray-600">Digital Marketing Masterclass</p>
                 </div>
               </div>
@@ -311,14 +256,16 @@ export default function Home() {
         </div>
       </section>
 
+
+
       {/* How Uwise Works Section */}
-      <section className="py-16 bg-gradient-to-r rounded-2xl from-indigo-50 to-green-50">
+      <section className="my-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-blue-800">
               How Uwise Works
             </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            <p className="text-lg text-gray-800 max-w-2xl mx-auto">
               Simple steps to start learning and growing your skills
             </p>
           </div>
@@ -330,7 +277,7 @@ export default function Home() {
                 <span className="text-3xl font-bold text-blue-600">1</span>
               </div>
               <div className="ml-6">
-                <h3 className="text-xl font-semibold text-gray-900">Browse Courses</h3>
+                <h3 className="text-lg font-semibold text-blue-800">Browse Courses</h3>
                 <p className="mt-2 text-gray-600">Explore our wide range of courses across different categories</p>
               </div>
             </div>
@@ -341,7 +288,7 @@ export default function Home() {
                 <span className="text-3xl font-bold text-green-600">2</span>
               </div>
               <div className="ml-6">
-                <h3 className="text-xl font-semibold text-gray-900">Enroll & Start Learning</h3>
+                <h3 className="text-xl font-semibold text-blue-800">Enroll & Start Learning</h3>
                 <p className="mt-2 text-gray-600">Sign up and begin your learning journey with our structured curriculum</p>
               </div>
             </div>
@@ -352,24 +299,25 @@ export default function Home() {
                 <span className="text-3xl font-bold text-purple-600">3</span>
               </div>
               <div className="ml-6">
-                <h3 className="text-xl font-semibold text-gray-900">Learn & Practice</h3>
+                <h3 className="text-xl font-semibold text-blue-800">Learn & Practice</h3>
                 <p className="mt-2 text-gray-600">Engage with interactive lessons and hands-on projects</p>
               </div>
             </div>
 
             {/* Step 4 */}
             <div className="flex items-center">
-              <div className="flex-shrink-0 w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center">
-                <span className="text-3xl font-bold text-indigo-600">4</span>
+              <div className="flex-shrink-0 w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center">
+                <span className="text-3xl font-bold text-blue-600">4</span>
               </div>
               <div className="ml-6">
-                <h3 className="text-xl font-semibold text-gray-900">Get Certified</h3>
+                <h3 className="text-xl font-semibold text-blue-800">Get Certified</h3>
                 <p className="mt-2 text-gray-600">Earn industry-recognized certificates to showcase your skills</p>
               </div>
             </div>
           </div>
         </div>
       </section>
+
     </main> 
   );
 }

@@ -163,7 +163,7 @@ export default function CategoriesPage() {
               type="text"
               value={newCategory.name}
               onChange={(e) => setNewCategory(prev => ({ ...prev, name: e.target.value }))}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Enter category name"
               required
             />
@@ -173,7 +173,7 @@ export default function CategoriesPage() {
             <textarea
               value={newCategory.description}
               onChange={(e) => setNewCategory(prev => ({ ...prev, description: e.target.value }))}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 min-h-[100px]"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 min-h-[100px]"
               placeholder="Enter category description"
             />
           </div>
@@ -183,14 +183,14 @@ export default function CategoriesPage() {
               type="url"
               value={newCategory.icon}
               onChange={(e) => setNewCategory(prev => ({ ...prev, icon: e.target.value }))}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:indigo-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:blue-500"
               placeholder="Enter icon URL (optional)"
             />
           </div>
           <button
             type="submit"
             disabled={creating}
-            className="w-full bg-indigo-500 text-white px-4 py-2 rounded-md hover:bg-indigo-600 transition-colors duration-200"
+            className="w-full bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors duration-200"
           >
             {creating ? 'Creating...' : 'Create Category'}
           </button>
@@ -225,7 +225,7 @@ export default function CategoriesPage() {
                                 : c
                             ))
                           }}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
                         <button
                           onClick={() => handleUpdateCategory(category)}
@@ -245,7 +245,7 @@ export default function CategoriesPage() {
                         <p className="text-gray-900">{category.name}</p>
                         <button
                           onClick={() => setEditingCategory(category)}
-                          className="text-indigo-500 hover:text-indigo-600"
+                          className="text-blue-500 hover:text-blue-600"
                         >
                           <PencilIcon className="w-4 h-4" />
                         </button>
@@ -263,7 +263,7 @@ export default function CategoriesPage() {
                               : c
                           ))
                         }}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 min-h-[50px]"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 min-h-[50px]"
                       />
                     ) : (
                       <p className="text-gray-500">{category.description.slice(0, 50)}</p>

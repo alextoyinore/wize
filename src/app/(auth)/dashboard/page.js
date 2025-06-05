@@ -52,13 +52,13 @@ export default function DashboardPage() {
 
   return (
     <div className="">
-      <h1 className="text-2xl font-bold text-gray-900 mb-6">Welcome Back, <span className='italic text-indigo-600 font-bold'>{user?.email?.split('@')[0] || 'User'}</span></h1>
+      <h1 className="text-2xl font-bold text-gray-900 mb-6">Welcome Back, <span className='italic text-blue-600 font-bold'>{user?.email?.split('@')[0] || 'User'}</span></h1>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {/* Quick Stats Cards */}
         <div className="bg-white rounded-lg shadow p-6">
           <h3 className="text-lg font-semibold text-gray-900 mb-2">Total Courses</h3>
-          <p className="text-3xl font-bold text-indigo-600">12</p>
+          <p className="text-3xl font-bold text-blue-600">12</p>
         </div>
 
         <div className="bg-white rounded-lg shadow p-6">

@@ -1,8 +1,8 @@
 import Providers from './providers/Providers';
-import { Inter } from 'next/font/google';
+import { DM_Sans, IBM_Plex_Serif } from 'next/font/google';
 import './globals.css';
 
-const inter = Inter({ subsets: ['latin'] });
+const dm = DM_Sans({ subsets: ['latin'] });
 
 export const metadata = {
   title: 'Uwise - Your Ultimate Learning Platform',
@@ -21,7 +21,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
+      <body className={dm.className}>
         <Providers>
           {children}
         </Providers>

@@ -73,7 +73,7 @@ export default function ImageUploadModal({ isOpen, onClose, onUpload }) {
             />
             <label
               htmlFor="image-upload"
-              className="block w-full text-center px-4 py-2 bg-indigo-500 text-white rounded-md hover:bg-indigo-600 cursor-pointer"
+              className="block w-full text-center px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 cursor-pointer"
             >
               {file ? 'Change Image' : 'Select Image'}
             </label>
@@ -88,7 +88,7 @@ export default function ImageUploadModal({ isOpen, onClose, onUpload }) {
               <button
                 onClick={handleUpload}
                 disabled={uploading || !file}
-                className="px-4 py-2 bg-indigo-500 text-white rounded-md hover:bg-indigo-600 disabled:opacity-50"
+                className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 disabled:opacity-50"
               >
                 {uploading ? 'Uploading...' : 'Upload'}
               </button>

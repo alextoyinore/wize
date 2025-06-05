@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server'
 
 export function middleware(request) {
   // Check if the request is for login, register, or admin login pages
-  if (request.nextUrl.pathname === '/login' || request.nextUrl.pathname === '/register') {
+  if (request.nextUrl.pathname === '/login' || request.nextUrl.pathname === '/register' || request.nextUrl.pathname === '/') {
     // Check for user token cookie
     const token = request.cookies.get('user_token')?.value
     if (token) {
@@ -10,7 +10,7 @@ export function middleware(request) {
       return NextResponse.redirect(new URL('/dashboard', request.url))
     }
   }
-
+  
   // Check if the request is for the dashboard
   if (request.nextUrl.pathname === '/dashboard' || request.nextUrl.pathname === '/profile' || request.nextUrl.pathname === '/profile/edit') {
     // Check for user token cookie
@@ -35,6 +35,6 @@ export function middleware(request) {
 }
 
 export const config = {
-  matcher: ['/login', '/register', '/admin/login', '/dashboard', '/profile', '/profile/edit']
+  matcher: ['/login', '/register', '/admin/login', '/dashboard', '/profile', '/profile/edit', '/']
 }
 

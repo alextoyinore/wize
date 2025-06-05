@@ -15,7 +15,7 @@ export default function CartIcon() {
     try {
       const response = await fetch('/api/cart')
       const data = await response.json()
-      setCartCount(data.cart.length)
+      setCartCount(data?.cart?.length)
     } catch (error) {
       console.error('Error fetching cart count:', error)
     }
@@ -23,7 +23,7 @@ export default function CartIcon() {
 
   return (
     <Link href="/cart" className="relative">
-      <ShoppingCartIcon className="h-6 w-6" />
+      <ShoppingCartIcon className="h-5 w-5 text-gray-500" />
       {cartCount > 0 && (
         <span className="absolute -top-1 -right-1 bg-blue-600 text-white text-xs px-1.5 py-0.5 rounded-full">
           {cartCount}

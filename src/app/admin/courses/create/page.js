@@ -281,7 +281,7 @@ export default function NewCourse() {
             required
             value={courseData.title}
             onChange={(e) => setCourseData({ ...courseData, title: e.target.value })}
-            className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-indigo-500 transition-all duration-200"
+            className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-blue-500 transition-all duration-200"
             placeholder="Enter course title"
           />
         </div>
@@ -293,7 +293,7 @@ export default function NewCourse() {
             value={courseData.description}
             onChange={(e) => setCourseData({ ...courseData, description: e.target.value })}
             rows={4}
-            className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-indigo-500 transition-all duration-200"
+            className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-blue-500 transition-all duration-200"
             placeholder="Enter course description"
           />
         </div>
@@ -304,7 +304,7 @@ export default function NewCourse() {
             required
             value={courseData.category}
             onChange={(e) => setCourseData({ ...courseData, category: e.target.value })}
-            className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-indigo-500 transition-all duration-200"
+            className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-blue-500 transition-all duration-200"
           >
             <option value="">Select category</option>
             {categories.map((cat) => (
@@ -329,7 +329,7 @@ export default function NewCourse() {
                   }
                 }
               }}
-              className="text-indigo-500 hover:text-indigo-700"
+              className="text-blue-500 hover:text-blue-700"
             >
               <PencilIcon className="w-4 h-4" />
             </button>
@@ -347,7 +347,7 @@ export default function NewCourse() {
               step="0.01"
               value={courseData.price}
               onChange={(e) => setCourseData({ ...courseData, price: e.target.value })}
-              className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-indigo-500 transition-all duration-200"
+              className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-blue-500 transition-all duration-200"
               placeholder="0.00"
             />
           </div>
@@ -367,7 +367,7 @@ export default function NewCourse() {
                   const minutes = currentDuration.split(' ')[1]
                   setCourseData({ ...courseData, duration: `${hours}h ${minutes}` })
                 }}
-                className="w-32 px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-indigo-500 transition-all duration-200"
+                className="w-32 px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-blue-500 transition-all duration-200"
                 placeholder="Hours"
               />
 
@@ -381,7 +381,7 @@ export default function NewCourse() {
                   const hours = currentDuration.split(' ')[0]
                   setCourseData({ ...courseData, duration: `${hours}h ${minutes}m` })
                 }}
-                className="w-32 px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-indigo-500 transition-all duration-200"
+                className="w-32 px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-blue-500 transition-all duration-200"
                 placeholder="Minutes"
               />
             </div>
@@ -410,7 +410,7 @@ export default function NewCourse() {
               />
               <label
                 htmlFor="courseImage"
-                className="flex items-center justify-center px-6 py-3 border-2 border-dashed border-gray-300 rounded-lg text-sm font-medium text-gray-600 hover:text-gray-900 hover:border-indigo-500 cursor-pointer transition-all duration-200"
+                className="flex items-center justify-center px-6 py-3 border-2 border-dashed border-gray-300 rounded-lg text-sm font-medium text-gray-600 hover:text-gray-900 hover:border-blue-500 cursor-pointer transition-all duration-200"
               >
                 <svg className="w-5 h-5 mr-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -448,7 +448,7 @@ export default function NewCourse() {
                       return { ...prev, requirements: newRequirements }
                     })
                   }}
-                  className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   placeholder="Enter requirement"
                   required
                 />
@@ -462,7 +462,7 @@ export default function NewCourse() {
             ))}
             <button
               onClick={addRequirement}
-              className="w-full px-4 py-3 bg-indigo-300/10 border border-indigo-500 text-indigo-600 rounded-lg hover:bg-indigo-600 hover:text-white transition-all duration-200 flex items-center justify-center"
+              className="w-full px-4 py-3 bg-blue-300/10 border border-blue-500 text-blue-600 rounded-lg hover:bg-blue-600 hover:text-white transition-all duration-200 flex items-center justify-center"
             >
               <PlusIcon className="w-5 h-5 mr-2" />
               Add New Requirement
@@ -483,7 +483,7 @@ export default function NewCourse() {
                       return { ...prev, whatYoullLearn: newWhatYoullLearn }
                     })
                   }}
-                  className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   placeholder="Enter what you'll learn"
                   required
                 />
@@ -497,7 +497,7 @@ export default function NewCourse() {
             ))}
             <button
               onClick={addWhatYoullLearn}
-              className="w-full px-4 py-3 bg-indigo-300/10 border border-indigo-500 text-indigo-600 rounded-lg hover:bg-indigo-600 hover:text-white transition-all duration-200 flex items-center justify-center"
+              className="w-full px-4 py-3 bg-blue-300/10 border border-blue-500 text-blue-600 rounded-lg hover:bg-blue-600 hover:text-white transition-all duration-200 flex items-center justify-center"
             >
               <PlusIcon className="w-5 h-5 mr-2" />
               Add New Item
@@ -525,7 +525,7 @@ export default function NewCourse() {
                     required
                     value={section.title}
                     onChange={(e) => handleSectionChange(sectionIndex, 'title', e.target.value)}
-                    className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-indigo-500 transition-all duration-200"
+                    className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-blue-500 transition-all duration-200"
                     placeholder="Enter section title"
                   />
                 </div>
@@ -551,7 +551,7 @@ export default function NewCourse() {
                             required
                             value={lesson.title}
                             onChange={(e) => handleLessonChange(sectionIndex, lessonIndex, 'title', e.target.value)}
-                            className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-indigo-500 transition-all duration-200"
+                            className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-blue-500 transition-all duration-200"
                             placeholder="Enter lesson title"
                           />
                         </div>
@@ -563,7 +563,7 @@ export default function NewCourse() {
                             value={lesson.description}
                             onChange={(e) => handleLessonChange(sectionIndex, lessonIndex, 'description', e.target.value)}
                             rows={3}
-                            className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-indigo-500 transition-all duration-200"
+                            className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-blue-500 transition-all duration-200"
                             placeholder="Enter lesson description"
                           />
                         </div>
@@ -575,7 +575,7 @@ export default function NewCourse() {
                             required
                             value={lesson.duration}
                             onChange={(e) => handleLessonChange(sectionIndex, lessonIndex, 'duration', e.target.value)}
-                            className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-indigo-500 transition-all duration-200"
+                            className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-blue-500 transition-all duration-200"
                             placeholder="Enter duration in minutes"
                           />
                         </div>
@@ -587,7 +587,7 @@ export default function NewCourse() {
                               type="checkbox"
                               checked={lesson.isLive}
                               onChange={(e) => handleLessonChange(sectionIndex, lessonIndex, 'isLive', e.target.checked)}
-                              className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                              className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                             />
                           </div>
                         </div>
@@ -610,7 +610,7 @@ export default function NewCourse() {
                               />
                               <label
                                 htmlFor={`lessonVideo${sectionIndex}-${lessonIndex}`}
-                                className="flex items-center justify-center px-6 py-3 border-2 border-dashed border-gray-300 rounded-lg text-sm font-medium text-gray-600 hover:text-gray-900 hover:border-indigo-500 cursor-pointer transition-all duration-200"
+                                className="flex items-center justify-center px-6 py-3 border-2 border-dashed border-gray-300 rounded-lg text-sm font-medium text-gray-600 hover:text-gray-900 hover:border-blue-500 cursor-pointer transition-all duration-200"
                               >
                                 <svg className="w-5 h-5 mr-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -633,7 +633,7 @@ export default function NewCourse() {
 
                 <button
                   onClick={() => addLesson(sectionIndex)}
-                  className="w-full px-4 py-3 bg-indigo-300/10 border border-indigo-500 text-indigo-600 rounded-lg hover:bg-indigo-600 hover:text-white transition-all duration-200 flex items-center justify-center"
+                  className="w-full px-4 py-3 bg-blue-300/10 border border-blue-500 text-blue-600 rounded-lg hover:bg-blue-600 hover:text-white transition-all duration-200 flex items-center justify-center"
                 >
                   <PlusIcon className="w-5 h-5 mr-2" />
                   Add New Lesson
@@ -643,7 +643,7 @@ export default function NewCourse() {
           ))}
           <button
             onClick={addSection}
-            className="w-full px-4 py-3 bg-indigo-300/10 border border-indigo-500 text-indigo-600 rounded-lg hover:bg-indigo-600 hover:text-white transition-all duration-200 flex items-center justify-center"
+            className="w-full px-4 py-3 bg-blue-300/10 border border-blue-500 text-blue-600 rounded-lg hover:bg-blue-600 hover:text-white transition-all duration-200 flex items-center justify-center"
           >
             <PlusIcon className="w-5 h-5 mr-2" />
             Add New Section
@@ -661,7 +661,7 @@ export default function NewCourse() {
           <button
             type="submit"
             disabled={loading}
-            className="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {loading ? 'Creating...' : 'Create Course'}
           </button>

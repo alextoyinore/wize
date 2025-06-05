@@ -133,12 +133,12 @@ export default function Courses() {
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-64 px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
+              className="w-64 px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
               placeholder="Search courses..."
             />
             <button
               onClick={() => setPage(1)}
-              className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
             >
               Search
             </button>
@@ -194,7 +194,7 @@ export default function Courses() {
                     <div className="text-sm text-gray-900 capitalize">{course.category}</div>
                   </td>
                   <td className="px-4 py-2">
-                    <div className="text-sm font-medium text-indigo-600">₦{course.price.toFixed(2)}</div>
+                    <div className="text-sm font-medium text-blue-600">₦{course.price.toFixed(2)}</div>
                   </td>
                   <td className="px-4 py-2">
                     <div className="flex items-center space-x-2">
@@ -207,7 +207,7 @@ export default function Courses() {
                         isToggling={statusLoading[course._id]}
                         trueLabel="Published"
                         falseLabel="Draft"
-                        className="text-indigo-600"
+                        className="text-blue-600"
                       />
                     </div>
                   </td>
@@ -275,7 +275,7 @@ export default function Courses() {
                       key={num}
                       onClick={() => setPage(num)}
                       className={`relative inline-flex items-center px-4 py-2 border text-sm font-medium ${
-                        num === page ? 'z-10 bg-indigo-50 border-indigo-500 text-indigo-600' : 'bg-white border-gray-300 text-gray-500 hover:bg-gray-50'
+                        num === page ? 'z-10 bg-blue-50 border-blue-500 text-blue-600' : 'bg-white border-gray-300 text-gray-500 hover:bg-gray-50'
                       }`}
                     >
                       {num}

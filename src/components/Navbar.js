@@ -20,11 +20,13 @@ export default function Navbar() {
   const dropdownRef = useRef(null)
   const pathname = usePathname()
 
+  let isAdminRoute = null
+
   useEffect(() => {
 
     // Function to update user state from cookie
     const updateUserFromCookie = () => {
-      const isAdminRoute = pathname.includes('/admin')
+      isAdminRoute = pathname.includes('/admin')
       const cookieName = isAdminRoute ? 'admin_data' : 'user_data'
       const userSessionString = Cookies.get(cookieName)
 
@@ -96,13 +98,14 @@ export default function Navbar() {
     window.location.href = loginPath
   }
 
+
   return (
-    <nav className="bg-white/90 backdrop-blur-sm text-gray-900 sticky top-0 z-50 border-b border-gray-200">
+    <nav className="bg-white/90 backdrop-blur-sm text-gray-900 sticky top-0 z-50 ">
       {/* Announcements Section */}
       <div>
         <Announcements />
       </div>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-6xl mx-auto px-4 py-2 md:p-0">
         <div className="flex justify-between h-16" ref={dropdownRef}>
           <div className="flex items-center space-x-4">
             <Link href="/" className="flex items-center rounded-md py-2 transition-colors">
@@ -111,8 +114,8 @@ export default function Navbar() {
                 alt="Uwise Logo"
                 priority
                 className="h-5 w-auto hidden lg:block"
-                width={40}
-                height={40}
+                width={25}
+                height={25}
               />
 
               <Image
@@ -125,10 +128,10 @@ export default function Navbar() {
               />
             </Link>
 
-            {!pathname.includes('/admin') && (
+            {!isAdminRoute && (
               <Link href="/explore" className="flex items-center space-x-2">
-                <EarthIcon className="h-5 w-5 text-gray-500 hover:text-indigo-600" />
-                <span className="text-gray-700 hover:text-indigo-600">Explore</span>
+                {/* <EarthIcon className="h-5 w-5 text-gray-500 hover:text-blue-600" /> */}
+                <span className="text-gray-500 border-l border-gray-200 pl-4 hover:text-blue-600">Explore</span>
               </Link>
             )}
           </div>
@@ -151,7 +154,9 @@ export default function Navbar() {
 
           {/* Desktop menu */}
           <div className="hidden sm:flex sm:items-center sm:space-x-4">
-            <CartIcon />
+            {
+              user && !isAdminRoute && <CartIcon />
+            }
             {user ? (
               <>
                 <div className="flex items-center space-x-4">
@@ -260,39 +265,39 @@ export default function Navbar() {
           <div className="px-2 pt-2 pb-3 space-y-1">
             {user ? (
               <>
-                <Link href="/dashboard" className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-white hover:bg-gray-700 transition-colors flex items-center">
+                <Link href="/dashboard" className="block px-2 py-2 text-base font-medium text-gray-700 hover:text-white hover:bg-gray-700 transition-colors flex items-center">
                   Dashboard
                 </Link>
-                <Link href="/courses" className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-white hover:bg-gray-700 transition-colors flex items-center">
+                <Link href="/courses" className="block px-2 py-2 text-base font-medium text-gray-700 hover:text-white hover:bg-gray-700 transition-colors flex items-center">
                   Courses
                 </Link>
-                <Link href="/roomium" className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-white hover:bg-gray-700 transition-colors flex items-center">
+                <Link href="/roomium" className="block px-2 py-2 text-base font-medium text-gray-700 hover:text-white hover:bg-gray-700 transition-colors flex items-center">
                   Messages
                 </Link>
-                <Link href="/profile" className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-white hover:bg-gray-700 transition-colors flex items-center">
+                <Link href="/profile" className="block px-2 py-2 text-base font-medium text-gray-700 hover:text-white hover:bg-gray-700 transition-colors flex items-center">
                   Profile
                 </Link>
-                <Link href="/settings" className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-white hover:bg-gray-700 transition-colors flex items-center">
+                <Link href="/settings" className="block px-2 py-2 text-base font-medium text-gray-700 hover:text-white hover:bg-gray-700 transition-colors flex items-center">
                   Settings
                 </Link>
                 {user?.role?.includes('admin') && (
-                  <Link href="/admin/login" className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-white hover:bg-gray-700 transition-colors flex items-center">
+                  <Link href="/admin/login" className="block px-2 py-2 text-base font-medium text-gray-700 hover:text-white hover:bg-gray-700 transition-colors flex items-center">
                     Admin
                   </Link>
                 )}
                 <button
                   onClick={() => handleSignOut()}
-                  className="block px-3 py-2 text-base font-medium text-gray-900 hover:bg-[#00B060] transition-colors"
+                  className="block px-2 py-2 text-base font-medium text-gray-900 hover:bg-[#00B060] transition-colors"
                 >
                   Sign Out
                 </button>
               </>
             ) : (
               <>
-                <Link href={pathname.includes('/admin') ? '/admin/login' : '/login'} className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-white hover:bg-gray-700 transition-colors">
+                <Link href={pathname.includes('/admin') ? '/admin/login' : '/login'} className="block px-2 py-2 text-base font-medium text-gray-700 hover:text-white hover:bg-gray-700 transition-colors">
                   Login
                 </Link>
-                <Link href="/register" className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-white hover:bg-gray-700 transition-colors">
+                <Link href="/register" className="block px-2 py-2 text-base font-medium text-gray-700 hover:text-white hover:bg-gray-700 transition-colors">
                   Register
                 </Link>
               </>

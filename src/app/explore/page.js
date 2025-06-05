@@ -91,35 +91,35 @@ export default function Explore() {
   }
 
   return (
-    <div className="mx-auto px-4">
+    <div className="mx-auto px-4 lg:px-0">
       {/* Search and Categories */}
-      <div className="mb-8">
+      <div className="mb-8 mt-4 lg:mt-0">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-          <form onSubmit={handleSearch} className="flex-1 max-w-2xl">
+          <form onSubmit={handleSearch} className="flex-1 w-full lg:max-w-2xl">
             <div className="relative">
               <input
                 type="text"
                 name="search"
                 placeholder="Search courses..."
-                className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:border-indigo-500"
+                className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:border-blue-500"
               />
               <button
                 type="submit"
-                className="absolute right-0 top-1/2 -translate-y-1/2 bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700"
+                className="absolute right-0 top-1/2 -translate-y-1/2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
               >
                 Search
               </button>
             </div>
           </form>
 
-          <div className="flex gap-2">
+          <div className="hidden lg:flex gap-2">
             {categories.map((category) => (
               <button
                 key={category}
                 onClick={() => handleCategoryChange(category)}
                 className={`px-4 py-2 rounded-lg ${
                   selectedCategory === category
-                    ? 'bg-indigo-600 text-white'
+                    ? 'bg-blue-600 text-white'
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                 }`}
               >
@@ -140,7 +140,7 @@ export default function Explore() {
       {/* Loading State */}
       {loading && (
         <div className="flex justify-center items-center min-h-[200px]">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
         </div>
       )}
 

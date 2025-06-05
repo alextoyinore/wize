@@ -23,7 +23,7 @@ export default function CourseCard({ course }) {
   return (
     <Link href={getCourseLink()}>
       <div
-        className="group relative bg-white rounded-lg cursor-pointer overflow-hidden border border-gray-100 transition-all duration-300 hover:border-indigo-200"
+        className="group relative bg-white rounded-lg cursor-pointer overflow-hidden border border-gray-100 transition-all duration-300 hover:border-blue-200"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
@@ -38,7 +38,7 @@ export default function CourseCard({ course }) {
         </div>
 
         <div className="p-4">
-          <h3 className="text-lg font-semibold mb-2 hover:text-indigo-600 transition-colors">
+          <h3 className="text-lg font-semibold mb-2 hover:text-blue-600 transition-colors">
             {course.title}
           </h3>
 
@@ -64,14 +64,14 @@ export default function CourseCard({ course }) {
           <div className="flex items-center justify-between mt-4">
             <div className="flex flex-col items-start text-xs text-gray-600 gap-2">
               <span className="mr-2">Duration: {course.duration}</span>
-              <span className="px-2 py-1 bg-indigo-100/30 text-indigo-600 rounded-full text-xs">
+              <span className="px-2 py-1 bg-blue-100/30 text-blue-600 rounded-full text-xs">
                 {course.category}
               </span>
             </div>
 
             <button
               onClick={handleEnroll}
-              className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors border border-indigo-700 hover:border-indigo-800"
+              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors border border-blue-700 hover:border-blue-800"
             >
               Enroll
             </button>

@@ -11,12 +11,12 @@ export default function Layout({ children }) {
   const routes = ['login', 'register']
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen relative">
       {!routes.includes(pathname) && <Navbar />}
-      <main className="max-w-7xl mx-auto px-4 py-8">
+      <main className="max-w-6xl mx-auto lg:py-8">
         {children}
       </main>
-      {!pathname.includes('admin') || !pathname.includes('login') || !pathname.includes('register') || !pathname.includes('dashboard') && <Footer />}
+      {!pathname.includes('admin') && !pathname.includes('login') && !pathname.includes('register') && !pathname.includes('dashboard') && <Footer />}
     </div>
   );
 }

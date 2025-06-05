@@ -70,7 +70,7 @@ const NewAnnouncement = ({ onClose }) => {
           type="text"
           value={formData.title}
           onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-          className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:border-indigo-500"
+          className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:border-blue-500"
           required
           disabled={loading}
         />
@@ -81,7 +81,7 @@ const NewAnnouncement = ({ onClose }) => {
         <textarea
           value={formData.content}
           onChange={(e) => setFormData({ ...formData, content: e.target.value })}
-          className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:border-indigo-500"
+          className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:border-blue-500"
           rows="4"
           required
         />
@@ -99,7 +99,7 @@ const NewAnnouncement = ({ onClose }) => {
               setFormData(prev => ({ ...prev, courseId: '', courseName: '' }))
             }
           }}
-          className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:border-indigo-500"
+          className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:border-blue-500"
           required
           disabled={userRole === 'facilitator'}
         >
@@ -139,7 +139,7 @@ const NewAnnouncement = ({ onClose }) => {
         </button>
         <button
           type="submit"
-          className="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
+          className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
           disabled={loading}
         >
           {loading ? (
@@ -228,7 +228,7 @@ export default function Announcements() {
         <h1 className="text-3xl font-bold">Announcements</h1>
         <button
           onClick={() => setShowNewAnnouncement(true)}
-          className="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
+          className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
         >
           New Announcement
         </button>

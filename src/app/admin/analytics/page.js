@@ -61,14 +61,14 @@ export default function Analytics() {
           <h1 className="text-2xl font-bold text-gray-900 mb-8">Analytics Dashboard</h1>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <div className="bg-indigo-50 p-6 rounded-lg">
+            <div className="bg-blue-50 p-6 rounded-lg">
               <div className="flex justify-between items-center">
                 <div>
-                  <p className="text-sm font-medium text-indigo-600">Total Users</p>
+                  <p className="text-sm font-medium text-blue-600">Total Users</p>
                   <p className="text-3xl font-bold text-gray-900">{stats.totalUsers}</p>
                 </div>
-                <div className="bg-indigo-200 rounded-full p-3">
-                  <svg className="h-6 w-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="bg-blue-200 rounded-full p-3">
+                  <svg className="h-6 w-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                   </svg>
                 </div>
