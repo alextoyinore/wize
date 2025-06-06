@@ -4,7 +4,7 @@ import Image from 'next/image'
 import Partners from './Partners'
 
 export default function HomeHero({className}) {
-    return <section className={"relative w-full min-h-screen " + className}>
+    return <section className={"relative w-full " + className}>
     
     {/* Hero Content */}
     <div className="relative w-full px-8 lg:p-0 mx-auto">

@@ -97,7 +97,7 @@ export default function Login() {
     <div className="h-screen-[calc(100vh-2rem)] flex items-center justify-center">
       <div className="max-w-md w-full space-y-8 p-8 bg-white">
       <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-blue-800">
             Sign in to your account
           </h2>
         </div>
@@ -159,7 +159,7 @@ export default function Login() {
             </div>
 
             <div className="text-sm">
-              <Link href="/auth/forgot-password" className="font-medium text-blue-600 hover:text-blue-800">
+              <Link href="/password-reset" className="font-medium text-blue-600 hover:text-blue-800">
                 Forgot your password?
               </Link>
             </div>
@@ -207,3 +207,4 @@ export default function Login() {
     </div>
   )
 }
+

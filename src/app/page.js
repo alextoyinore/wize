@@ -39,11 +39,81 @@ export default function Home() {
 
       {/* <Partners className="" /> */}
 
+      {/* Course Showcase Section */}
+      <section className="my-16 lg:mt-32 flex flex-col justify-center">
+        <div className="max-w-6xl mx-auto px-4 lg:p-0">
+          <div className="text-center mb-4">
+            <h2 className="text-2xl md:text-4xl font-bold text-blue-800 mb-4">
+              Explore Our Courses
+            </h2>
+            <p className="text-lg text-gray-800 max-w-2xl mx-auto">
+              Discover our most popular courses designed by industry experts
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {loading ? (
+              <div className="flex items-center justify-center h-48 w-full">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
+              </div>
+            ) : (
+               courses.map((course, index) => (
+              <div key={course._id} className="group bg-white/50 p-6 rounded-lg transition-all duration-300 cursor-pointer hover:border-blue-600/10 hover:border-2 hover:-translate-y-1">
+                <div className="relative h-48 mb-6">
+                  <img 
+                    src={course.image || '/images/course-default.jpg'} 
+                    alt={course.title} 
+                    className="w-full h-full object-cover rounded-lg"
+                  />
+                  <span className={`absolute top-4 right-4 px-3 py-1 rounded-full text-sm ${
+                    index === 0 ? 'bg-blue-100 text-blue-600' :
+                    index === 1 ? 'bg-green-100 text-green-600' :
+                    index === 2 ? 'bg-purple-100 text-purple-600' :
+                    'bg-gray-100 text-gray-600'
+                  }`}>
+                    {course.isNew ? 'New' : course.isPopular ? 'Popular' : course.isFeatured ? 'Featured' : ''}
+                  </span>
+                </div>
+                <h3 className="text-xl font-semibold text-blue-800 mb-2">
+                  {course.title}
+                </h3>
+                <p className="text-gray-600 mb-4">
+                  {course.description.slice(0, 100)}
+                </p>
+                <div className="flex justify-between items-center text-sm text-gray-500">
+                  <span>{course.duration} weeks</span>
+                  <span>{course.level}</span>
+                </div>
+                <a
+                  href={`/courses/${course.slug || course._id}`}
+                  className={`mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md transition-all duration-200 ${
+                    index === 0 ? 'text-blue-600 bg-blue-100 hover:bg-blue-200 focus:ring-blue-800' :
+                    index === 1 ? 'text-green-600 bg-green-100 hover:bg-green-200 focus:ring-green-500' :
+                    index === 2 ? 'text-purple-600 bg-purple-100 hover:bg-purple-200 focus:ring-purple-500' :
+                    'text-gray-600 bg-gray-100 hover:bg-gray-200 focus:ring-gray-500'
+                  }`}>
+                  {course.isNew ? 'Enroll Now' : 'Learn More'}
+                </a>
+              </div>
+            )))}
+          </div>
+
+          <div className="text-center mt-6">
+            <a
+              href="/explore"
+              className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-800 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-800 transition-all duration-200"
+            >
+              Browse All Courses
+            </a>
+          </div>
+        </div>
+      </section>
+
       {/* Why Choose Uwise Section */}
-      <section id="features" className="pr-5 h-[60vh] flex flex-col justify-center">
+      <section id="features" className="pr-5 mt-16 lg:mt-32 md:mt-36 flex flex-col justify-center">
         <div className="pr-4 lg:px-0">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-blue-800 mb-4">
+            <h2 className="text-2xl md:text-4xl font-bold text-blue-800 mb-4">
               Why Choose Uwise?
             </h2>
             <p className="text-lg text-gray-800 max-w-2xl mx-auto">
@@ -116,84 +186,11 @@ export default function Home() {
       </section>
 
 
-
-      {/* Course Showcase Section */}
-      <section className="my-16 h-screen flex flex-col justify-center">
-        <div className="max-w-6xl mx-auto px-4 lg:p-0">
-          <div className="text-center mb-4">
-            <h2 className="text-3xl md:text-4xl font-bold text-blue-800 mb-4">
-              Explore Our Courses
-            </h2>
-            <p className="text-lg text-gray-800 max-w-2xl mx-auto">
-              Discover our most popular courses designed by industry experts
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {loading ? (
-              <div className="flex items-center justify-center h-48 w-full">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
-              </div>
-            ) : (
-               courses.map((course, index) => (
-              <div key={course._id} className="group bg-white/50 p-6 rounded-lg transition-all duration-300 cursor-pointer hover:border-blue-600/10 hover:border-2 hover:-translate-y-1">
-                <div className="relative h-48 mb-6">
-                  <img 
-                    src={course.image || '/images/course-default.jpg'} 
-                    alt={course.title} 
-                    className="w-full h-full object-cover rounded-lg"
-                  />
-                  <span className={`absolute top-4 right-4 px-3 py-1 rounded-full text-sm ${
-                    index === 0 ? 'bg-blue-100 text-blue-600' :
-                    index === 1 ? 'bg-green-100 text-green-600' :
-                    index === 2 ? 'bg-purple-100 text-purple-600' :
-                    'bg-gray-100 text-gray-600'
-                  }`}>
-                    {course.isNew ? 'New' : course.isPopular ? 'Popular' : course.isFeatured ? 'Featured' : ''}
-                  </span>
-                </div>
-                <h3 className="text-xl font-semibold text-blue-800 mb-2">
-                  {course.title}
-                </h3>
-                <p className="text-gray-600 mb-4">
-                  {course.description.slice(0, 100)}
-                </p>
-                <div className="flex justify-between items-center text-sm text-gray-500">
-                  <span>{course.duration} weeks</span>
-                  <span>{course.level}</span>
-                </div>
-                <a
-                  href={`/courses/${course.slug || course._id}`}
-                  className={`mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md transition-all duration-200 ${
-                    index === 0 ? 'text-blue-600 bg-blue-100 hover:bg-blue-200 focus:ring-blue-800' :
-                    index === 1 ? 'text-green-600 bg-green-100 hover:bg-green-200 focus:ring-green-500' :
-                    index === 2 ? 'text-purple-600 bg-purple-100 hover:bg-purple-200 focus:ring-purple-500' :
-                    'text-gray-600 bg-gray-100 hover:bg-gray-200 focus:ring-gray-500'
-                  }`}>
-                  {course.isNew ? 'Enroll Now' : 'Learn More'}
-                </a>
-              </div>
-            )))}
-          </div>
-
-          <div className="text-center mt-6">
-            <a
-              href="/explore"
-              className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-800 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-800 transition-all duration-200"
-            >
-              Browse All Courses
-            </a>
-          </div>
-        </div>
-      </section>
-
-
-
       {/* Testimonials Section */}
-      <section className="my-20 flex flex-col justify-center h-[70vh]">
+      <section className="my-16 lg:mt-32 flex flex-col justify-center">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-blue-800 mb-4">
+            <h2 className="text-2xl md:text-4xl font-bold text-blue-800 mb-4">
               What Our Students Say
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
@@ -265,7 +262,7 @@ export default function Home() {
       <section className="my-16 flex flex-col justify-center min-h-[70vh]">
         <div className="max-w-6xl mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-blue-800">
+            <h2 className="text-2xl md:text-4xl font-bold text-blue-800">
               How Uwise Works
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto my-3">
@@ -324,3 +321,4 @@ export default function Home() {
     </main> 
   );
 }
+

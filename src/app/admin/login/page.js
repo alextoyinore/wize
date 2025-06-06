@@ -47,9 +47,13 @@ export default function AdminLogin() {
     }
   }
 
+  const requestAdminAccount = async () => {
+
+  }
+
   return (
     <div className="h-screen-[calc(100vh-2rem)] flex items-center justify-center">
-      <div className="max-w-md w-full space-y-8 p-8 bg-white">
+      <div className="max-w-sm w-full space-y-8 p-8 bg-white">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
             Admin Sign in
@@ -123,8 +127,8 @@ export default function AdminLogin() {
         <div className="text-center">
           <p className="text-sm text-gray-600">
             Don't have an account?{' '}
-            <a href="/admin/register" className="font-medium text-[#00B060] hover:text-[#008040]">
-              Register
+            <a href='/admin/request-account' className="cursor-pointer font-medium text-[#00B060] hover:text-[#008040]">
+              Request Admin Account
             </a>
           </p>
         </div>
@@ -132,3 +136,4 @@ export default function AdminLogin() {
     </div>
   )
 }
+

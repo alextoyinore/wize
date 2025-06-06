@@ -138,7 +138,7 @@ export default function Navbar() {
           <div className="flex items-center sm:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-900 hover:text-white hover:bg-[#00B060] focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+              className="inline-flex items-center justify-center p-2 rounded-md text-gray-900"
               aria-expanded="false"
             >
               <span className="sr-only">Open main menu</span>
@@ -247,55 +247,57 @@ export default function Navbar() {
                 >
                   Sign in
                 </Link>
-                <Link
+                {
+                  !pathname.includes('admin') && <Link
                   href="/register"
                   className="text-sm font-medium text-gray-700 hover:text-gray-900"
                 >
                   Register
                 </Link>
+                }
               </div>
             )}
           </div>
         </div>
 
         {/* Mobile menu */}
-        <div className={`${isOpen ? 'block' : 'hidden'} sm:hidden`}>
-          <div className="px-2 pt-2 pb-3 space-y-1">
+        <div className={`${isOpen ? 'block' : 'hidden'} sm:hidden border-b border-gray-200`}>
+          <div className="pt-2 pb-3 space-y-1">
             {user ? (
               <>
-                <Link href="/dashboard" className="block px-2 py-2 text-base font-medium text-gray-700 hover:text-white hover:bg-gray-700 transition-colors flex items-center">
+                <Link href="/dashboard" className="block px-2 py-2 text-base font-medium text-gray-700 transition-colors flex items-center">
                   Dashboard
                 </Link>
-                <Link href="/courses" className="block px-2 py-2 text-base font-medium text-gray-700 hover:text-white hover:bg-gray-700 transition-colors flex items-center">
+                <Link href="/courses" className="block px-2 py-2 text-base font-medium text-gray-700 transition-colors flex items-center">
                   Courses
                 </Link>
-                <Link href="/roomium" className="block px-2 py-2 text-base font-medium text-gray-700 hover:text-white hover:bg-gray-700 transition-colors flex items-center">
+                <Link href="/roomium" className="block px-2 py-2 text-base font-medium text-gray-700 transition-colors flex items-center">
                   Messages
                 </Link>
-                <Link href="/profile" className="block px-2 py-2 text-base font-medium text-gray-700 hover:text-white hover:bg-gray-700 transition-colors flex items-center">
+                <Link href="/profile" className="block px-2 py-2 text-base font-medium text-gray-700 transition-colors flex items-center">
                   Profile
                 </Link>
-                <Link href="/settings" className="block px-2 py-2 text-base font-medium text-gray-700 hover:text-white hover:bg-gray-700 transition-colors flex items-center">
+                <Link href="/settings" className="block px-2 py-2 text-base font-medium text-gray-700 transition-colors flex items-center">
                   Settings
                 </Link>
                 {user?.role?.includes('admin') && (
-                  <Link href="/admin/login" className="block px-2 py-2 text-base font-medium text-gray-700 hover:text-white hover:bg-gray-700 transition-colors flex items-center">
+                  <Link href="/admin/login" className="block px-2 py-2 text-base font-medium text-gray-700 transition-colors flex items-center">
                     Admin
                   </Link>
                 )}
                 <button
                   onClick={() => handleSignOut()}
-                  className="block px-2 py-2 text-base font-medium text-gray-900 hover:bg-[#00B060] transition-colors"
+                  className="block px-2 py-2 text-base font-medium text-gray-900 transition-colors"
                 >
                   Sign Out
                 </button>
               </>
             ) : (
               <>
-                <Link href={pathname.includes('/admin') ? '/admin/login' : '/login'} className="block px-2 py-2 text-base font-medium text-gray-700 hover:text-white hover:bg-gray-700 transition-colors">
+                <Link href={pathname.includes('/admin') ? '/admin/login' : '/login'} className="block px-2 py-2 text-base font-medium text-gray-700 transition-colors">
                   Login
                 </Link>
-                <Link href="/register" className="block px-2 py-2 text-base font-medium text-gray-700 hover:text-white hover:bg-gray-700 transition-colors">
+                <Link href="/register" className="block px-2 py-2 text-base font-medium text-gray-700 transition-colors">
                   Register
                 </Link>
               </>
