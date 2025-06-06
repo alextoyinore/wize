@@ -131,7 +131,7 @@ export default function Navbar() {
             {!isAdminRoute && (
               <Link href="/explore" className="flex items-center space-x-2">
                 {/* <EarthIcon className="h-5 w-5 text-gray-500 hover:text-blue-600" /> */}
-                <span className="text-gray-500 border-l border-gray-200 pl-4 hover:text-blue-600">Explore</span>
+                <span className="text-gray-500 border-l border-gray-200 pl-4 hover:text-blue-800">Explore</span>
               </Link>
             )}
           </div>

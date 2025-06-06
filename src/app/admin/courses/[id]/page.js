@@ -149,7 +149,7 @@ export default function CoursePage() {
                       <p className="text-gray-600">{course?.title ? course?.title : 'N/A'}</p>
                       <button
                         onClick={() => setEditingField('title')}
-                        className="text-blue-500 hover:text-blue-700"
+                        className="text-blue-800 hover:text-blue-700"
                       >
                         <PencilIcon className="w-4 h-4" />
                       </button>
@@ -164,7 +164,7 @@ export default function CoursePage() {
                           handleUpdate({ title: course?.title })
                           setEditingField(null)
                         }}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-800"
                       />
                       <button
                         onClick={() => {
@@ -193,7 +193,7 @@ export default function CoursePage() {
                       <p className="text-gray-600 capitalize">{course?.category ? course?.category : 'N/A'}</p>
                       <button
                         onClick={() => setEditingField('category')}
-                        className="text-blue-500 hover:text-blue-700"
+                        className="text-blue-800 hover:text-blue-700"
                       >
                         <PencilIcon className="w-4 h-4" />
                       </button>
@@ -207,7 +207,7 @@ export default function CoursePage() {
                           handleUpdate({ category: course?.category })
                           setEditingField(null)
                         }}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-800"
                       >
                         <option value="">Select category</option>
                       {categories.map((cat) => (
@@ -241,7 +241,7 @@ export default function CoursePage() {
                       <p className="text-gray-600">₦{course?.price ? course?.price.toFixed(2) : 'N/A'}</p>
                       <button
                         onClick={() => setEditingField('price')}
-                        className="text-blue-500 hover:text-blue-700"
+                        className="text-blue-800 hover:text-blue-700"
                       >
                         <PencilIcon className="w-4 h-4" />
                       </button>
@@ -256,7 +256,7 @@ export default function CoursePage() {
                           handleUpdate({ price: course?.price })
                           setEditingField(null)
                         }}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-800"
                       />
                       <button
                         onClick={() => {
@@ -283,7 +283,7 @@ export default function CoursePage() {
                   <p className="text-gray-600 capitalize">{course?.status ? course?.status : 'N/A'}</p>
                   <button
                     onClick={() => handleUpdate({ status: course?.status === 'published' ? 'draft' : 'published' })}
-                    className="text-blue-500 hover:text-blue-700"
+                    className="text-blue-800 hover:text-blue-700"
                   >
                     {course?.status === 'published' ? 'Make Draft' : 'Publish'}
                   </button>
@@ -314,7 +314,7 @@ export default function CoursePage() {
                     )}
                     <button
                       onClick={() => setShowImageModal(true)}
-                      className="border border-blue-500 mt-5 text-blue-500 px-4 py-2 rounded-md hover:bg-blue-50 hover:text-blue-600 transition-colors"
+                      className="border border-blue-800 mt-5 text-blue-800 px-4 py-2 rounded-md hover:bg-blue-50 hover:text-blue-600 transition-colors"
                     >
                       Change Image
                     </button>
@@ -388,7 +388,7 @@ export default function CoursePage() {
                 <div className="flex flex-col gap-4">
                   <button
                     onClick={() => setShowLessonForm(!showLessonForm)}
-                    className="flex items-center justify-center border border-blue-500 text-blue-500 px-4 py-2 rounded-md hover:bg-blue-50 hover:text-blue-600 transition-colors"
+                    className="flex items-center justify-center border border-blue-800 text-blue-800 px-4 py-2 rounded-md hover:bg-blue-50 hover:text-blue-600 transition-colors"
                   >
                     <PlusIcon className="w-5 h-5 mr-2" />
                     {showLessonForm ? 'Hide Lesson Form' : 'Add New Lesson'}
@@ -402,7 +402,7 @@ export default function CoursePage() {
                             type="text"
                             value={newLesson.sectionTitle}
                             onChange={(e) => setNewLesson(prev => ({ ...prev, sectionTitle: e.target.value }))}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-800"
                             placeholder="Enter section title"
                             required
                           />
@@ -413,7 +413,7 @@ export default function CoursePage() {
                             type="text"
                             value={newLesson.title}
                             onChange={(e) => setNewLesson(prev => ({ ...prev, title: e.target.value }))}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-800"
                             placeholder="Enter lesson title"
                             required
                           />
@@ -425,7 +425,7 @@ export default function CoursePage() {
                         <textarea
                           value={newLesson.description}
                           onChange={(e) => setNewLesson(prev => ({ ...prev, description: e.target.value }))}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 min-h-[100px]"
+                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-800 min-h-[100px]"
                           placeholder="Enter lesson description"
                           required
                         />
@@ -437,7 +437,7 @@ export default function CoursePage() {
                           type="number"
                           value={newLesson.duration}
                           onChange={(e) => setNewLesson(prev => ({ ...prev, duration: e.target.value }))}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-800"
                           placeholder="Enter duration in minutes"
                         />
                       </div>
@@ -448,7 +448,7 @@ export default function CoursePage() {
                           type="url"
                           value={newLesson.videoUrl}
                           onChange={(e) => setNewLesson(prev => ({ ...prev, videoUrl: e.target.value }))}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-800"
                           placeholder="Enter video URL (optional)"
                         />
                       </div>
@@ -459,7 +459,7 @@ export default function CoursePage() {
                             type="checkbox"
                             checked={newLesson.isLive}
                             onChange={(e) => setNewLesson(prev => ({ ...prev, isLive: e.target.checked }))}
-                            className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                            className="rounded border-gray-300 text-blue-600 focus:ring-blue-800"
                           />
                           <label className="text-sm text-gray-700">Is this a live class?</label>
                         </div>
@@ -472,7 +472,7 @@ export default function CoursePage() {
                             type="url"
                             value={newLesson.liveClassUrl}
                             onChange={(e) => setNewLesson(prev => ({ ...prev, liveClassUrl: e.target.value }))}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-800"
                             placeholder="Enter live class URL"
                             required
                           />
@@ -560,7 +560,7 @@ export default function CoursePage() {
                         <div className="flex space-x-2">
                           <button
                             onClick={() => handleEditSection(sectionIndex)}
-                            className="text-blue-500 hover:text-blue-700"
+                            className="text-blue-800 hover:text-blue-700"
                           >
                             <PencilIcon className="w-5 h-5" />
                           </button>
@@ -587,7 +587,7 @@ export default function CoursePage() {
                               <div className="flex space-x-2">
                                 <button
                                   onClick={() => handleEditLesson(sectionIndex, lessonIndex)}
-                                  className="text-blue-500 hover:text-blue-700"
+                                  className="text-blue-800 hover:text-blue-700"
                                 >
                                   <PencilIcon className="w-5 h-5" />
                                 </button>
@@ -613,7 +613,7 @@ export default function CoursePage() {
           {/* <div className="flex justify-end space-x-4">
             <button
               onClick={() => setEditing(true)}
-              className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+              className="px-4 py-2 bg-blue-800 text-white rounded hover:bg-blue-600"
             >
               Edit Course
             </button>

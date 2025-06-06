@@ -56,7 +56,7 @@ export default function CourseSearch({ onSelectCourse, selectedCourse }) {
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
         placeholder="Search courses by title..."
-        className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:border-blue-500"
+        className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:border-blue-800"
       />
 
       {loading && (

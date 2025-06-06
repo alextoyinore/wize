@@ -125,7 +125,7 @@ export default function Settings() {
                     name="siteTitle"
                     value={settings.siteTitle}
                     onChange={handleChange}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-800 focus:ring-blue-800 sm:text-sm"
                   />
                 </div>
                 <div>
@@ -134,7 +134,7 @@ export default function Settings() {
                     name="siteDescription"
                     value={settings.siteDescription}
                     onChange={handleChange}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-800 focus:ring-blue-800 sm:text-sm"
                     rows={3}
                   />
                 </div>
@@ -144,7 +144,7 @@ export default function Settings() {
                     name="theme"
                     value={settings.theme}
                     onChange={handleChange}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-800 focus:ring-blue-800 sm:text-sm"
                   >
                     <option value="light">Light</option>
                     <option value="dark">Dark</option>
@@ -163,7 +163,7 @@ export default function Settings() {
                     name="maintenanceMode"
                     checked={settings.maintenanceMode}
                     onChange={handleChange}
-                    className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                    className="h-4 w-4 text-blue-600 focus:ring-blue-800 border-gray-300 rounded"
                   />
                   <label className="ml-2 block text-sm font-medium text-gray-700">
                     Maintenance Mode
@@ -175,7 +175,7 @@ export default function Settings() {
                     name="emailNotifications"
                     checked={settings.emailNotifications}
                     onChange={handleChange}
-                    className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                    className="h-4 w-4 text-blue-600 focus:ring-blue-800 border-gray-300 rounded"
                   />
                   <label className="ml-2 block text-sm font-medium text-gray-700">
                     Email Notifications
@@ -195,7 +195,7 @@ export default function Settings() {
                     name="smtpConfig.host"
                     value={settings.smtpConfig.host}
                     onChange={handleChange}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-800 focus:ring-blue-800 sm:text-sm"
                   />
                 </div>
                 <div>
@@ -205,7 +205,7 @@ export default function Settings() {
                     name="smtpConfig.port"
                     value={settings.smtpConfig.port}
                     onChange={handleChange}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-800 focus:ring-blue-800 sm:text-sm"
                   />
                 </div>
                 <div>
@@ -215,7 +215,7 @@ export default function Settings() {
                     name="smtpConfig.user"
                     value={settings.smtpConfig.user}
                     onChange={handleChange}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-800 focus:ring-blue-800 sm:text-sm"
                   />
                 </div>
                 <div>
@@ -225,7 +225,7 @@ export default function Settings() {
                     name="smtpConfig.password"
                     value={settings.smtpConfig.password}
                     onChange={handleChange}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-800 focus:ring-blue-800 sm:text-sm"
                   />
                 </div>
               </div>
@@ -241,7 +241,7 @@ export default function Settings() {
                     name="storageProvider"
                     value={settings.storageProvider}
                     onChange={handleChange}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-800 focus:ring-blue-800 sm:text-sm"
                   >
                     <option value="cloudinary">Cloudinary</option>
                     <option value="aws">AWS S3</option>
@@ -256,7 +256,7 @@ export default function Settings() {
                         name="cloudinary.cloudName"
                         value={settings.cloudinary.cloudName}
                         onChange={handleChange}
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-800 focus:ring-blue-800 sm:text-sm"
                       />
                     </div>
                     <div>
@@ -266,7 +266,7 @@ export default function Settings() {
                         name="cloudinary.apiKey"
                         value={settings.cloudinary.apiKey}
                         onChange={handleChange}
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-800 focus:ring-blue-800 sm:text-sm"
                       />
                     </div>
                     <div>
@@ -276,7 +276,7 @@ export default function Settings() {
                         name="cloudinary.apiSecret"
                         value={settings.cloudinary.apiSecret}
                         onChange={handleChange}
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-800 focus:ring-blue-800 sm:text-sm"
                       />
                     </div>
                   </>
@@ -288,7 +288,7 @@ export default function Settings() {
           <div className="mt-8">
             <button
               onClick={handleSaveSettings}
-              className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-800"
             >
               Save Settings
             </button>

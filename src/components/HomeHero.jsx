@@ -3,7 +3,7 @@ import BannerImage from '@/assets/banner-image.png'
 import Image from 'next/image'
 
 export default function HomeHero() {
-    return <section className="relative w-full py-5 my-12">
+    return <section className="relative w-full min-h-[80vh] py-5 my-12">
     
     {/* Hero Content */}
     <div className="relative w-full px-8 lg:p-0 mx-auto">

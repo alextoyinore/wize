@@ -70,7 +70,7 @@ const NewAnnouncement = ({ onClose }) => {
           type="text"
           value={formData.title}
           onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-          className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:border-blue-500"
+          className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:border-blue-800"
           required
           disabled={loading}
         />
@@ -81,7 +81,7 @@ const NewAnnouncement = ({ onClose }) => {
         <textarea
           value={formData.content}
           onChange={(e) => setFormData({ ...formData, content: e.target.value })}
-          className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:border-blue-500"
+          className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:border-blue-800"
           rows="4"
           required
         />
@@ -99,7 +99,7 @@ const NewAnnouncement = ({ onClose }) => {
               setFormData(prev => ({ ...prev, courseId: '', courseName: '' }))
             }
           }}
-          className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:border-blue-500"
+          className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:border-blue-800"
           required
           disabled={userRole === 'facilitator'}
         >

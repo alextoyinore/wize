@@ -37,7 +37,7 @@ export default function Home() {
       <HomeHero />
 
       {/* Why Choose Uwise Section */}
-      <section id="features" className="pr-5 py-12 w-full h-[80vh] md:rounded-2xl my-16">
+      <section id="features" className="pr-5 h-[60vh] flex flex-col justify-center">
         <div className="pr-4 lg:px-0">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-blue-800 mb-4">
@@ -115,7 +115,7 @@ export default function Home() {
 
 
       {/* Course Showcase Section */}
-      <section className="my-16">
+      <section className="my-16 h-screen flex flex-col justify-center">
         <div className="max-w-6xl mx-auto px-4 lg:p-0">
           <div className="text-center mb-4">
             <h2 className="text-3xl md:text-4xl font-bold text-blue-800 mb-4">
@@ -128,7 +128,7 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {loading ? (
-              <div className="flex items-center justify-center h-48">
+              <div className="flex items-center justify-center h-48 w-full">
                 <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
               </div>
             ) : (
@@ -162,7 +162,7 @@ export default function Home() {
                 <a
                   href={`/courses/${course.slug || course._id}`}
                   className={`mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md transition-all duration-200 ${
-                    index === 0 ? 'text-blue-600 bg-blue-100 hover:bg-blue-200 focus:ring-blue-500' :
+                    index === 0 ? 'text-blue-600 bg-blue-100 hover:bg-blue-200 focus:ring-blue-800' :
                     index === 1 ? 'text-green-600 bg-green-100 hover:bg-green-200 focus:ring-green-500' :
                     index === 2 ? 'text-purple-600 bg-purple-100 hover:bg-purple-200 focus:ring-purple-500' :
                     'text-gray-600 bg-gray-100 hover:bg-gray-200 focus:ring-gray-500'
@@ -176,7 +176,7 @@ export default function Home() {
           <div className="text-center mt-6">
             <a
               href="/explore"
-              className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-800 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200"
+              className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-800 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-800 transition-all duration-200"
             >
               Browse All Courses
             </a>
@@ -187,7 +187,7 @@ export default function Home() {
 
 
       {/* Testimonials Section */}
-      <section className="my-20">
+      <section className="my-20 flex flex-col justify-center h-[70vh]">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-blue-800 mb-4">
@@ -259,20 +259,20 @@ export default function Home() {
 
 
       {/* How Uwise Works Section */}
-      <section className="my-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="my-16 flex flex-col justify-center min-h-[70vh]">
+        <div className="max-w-6xl mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-blue-800">
               How Uwise Works
             </h2>
-            <p className="text-lg text-gray-800 max-w-2xl mx-auto">
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto my-3">
               Simple steps to start learning and growing your skills
             </p>
           </div>
 
-          <div className="relative bg-white rounded-2xl p-8 shadow-sm">
+          <div className="relative grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Step 1 */}
-            <div className="flex items-center mb-12">
+            <div className="flex items-start mb-12">
               <div className="flex-shrink-0 w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center">
                 <span className="text-3xl font-bold text-blue-600">1</span>
               </div>
@@ -283,7 +283,7 @@ export default function Home() {
             </div>
 
             {/* Step 2 */}
-            <div className="flex items-center mb-12">
+            <div className="flex items-start mb-12">
               <div className="flex-shrink-0 w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
                 <span className="text-3xl font-bold text-green-600">2</span>
               </div>
@@ -294,7 +294,7 @@ export default function Home() {
             </div>
 
             {/* Step 3 */}
-            <div className="flex items-center mb-12">
+            <div className="flex items-start mb-12">
               <div className="flex-shrink-0 w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center">
                 <span className="text-3xl font-bold text-purple-600">3</span>
               </div>
@@ -305,7 +305,7 @@ export default function Home() {
             </div>
 
             {/* Step 4 */}
-            <div className="flex items-center">
+            <div className="flex items-start">
               <div className="flex-shrink-0 w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center">
                 <span className="text-3xl font-bold text-blue-600">4</span>
               </div>

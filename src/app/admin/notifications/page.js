@@ -108,7 +108,7 @@ export default function NotificationsPage() {
           <span className="text-sm text-gray-600">Unread: {unreadCount}</span>
           <button
             onClick={markAllAsRead}
-            className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+            className="px-4 py-2 bg-blue-800 text-white rounded-md hover:bg-blue-600"
           >
             Mark All as Read
           </button>
@@ -181,7 +181,7 @@ export default function NotificationsPage() {
 
       {loading ? (
         <div className="flex justify-center items-center min-h-[200px]">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-800"></div>
         </div>
       ) : (
         <>

@@ -103,7 +103,7 @@ export default function NewUserPage() {
                       value={formData.email}
                       onChange={handleChange}
                       required
-                      className="w-full px-3 py-2 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-800"
                       placeholder="example@domain.com"
                     />
                   </div>
@@ -124,7 +124,7 @@ export default function NewUserPage() {
                       value={formData.displayName}
                       onChange={handleChange}
                       required
-                      className="w-full px-3 py-2 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-800"
                       placeholder="John Doe"
                     />
                   </div>
@@ -145,7 +145,7 @@ export default function NewUserPage() {
                       value={formData.password}
                       onChange={handleChange}
                       required
-                      className="w-full px-3 py-2 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-800"
                     />
                     <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
                       <button
@@ -209,7 +209,7 @@ export default function NewUserPage() {
                       value={formData.confirmPassword}
                       onChange={handleChange}
                       required
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-800"
                     />
                   </div>
                 </div>
@@ -228,7 +228,7 @@ export default function NewUserPage() {
                       value={formData.role}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-blue-500 transition-all duration-200"
+                      className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-blue-800 transition-all duration-200"
                     >
                       <option value="facilitator">Facilitator</option>
                       <option value="admin">Admin</option>
@@ -241,7 +241,7 @@ export default function NewUserPage() {
                 <button
                   type="button"
                   onClick={() => router.back()}
-                  className="inline-flex items-center justify-center py-2 px-4 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                  className="inline-flex items-center justify-center py-2 px-4 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-800"
                 >
                   Cancel
                 </button>
@@ -252,7 +252,7 @@ export default function NewUserPage() {
                   className={`inline-flex items-center justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white ${
                     loading
                       ? 'bg-blue-300 cursor-not-allowed'
-                      : 'bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'
+                      : 'bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-800'
                   }`}
                 >
                   {loading ? (

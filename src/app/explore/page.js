@@ -101,11 +101,11 @@ export default function Explore() {
                 type="text"
                 name="search"
                 placeholder="Search courses..."
-                className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:border-blue-500"
+                className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:border-blue-800"
               />
               <button
                 type="submit"
-                className="absolute right-0 top-1/2 -translate-y-1/2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+                className="absolute right-0 top-1/2 -translate-y-1/2 bg-blue-800 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
               >
                 Search
               </button>
@@ -119,7 +119,7 @@ export default function Explore() {
                 onClick={() => handleCategoryChange(category)}
                 className={`px-4 py-2 rounded-lg ${
                   selectedCategory === category
-                    ? 'bg-blue-600 text-white'
+                    ? 'bg-blue-800 text-white'
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                 }`}
               >
@@ -140,7 +140,7 @@ export default function Explore() {
       {/* Loading State */}
       {loading && (
         <div className="flex justify-center items-center min-h-[200px]">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-800"></div>
         </div>
       )}
 
