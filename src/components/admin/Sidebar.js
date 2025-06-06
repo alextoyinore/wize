@@ -15,7 +15,7 @@ export default function Sidebar({ className }) {
   const navItems = [
     {
       name: 'Dashboard',
-      href: '/admin/dashboard',
+      href: '/admin',
     },
     {
       name: 'Users',

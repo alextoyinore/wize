@@ -1,9 +1,10 @@
 
 import BannerImage from '@/assets/banner-image.png'
 import Image from 'next/image'
+import Partners from './Partners'
 
-export default function HomeHero() {
-    return <section className="relative w-full min-h-[80vh] py-5 my-12">
+export default function HomeHero({className}) {
+    return <section className={"relative w-full min-h-screen " + className}>
     
     {/* Hero Content */}
     <div className="relative w-full px-8 lg:p-0 mx-auto">
@@ -30,30 +31,6 @@ export default function HomeHero() {
               Explore Courses
             </a>
           </div>
-
-          {/* Trust Badges and Stats */}
-            {/* <div className="mt-10 text-sm md:text-base">
-                <div className="flex flex-col md:flex-row md:justify-start gap-4 md:gap-4 max-w-4xl">
-                    <div className="flex items-start gap-2 text-gray-600">
-                        <svg className="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-                        </svg>
-                        <span>100% Nigerian Curriculum</span>
-                    </div>
-                    <div className="flex items-start gap-2 text-gray-600">
-                        <svg className="w-6 h-6 text-green-600" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
-                        </svg>
-                        <span>95% Student Satisfaction</span>
-                    </div>
-                    <div className="flex items-start gap-2 text-gray-600">
-                        <svg className="w-6 h-6 text-purple-600" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
-                        </svg>
-                        <span>1000+ Students Served</span>
-                    </div>
-                </div>
-            </div> */}
         </div>
         
         {/* Right Content - Illustration */}
@@ -67,5 +44,6 @@ export default function HomeHero() {
         </div>
       </div>
     </div>
+
   </section> 
 }

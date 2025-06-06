@@ -31,10 +31,18 @@ export function middleware(request) {
     }
   }
 
+  // redirect admin to admin/login if admin is not logged in
+  if (request.nextUrl.pathname === '/admin') {
+    const token = request.cookies.get('admin_token')?.value
+    if (!token) {
+      return NextResponse.redirect(new URL('/admin/login', request.url))
+    }
+  }
+
   return NextResponse.next()
 }
 
 export const config = {
-  matcher: ['/login', '/register', '/admin/login', '/dashboard', '/profile', '/profile/edit', '/']
+  matcher: ['/login', '/register', '/admin/login', '/dashboard', '/profile', '/profile/edit', '/admin']
 }
 

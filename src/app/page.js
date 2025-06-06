@@ -2,6 +2,7 @@
 
 import Footer from "@/components/Footer"
 import HomeHero from "@/components/HomeHero"
+import Partners from "@/components/Partners"
 import { useEffect, useState } from "react"
 
 export default function Home() {
@@ -34,7 +35,9 @@ export default function Home() {
       {/* Background Gradient */}
       <div className="absolute w-full inset-0 bg-gradient-to-r md:rounded-2xl from-blue-100 to-green-100 opacity-10 -z-50"></div>
       
-      <HomeHero />
+      <HomeHero className="mt-16" />
+
+      {/* <Partners className="" /> */}
 
       {/* Why Choose Uwise Section */}
       <section id="features" className="pr-5 h-[60vh] flex flex-col justify-center">
