@@ -1,15 +1,16 @@
 'use client'
+import DashSidebar from '@/components/DashSidebar'
 
   
 export default function DashboardLayout({ children }) {
 
   return (
     <div className="flex gap-8 h-screen">
-      <main className="flex-1 w-3/4 overflow-y-auto">
-        <div className="p-4 sm:p-6">
-          {children}
-        </div>
+      <DashSidebar className={'w-1/5'} />
+      <main className="w-4/5 overflow-y-auto">
+        {children}
       </main>
     </div>
   )
 }
+

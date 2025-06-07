@@ -166,6 +166,9 @@ export default function Navbar() {
 
           {/* Desktop menu */}
           <div className="hidden sm:flex sm:items-center sm:space-x-4">
+            <Link href="/partnerships" className="hidden md:block flex items-center space-x-2 text-sm">
+              <span className="text-gray-500 border-r border-gray-200 px-4 hover:text-blue-800">Partner With Us</span>
+            </Link>
             {
               user && !pathname.includes('admin') && <CartIcon />
             }
