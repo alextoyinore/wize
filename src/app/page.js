@@ -58,7 +58,7 @@ export default function Home() {
               </div>
             ) : (
                courses.map((course, index) => (
-              <div key={course._id} className="group bg-white/50 p-6 rounded-lg transition-all duration-300 cursor-pointer hover:border-blue-600/10 hover:border-2 hover:-translate-y-1">
+              <div key={course._id} className="group bg-white/50 p-6 rounded-lg transition-all duration-300 cursor-pointer hover:border-blue-800/10 hover:border-2 hover:-translate-y-1">
                 <div className="relative h-48 mb-6">
                   <img 
                     src={course.image || '/images/course-default.jpg'} 
@@ -66,7 +66,7 @@ export default function Home() {
                     className="w-full h-full object-cover rounded-lg"
                   />
                   <span className={`absolute top-4 right-4 px-3 py-1 rounded-full text-sm ${
-                    index === 0 ? 'bg-blue-100 text-blue-600' :
+                    index === 0 ? 'bg-blue-100 text-blue-800' :
                     index === 1 ? 'bg-green-100 text-green-600' :
                     index === 2 ? 'bg-purple-100 text-purple-600' :
                     'bg-gray-100 text-gray-600'
@@ -87,7 +87,7 @@ export default function Home() {
                 <a
                   href={`/courses/${course.slug || course._id}`}
                   className={`mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md transition-all duration-200 ${
-                    index === 0 ? 'text-blue-600 bg-blue-100 hover:bg-blue-200 focus:ring-blue-800' :
+                    index === 0 ? 'text-blue-800 bg-blue-100 hover:bg-blue-200 focus:ring-blue-800' :
                     index === 1 ? 'text-green-600 bg-green-100 hover:bg-green-200 focus:ring-green-500' :
                     index === 2 ? 'text-purple-600 bg-purple-100 hover:bg-purple-200 focus:ring-purple-500' :
                     'text-gray-600 bg-gray-100 hover:bg-gray-200 focus:ring-gray-500'
@@ -123,9 +123,9 @@ export default function Home() {
 
           <div className="pr-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {/* Card 1 */}
-            <div className="group relative bg-white p-6 rounded-lg transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+            <div className="group relative bg-white/50 p-6 rounded-lg transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
               <div className="absolute -top-4 -right-4 bg-blue-100 rounded-full p-3">
-                <svg className="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+                <svg className="w-6 h-6 text-blue-800" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
                 </svg>
               </div>
@@ -138,7 +138,7 @@ export default function Home() {
             </div>
 
             {/* Card 2 */}
-            <div className="group relative bg-white p-6 rounded-lg transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+            <div className="group relative bg-white/50 p-6 rounded-lg transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
               <div className="absolute -top-4 -right-4 bg-green-100 rounded-full p-3">
                 <svg className="w-6 h-6 text-green-600" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
@@ -153,7 +153,7 @@ export default function Home() {
             </div>
 
             {/* Card 3 */}
-            <div className="group relative bg-white p-6 rounded-lg transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+            <div className="group relative bg-white/50 p-6 rounded-lg transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
               <div className="absolute -top-4 -right-4 bg-purple-100 rounded-full p-3">
                 <svg className="w-6 h-6 text-purple-600" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
@@ -168,9 +168,9 @@ export default function Home() {
             </div>
 
             {/* Card 4 */}
-            <div className="group relative bg-white p-6 rounded-lg transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+            <div className="group relative bg-white/50 p-6 rounded-lg transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
               <div className="absolute -top-4 -right-4 bg-blue-100 rounded-full p-3">
-                <svg className="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+                <svg className="w-6 h-6 text-blue-800" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M13 7h-2v5H7v2h4v5h2v-5h4v-2h-4V7zm-1-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
                 </svg>
               </div>
@@ -203,7 +203,7 @@ export default function Home() {
             <div className="bg-blue-50/50 p-6 rounded-lg border border-blue-50">
               <div className="flex items-center mb-4">
                 <div className="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center mr-4">
-                  <svg className="w-8 h-8 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-8 h-8 text-blue-800" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
                   </svg>
                 </div>
@@ -274,7 +274,7 @@ export default function Home() {
             {/* Step 1 */}
             <div className="flex items-start mb-12">
               <div className="flex-shrink-0 w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center">
-                <span className="text-3xl font-bold text-blue-600">1</span>
+                <span className="text-3xl font-bold text-blue-800">1</span>
               </div>
               <div className="ml-6">
                 <h3 className="text-lg font-semibold text-blue-800">Browse Courses</h3>
@@ -307,7 +307,7 @@ export default function Home() {
             {/* Step 4 */}
             <div className="flex items-start">
               <div className="flex-shrink-0 w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center">
-                <span className="text-3xl font-bold text-blue-600">4</span>
+                <span className="text-3xl font-bold text-blue-800">4</span>
               </div>
               <div className="ml-6">
                 <h3 className="text-xl font-semibold text-blue-800">Get Certified</h3>

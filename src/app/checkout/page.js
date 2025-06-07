@@ -116,13 +116,13 @@ export default function CheckoutPage() {
           <motion.div 
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-gray-50 p-8 rounded-xl shadow-lg"
+            className="p-8 flex flex-col items-center gap-5"
           >
             <h2 className="text-2xl font-bold text-gray-900">Your Cart is Empty</h2>
-            <p className="mt-4 text-gray-600">Add some courses to get started!</p>
+            <p className="text-gray-600">Add some courses to get started!</p>
             <Link 
               href="/explore"
-              className="mt-6 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+              className="px-6 py-2 bg-blue-800 text-white rounded-lg hover:bg-blue-700 transition-colors"
             >
               Browse Courses
             </Link>
@@ -150,7 +150,7 @@ export default function CheckoutPage() {
                       key={item.courseId}
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
-                      className="bg-white p-4 rounded-lg shadow-sm mb-3"
+                      className="bg-white p-4 mb-3"
                     >
                       <div className="flex items-center space-x-4">
                         <img 
@@ -161,7 +161,7 @@ export default function CheckoutPage() {
                         <div>
                           <h3 className="text-lg font-medium text-gray-900">{item.course.title}</h3>
                           <p className="text-sm text-gray-600">{item.plan} Plan</p>
-                          <p className="text-sm font-medium text-blue-600">
+                          <p className="text-sm font-medium text-blue-800">
                             ₦{new Intl.NumberFormat('en-NG').format(item.price)}
                           </p>
                         </div>
@@ -172,7 +172,7 @@ export default function CheckoutPage() {
                   <div className="mt-6 border-t pt-6">
                     <div className="flex items-center justify-between">
                       <h3 className="text-lg font-medium text-gray-900">Total</h3>
-                      <p className="text-lg font-bold text-blue-600">
+                      <p className="text-lg font-bold text-blue-800">
                         ₦{new Intl.NumberFormat('en-NG').format(total)}
                       </p>
                     </div>
@@ -220,7 +220,7 @@ export default function CheckoutPage() {
                       <CheckIcon className="w-5 h-5 text-green-500" />
                       <div>
                         <h3 className="font-medium text-gray-900">Total Amount</h3>
-                        <p className="text-sm font-bold text-blue-600">
+                        <p className="text-sm font-bold text-blue-800">
                           ₦{new Intl.NumberFormat('en-NG').format(total)}
                         </p>
                       </div>
@@ -230,7 +230,7 @@ export default function CheckoutPage() {
 
                 <button
                   onClick={handleCheckout}
-                  className="w-full flex items-center justify-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-blue-600 hover:bg-blue-700"
+                  className="w-full flex items-center justify-center px-6 py-3 rounded-md text-base font-medium text-white bg-blue-800 hover:bg-blue-700"
                 >
                   Proceed to Payment
                 </button>

@@ -190,7 +190,7 @@ export default function CategoriesPage() {
           <button
             type="submit"
             disabled={creating}
-            className="w-full bg-blue-800 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors duration-200"
+            className="w-full bg-blue-800 text-white px-4 py-2 rounded-md hover:bg-blue-800 transition-colors duration-200"
           >
             {creating ? 'Creating...' : 'Create Category'}
           </button>
@@ -245,7 +245,7 @@ export default function CategoriesPage() {
                         <p className="text-gray-900">{category.name}</p>
                         <button
                           onClick={() => setEditingCategory(category)}
-                          className="text-blue-800 hover:text-blue-600"
+                          className="text-blue-800 hover:text-blue-800"
                         >
                           <PencilIcon className="w-4 h-4" />
                         </button>

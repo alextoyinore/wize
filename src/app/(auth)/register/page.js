@@ -210,7 +210,7 @@ export default function Register() {
             <button
               type="submit"
               disabled={isLoading}
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-800 mb-4 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-800 hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-800 mb-4 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isLoading ? (
                 <>
@@ -257,15 +257,15 @@ export default function Register() {
                 type="checkbox"
                 required
                 onChange={(e) => setTermsAccepted(e.target.checked)}
-                className="h-4 w-4 text-blue-600 focus:ring-blue-800 border-gray-300 rounded"
+                className="h-4 w-4 text-blue-800 focus:ring-blue-800 border-gray-300 rounded"
               />
               <label htmlFor="terms" className="ml-2 block text-sm text-gray-900">
                 I agree to the{' '}
-                <Link href="/terms" className="text-blue-600 hover:text-blue-800">
+                <Link href="/terms" className="text-blue-800 hover:text-blue-800">
                   Terms of Service
                 </Link>
                 {' '}and{' '}
-                <Link href="/privacy" className="text-blue-600 hover:text-blue-800">
+                <Link href="/privacy" className="text-blue-800 hover:text-blue-800">
                   Privacy Policy
                 </Link>
               </label>
@@ -277,7 +277,7 @@ export default function Register() {
             href="/login"
             className="text-sm"
           >
-            Already have an account? <span className="text-blue-600 font-medium">Sign in</span>
+            Already have an account? <span className="text-blue-800 font-medium">Sign in</span>
           </Link>
         </div>
       </div>

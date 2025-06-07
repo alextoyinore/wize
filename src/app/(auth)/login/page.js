@@ -151,7 +151,7 @@ export default function Login() {
                 name="remember-me"
                 type="checkbox"
                 disabled={isLoading}
-                className="h-4 w-4 text-blue-600 focus:ring-blue-800 border-gray-300 rounded disabled:opacity-50 disabled:cursor-not-allowed"
+                className="h-4 w-4 text-blue-800 focus:ring-blue-800 border-gray-300 rounded disabled:opacity-50 disabled:cursor-not-allowed"
               />
               <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
                 Remember me
@@ -159,7 +159,7 @@ export default function Login() {
             </div>
 
             <div className="text-sm">
-              <Link href="/password-reset" className="font-medium text-blue-600 hover:text-blue-800">
+              <Link href="/password-reset" className="font-medium text-blue-800 hover:text-blue-800">
                 Forgot your password?
               </Link>
             </div>
@@ -169,7 +169,7 @@ export default function Login() {
             <button
               type="submit"
               disabled={isLoading}
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-800"
+              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-800 hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-800"
             >
               {isLoading ? (
                 <>
@@ -197,7 +197,7 @@ export default function Login() {
 
           <p className="text-center text-sm mt-6 text-gray-600">
           Don't have an account?{' '}
-          <Link href="/register" className="font-medium text-blue-600 hover:text-blue-800">
+          <Link href="/register" className="font-medium text-blue-800 hover:text-blue-800">
             Create one
           </Link>
         </p>

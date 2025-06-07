@@ -166,7 +166,7 @@ export default function EditProfile() {
                   <div className="w-32">
                     <div className="bg-gray-200 rounded-full h-2">
                       <div 
-                        className="bg-blue-600 h-2 rounded-full transition-all duration-300"
+                        className="bg-blue-800 h-2 rounded-full transition-all duration-300"
                         style={{ width: `${completion}%` }}
                       ></div>
                     </div>
@@ -316,7 +316,7 @@ export default function EditProfile() {
               </Link>
               <button
                 type="submit"
-                className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-800"
+                className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-800 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-800"
               >
                 Save Changes
               </button>

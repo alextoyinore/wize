@@ -61,7 +61,7 @@ export default function CourseSearch({ onSelectCourse, selectedCourse }) {
 
       {loading && (
         <div className="absolute inset-y-0 right-0 flex items-center pr-3">
-          <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-blue-600"></div>
+          <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-blue-800"></div>
         </div>
       )}
 

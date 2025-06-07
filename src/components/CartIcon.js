@@ -25,7 +25,7 @@ export default function CartIcon() {
     <Link href="/cart" className="relative">
       <ShoppingCartIcon className="h-5 w-5 text-gray-500" />
       {cartCount > 0 && (
-        <span className="absolute -top-1 -right-1 bg-blue-600 text-white text-xs px-1.5 py-0.5 rounded-full">
+        <span className="absolute -top-1 -right-1 bg-blue-800 text-white text-xs px-1.5 py-0.5 rounded-full">
           {cartCount}
         </span>
       )}

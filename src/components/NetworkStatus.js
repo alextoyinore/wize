@@ -24,7 +24,7 @@ export default function NetworkStatus({ loading, error, children }) {
         <p className="text-gray-600">Please check your internet connection and try again.</p>
         <button
           onClick={() => window.location.reload()}
-          className="mt-4 px-4 py-2 bg-blue-800 text-white rounded hover:bg-blue-600 transition-colors"
+          className="mt-4 px-4 py-2 bg-blue-800 text-white rounded hover:bg-blue-800 transition-colors"
         >
           Try Again
         </button>

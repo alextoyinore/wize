@@ -101,7 +101,7 @@ export default function CartPage() {
             <p className="mt-4 text-gray-600">Add some courses to get started!</p>
             <Link 
               href="/explore"
-              className="mt-6 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+              className="mt-6 px-6 py-2 bg-blue-800 text-white rounded-lg hover:bg-blue-700 transition-colors"
             >
               Browse Courses
             </Link>
@@ -135,7 +135,7 @@ export default function CartPage() {
                       </div>
                     </div>
                     <div className="flex items-center space-x-4">
-                      <span className="text-md font-bold text-blue-600">₦{new Intl.NumberFormat('en-NG').format(item.price)}</span>
+                      <span className="text-md font-bold text-blue-800">₦{new Intl.NumberFormat('en-NG').format(item.price)}</span>
                       <button
                         onClick={() => removeFromCart(item.courseId)}
                         className="text-red-500 hover:text-red-700"
@@ -153,12 +153,12 @@ export default function CartPage() {
                 <div className="border-t border-gray-200 pt-6">
                   <div className="flex items-center justify-between">
                     <h3 className="text-md font-medium text-gray-900">Total</h3>
-                    <p className="text-md font-bold text-blue-600">₦{new Intl.NumberFormat('en-NG').format(total)}</p>
+                    <p className="text-md font-bold text-blue-800">₦{new Intl.NumberFormat('en-NG').format(total)}</p>
                   </div>
                   <div className="mt-6">
                     <Link
                       href="/checkout"
-                      className="w-full flex items-center justify-center px-6 py-3 rounded-md shadow-sm text-base font-medium text-white bg-blue-600 hover:bg-blue-700"
+                      className="w-full flex items-center justify-center px-6 py-3 rounded-md shadow-sm text-base font-medium text-white bg-blue-800 hover:bg-blue-700"
                     >
                       Proceed to Checkout
                     </Link>

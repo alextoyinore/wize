@@ -108,7 +108,7 @@ export default function NotificationsPage() {
           <span className="text-sm text-gray-600">Unread: {unreadCount}</span>
           <button
             onClick={markAllAsRead}
-            className="px-4 py-2 bg-blue-800 text-white rounded-md hover:bg-blue-600"
+            className="px-4 py-2 bg-blue-800 text-white rounded-md hover:bg-blue-800"
           >
             Mark All as Read
           </button>

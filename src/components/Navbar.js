@@ -130,7 +130,7 @@ export default function Navbar() {
               </Link>
 
               {!pathname.includes('admin') && (
-                <Link href="/explore" className="flex items-center space-x-2">
+                <Link href="/explore" className="hidden md:block flex items-center space-x-2">
                   <span className="text-gray-500 border-x border-gray-200 px-4 hover:text-blue-800">Explore</span>
                 </Link>
               )}

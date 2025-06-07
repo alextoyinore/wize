@@ -175,7 +175,7 @@ export default function CourseEnroll() {
                     onClick={() => setSelectedPlan('three-month')}
                   >
                     <h3 className="text-xl font-medium mb-4">Three Month Plan</h3>
-                    <p className="text-3xl font-bold text-blue-600 mb-6">₦{new Intl.NumberFormat('en-NG').format(course.price)}</p>
+                    <p className="text-3xl font-bold text-blue-800 mb-6">₦{new Intl.NumberFormat('en-NG').format(course.price)}</p>
                     <ul className="space-y-3 text-gray-600">
                       <li className="flex items-center space-x-2">
                         <CheckIcon className="w-5 h-5 text-green-500" />
@@ -202,7 +202,7 @@ export default function CourseEnroll() {
                     onClick={() => setSelectedPlan('six-month')}
                   >
                     <h3 className="text-xl font-medium mb-4">Six Month Plan</h3>
-                    <p className="text-3xl font-bold text-blue-600 mb-6">₦{new Intl.NumberFormat('en-NG').format(course.price * 1.5)}</p>
+                    <p className="text-3xl font-bold text-blue-800 mb-6">₦{new Intl.NumberFormat('en-NG').format(course.price * 1.5)}</p>
                     <ul className="space-y-3 text-gray-600">
                       <li className="flex items-center space-x-2">
                         <CheckIcon className="w-5 h-5 text-green-500" />
@@ -233,7 +233,7 @@ export default function CourseEnroll() {
                     onClick={() => setSelectedPlan('one-year')}
                   >
                     <h3 className="text-xl font-medium mb-4">One Year Plan</h3>
-                    <p className="text-3xl font-bold text-blue-600 mb-6">₦{new Intl.NumberFormat('en-NG').format(course.price * 2)}</p>
+                    <p className="text-3xl font-bold text-blue-800 mb-6">₦{new Intl.NumberFormat('en-NG').format(course.price * 2)}</p>
                     <ul className="space-y-3 text-gray-600">
                       <li className="flex items-center space-x-2">
                         <CheckIcon className="w-5 h-5 text-green-500" />
@@ -278,7 +278,7 @@ export default function CourseEnroll() {
               </button>
               <button
                 onClick={handleCheckout}
-                className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                className="px-6 py-2 bg-blue-800 text-white rounded-lg hover:bg-blue-700 transition-colors"
               >
                 Checkout Now
               </button>

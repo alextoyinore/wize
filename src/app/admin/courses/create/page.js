@@ -462,7 +462,7 @@ export default function NewCourse() {
             ))}
             <button
               onClick={addRequirement}
-              className="w-full px-4 py-3 bg-blue-300/10 border border-blue-800 text-blue-600 rounded-lg hover:bg-blue-600 hover:text-white transition-all duration-200 flex items-center justify-center"
+              className="w-full px-4 py-3 bg-blue-300/10 border border-blue-800 text-blue-800 rounded-lg hover:bg-blue-800 hover:text-white transition-all duration-200 flex items-center justify-center"
             >
               <PlusIcon className="w-5 h-5 mr-2" />
               Add New Requirement
@@ -497,7 +497,7 @@ export default function NewCourse() {
             ))}
             <button
               onClick={addWhatYoullLearn}
-              className="w-full px-4 py-3 bg-blue-300/10 border border-blue-800 text-blue-600 rounded-lg hover:bg-blue-600 hover:text-white transition-all duration-200 flex items-center justify-center"
+              className="w-full px-4 py-3 bg-blue-300/10 border border-blue-800 text-blue-800 rounded-lg hover:bg-blue-800 hover:text-white transition-all duration-200 flex items-center justify-center"
             >
               <PlusIcon className="w-5 h-5 mr-2" />
               Add New Item
@@ -587,7 +587,7 @@ export default function NewCourse() {
                               type="checkbox"
                               checked={lesson.isLive}
                               onChange={(e) => handleLessonChange(sectionIndex, lessonIndex, 'isLive', e.target.checked)}
-                              className="rounded border-gray-300 text-blue-600 focus:ring-blue-800"
+                              className="rounded border-gray-300 text-blue-800 focus:ring-blue-800"
                             />
                           </div>
                         </div>
@@ -633,7 +633,7 @@ export default function NewCourse() {
 
                 <button
                   onClick={() => addLesson(sectionIndex)}
-                  className="w-full px-4 py-3 bg-blue-300/10 border border-blue-800 text-blue-600 rounded-lg hover:bg-blue-600 hover:text-white transition-all duration-200 flex items-center justify-center"
+                  className="w-full px-4 py-3 bg-blue-300/10 border border-blue-800 text-blue-800 rounded-lg hover:bg-blue-800 hover:text-white transition-all duration-200 flex items-center justify-center"
                 >
                   <PlusIcon className="w-5 h-5 mr-2" />
                   Add New Lesson
@@ -643,7 +643,7 @@ export default function NewCourse() {
           ))}
           <button
             onClick={addSection}
-            className="w-full px-4 py-3 bg-blue-300/10 border border-blue-800 text-blue-600 rounded-lg hover:bg-blue-600 hover:text-white transition-all duration-200 flex items-center justify-center"
+            className="w-full px-4 py-3 bg-blue-300/10 border border-blue-800 text-blue-800 rounded-lg hover:bg-blue-800 hover:text-white transition-all duration-200 flex items-center justify-center"
           >
             <PlusIcon className="w-5 h-5 mr-2" />
             Add New Section
@@ -661,7 +661,7 @@ export default function NewCourse() {
           <button
             type="submit"
             disabled={loading}
-            className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="px-6 py-3 bg-blue-800 text-white rounded-lg hover:bg-blue-700 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {loading ? 'Creating...' : 'Create Course'}
           </button>

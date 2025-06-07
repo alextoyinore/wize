@@ -54,7 +54,7 @@ export default function Terms() {
         <p>
           All fees are payable upfront. Refunds are available within 7 days if
           less than 20% of a course is accessed. Requests should be sent to{" "}
-          <a href="mailto:support@uwise.ng" className="text-blue-600 underline">
+          <a href="mailto:support@uwise.ng" className="text-blue-800 underline">
             support@uwise.ng
           </a>
           .
@@ -92,7 +92,7 @@ export default function Terms() {
         <h2 className="text-xl font-semibold">9. Privacy</h2>
         <p>
           Your data is protected under our{" "}
-          <a href="/privacy-policy" className="text-blue-600 underline">
+          <a href="/privacy-policy" className="text-blue-800 underline">
             Privacy Policy
           </a>
           . We comply with NDPR and, where applicable, GDPR.
@@ -162,7 +162,7 @@ export default function Terms() {
           <br />
           <strong>Uwise Education</strong>
           <br />
-          Email: <a href="mailto:support@uwise.ng" className="text-blue-600 underline">support@uwise.ng</a>
+          Email: <a href="mailto:support@uwise.ng" className="text-blue-800 underline">support@uwise.ng</a>
           <br />
           Phone: +234 [Insert Number]
           <br />

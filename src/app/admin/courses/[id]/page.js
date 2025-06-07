@@ -314,7 +314,7 @@ export default function CoursePage() {
                     )}
                     <button
                       onClick={() => setShowImageModal(true)}
-                      className="border border-blue-800 mt-5 text-blue-800 px-4 py-2 rounded-md hover:bg-blue-50 hover:text-blue-600 transition-colors"
+                      className="border border-blue-800 mt-5 text-blue-800 px-4 py-2 rounded-md hover:bg-blue-50 hover:text-blue-800 transition-colors"
                     >
                       Change Image
                     </button>
@@ -388,7 +388,7 @@ export default function CoursePage() {
                 <div className="flex flex-col gap-4">
                   <button
                     onClick={() => setShowLessonForm(!showLessonForm)}
-                    className="flex items-center justify-center border border-blue-800 text-blue-800 px-4 py-2 rounded-md hover:bg-blue-50 hover:text-blue-600 transition-colors"
+                    className="flex items-center justify-center border border-blue-800 text-blue-800 px-4 py-2 rounded-md hover:bg-blue-50 hover:text-blue-800 transition-colors"
                   >
                     <PlusIcon className="w-5 h-5 mr-2" />
                     {showLessonForm ? 'Hide Lesson Form' : 'Add New Lesson'}
@@ -459,7 +459,7 @@ export default function CoursePage() {
                             type="checkbox"
                             checked={newLesson.isLive}
                             onChange={(e) => setNewLesson(prev => ({ ...prev, isLive: e.target.checked }))}
-                            className="rounded border-gray-300 text-blue-600 focus:ring-blue-800"
+                            className="rounded border-gray-300 text-blue-800 focus:ring-blue-800"
                           />
                           <label className="text-sm text-gray-700">Is this a live class?</label>
                         </div>
@@ -613,7 +613,7 @@ export default function CoursePage() {
           {/* <div className="flex justify-end space-x-4">
             <button
               onClick={() => setEditing(true)}
-              className="px-4 py-2 bg-blue-800 text-white rounded hover:bg-blue-600"
+              className="px-4 py-2 bg-blue-800 text-white rounded hover:bg-blue-800"
             >
               Edit Course
             </button>

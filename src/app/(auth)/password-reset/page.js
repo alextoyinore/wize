@@ -90,7 +90,7 @@ export default function ResetPassword() {
             <div>
               <button
                 type="submit"
-                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-800"
+                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-800 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-800"
               >
                 Send Reset Link
               </button>
@@ -113,7 +113,7 @@ export default function ResetPassword() {
           <div className="mt-6">
             <Link
               href="/login"
-              className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-blue-600 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-800"
+              className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-blue-800 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-800"
             >
               Sign in
             </Link>

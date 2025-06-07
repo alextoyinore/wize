@@ -149,7 +149,7 @@ export default function Privacy() {
         </p>
         <p className="text-gray-600 leading-6 text-sm">
           <strong>Uwise Education</strong><br />
-          Email: <a href="mailto:support@uwise.ng" className="text-blue-600 underline">support@uwise.ng</a><br />
+          Email: <a href="mailto:support@uwise.ng" className="text-blue-800 underline">support@uwise.ng</a><br />
           Phone: +234 [Insert Number]<br />
           Address: [Insert Office Address]
         </p>

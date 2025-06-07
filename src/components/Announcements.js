@@ -62,18 +62,18 @@ export default function Announcements() {
     <>
     {
       (visibleAnnouncements.length > 0) && (
-        <div className="bg-blue-100/50 text-blue-800 text-center px-2 py-1">      
+        <div className="bg-blue-100/50 text-blue-800 text-center flex justify-center items-center px-2 py-1">      
           {visibleAnnouncements.map((announcement) => (
-            <div key={announcement._id} className="flex justify-between items-center">
+            <div key={announcement._id} className="flex justify-between items-center gap-5">
               <div className="flex items-start text-sm gap-1">
                 <h3 className="font-medium">{announcement.title}</h3>
                 <p>- {announcement.content}</p>
               </div>
               <button 
-                className="text-white hover:text-gray-200"
+                className="text-blue-800 cursor-pointer"
                 onClick={() => handleCloseAnnouncement(announcement._id)}
               >
-                <CloseIcon className="h-4 w-4" />
+                <CloseIcon className="h-4 w-4 cursor-pointer" />
               </button>
             </div>
           ))}

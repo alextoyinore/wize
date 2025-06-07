@@ -163,7 +163,7 @@ export default function Settings() {
                     name="maintenanceMode"
                     checked={settings.maintenanceMode}
                     onChange={handleChange}
-                    className="h-4 w-4 text-blue-600 focus:ring-blue-800 border-gray-300 rounded"
+                    className="h-4 w-4 text-blue-800 focus:ring-blue-800 border-gray-300 rounded"
                   />
                   <label className="ml-2 block text-sm font-medium text-gray-700">
                     Maintenance Mode
@@ -175,7 +175,7 @@ export default function Settings() {
                     name="emailNotifications"
                     checked={settings.emailNotifications}
                     onChange={handleChange}
-                    className="h-4 w-4 text-blue-600 focus:ring-blue-800 border-gray-300 rounded"
+                    className="h-4 w-4 text-blue-800 focus:ring-blue-800 border-gray-300 rounded"
                   />
                   <label className="ml-2 block text-sm font-medium text-gray-700">
                     Email Notifications
@@ -288,7 +288,7 @@ export default function Settings() {
           <div className="mt-8">
             <button
               onClick={handleSaveSettings}
-              className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-800"
+              className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-800 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-800"
             >
               Save Settings
             </button>
