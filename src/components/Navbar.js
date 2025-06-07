@@ -19,6 +19,7 @@ export default function Navbar() {
   const [user, setUser] = useState(null)
   const dropdownRef = useRef(null)
   const pathname = usePathname()
+  const [search, setSearch] = useState('')
 
 
   useEffect(() => {
@@ -97,42 +98,55 @@ export default function Navbar() {
     window.location.href = loginPath
   }
 
+  const handleSearch = (e) => {
+    e.preventDefault()
+
+  }
+
 
   return (
     <nav className="bg-white/90 backdrop-blur-sm text-gray-900 sticky top-0 z-50 ">
-      {/* Announcements Section */}
-      <div>
-        <Announcements />
-      </div>
-      <div className="max-w-6xl mx-auto px-4 py-2 md:p-0">
+      <div className={`max-w-6xl mx-auto px-4 py-2 md:p-0 ${search.length && 'h-screen transition-all overflow-y-auto'}`}>
         <div className="flex justify-between h-16" ref={dropdownRef}>
           <div className="flex items-center space-x-4">
-          <Link href={pathname.includes('admin') ? "/admin" : "/"} className="flex items-center rounded-md py-2 transition-colors">
-              <Image
-                src={Logo}
-                alt="Uwise Logo"
-                priority
-                className="h-5 w-auto hidden lg:block"
-                width={25}
-                height={25}
-              />
+            <Link href={pathname.includes('admin') ? "/admin" : "/"} className="flex items-center rounded-md py-2 transition-colors">
+                <Image
+                  src={Logo}
+                  alt="Uwise Logo"
+                  priority
+                  className="h-5 w-auto hidden lg:block"
+                  width={25}
+                  height={25}
+                />
 
-              <Image
-                src={Icon}
-                alt="Uwise Icon"
-                priority
-                className="h-7 w-auto lg:hidden sm:block"
-                width={40}
-                height={40}
-              />
-            </Link>
-
-            {!pathname.includes('admin') && (
-              <Link href="/explore" className="flex items-center space-x-2">
-                <span className="text-gray-500 border-l border-gray-200 pl-4 hover:text-blue-800">Explore</span>
+                <Image
+                  src={Icon}
+                  alt="Uwise Icon"
+                  priority
+                  className="h-7 w-auto lg:hidden sm:block"
+                  width={40}
+                  height={40}
+                />
               </Link>
-            )}
+
+              {!pathname.includes('admin') && (
+                <Link href="/explore" className="flex items-center space-x-2">
+                  <span className="text-gray-500 border-x border-gray-200 px-4 hover:text-blue-800">Explore</span>
+                </Link>
+              )}
+
+              <div>
+                <form>
+                  <input
+                    onChange={(e)=> {setSearch(e.target.value); handleSearch(e)}}
+                    className='outline-none focus:ring-0 px-5 py-1.5 rounded-full border border-gray-200 text-sm text-gray-600 bg-transparent'
+                    type='text'
+                    placeholder='Search Uwise...'
+                  />
+                </form>
+              </div>
           </div>
+
           
           {/* Mobile menu button */}
           <div className="flex items-center sm:hidden">
@@ -305,6 +319,8 @@ export default function Navbar() {
           </div>
         </div>
       </div>
+      {/* Announcements Section */}
+      <Announcements />
     </nav>
   )
 }

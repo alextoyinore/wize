@@ -50,22 +50,8 @@ export default function Announcements() {
     }
   }
 
-  // if (loading) {
-  //   return (
-  //     <div className="flex items-center justify-center text-gray-400 text-sm">
-  //       Loading Announcements...
-  //       {/* <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div> */}
-  //     </div>
-  //   )
-  // }
-
   if (error) {
     return
-    // return (
-    //   <div className="bg-red-100 border border-red-400 text-red-700 px-4 rounded">
-    //     {error}
-    //   </div>
-    // )
   }
 
   if (announcements.length === 0) {
@@ -76,7 +62,7 @@ export default function Announcements() {
     <>
     {
       (visibleAnnouncements.length > 0) && (
-        <div className="bg-blue-600 text-white text-center px-2 py-1">      
+        <div className="bg-blue-100/50 text-blue-800 text-center px-2 py-1">      
           {visibleAnnouncements.map((announcement) => (
             <div key={announcement._id} className="flex justify-between items-center">
               <div className="flex items-start text-sm gap-1">
