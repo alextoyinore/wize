@@ -5,15 +5,15 @@ import './globals.css';
 const dm = DM_Sans({ subsets: ['latin'] });
 
 export const metadata = {
-  title: 'Uwise - Your Ultimate Learning Platform',
-  description: 'Learn anytime, anywhere with Uwise',
+  title: "Uwise - Bridging the wealth gap",
+  description: "Learn anytime, anywhere with Uwise",
   icons: {
     icon: '/icon.svg',
   },
   alternates: {
     explore: {
-      title: 'Explore Courses | Uwise',
-      description: 'Discover a wide range of courses in various categories',
+      title: "Explore Courses | Uwise",
+      description: "Discover a wide range of courses in various categories",
     },
   },
 };

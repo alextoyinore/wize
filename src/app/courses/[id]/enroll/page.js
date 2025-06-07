@@ -85,26 +85,30 @@ export default function CourseEnroll() {
       return
     }
 
-    try {
-      const response = await fetch(`/api/courses/${id}/checkout`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify({ plan: selectedPlan })
-      })
+    handleAddToCart()
 
-      const data = await response.json()
+    router.push('/checkout')
+
+    // try {
+    //   const response = await fetch(`/api/courses/${id}/checkout`, {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //       'Authorization': `Bearer ${token}`
+    //     },
+    //     body: JSON.stringify({ plan: selectedPlan })
+    //   })
+
+    //   const data = await response.json()
       
-      if (!response.ok) {
-        throw new Error(data.error || 'Failed to start checkout')
-      }
+    //   if (!response.ok) {
+    //     throw new Error(data.error || 'Failed to start checkout')
+    //   }
 
-      window.location.href = data.checkoutUrl
-    } catch (err) {
-      setError(err.message)
-    }
+    //   window.location.href = data.checkoutUrl
+    // } catch (err) {
+    //   setError(err.message)
+    // }
   }
 
   const handleAddToCart = async () => {
@@ -152,7 +156,7 @@ export default function CourseEnroll() {
                 transition={{ duration: 0.5 }}
               >
                 <h1 className="text-4xl font-bold text-gray-900">{course.title}</h1>
-                <p className="mt-3 text-gray-600 text-sm leading-6">{course.description}</p>
+                <p className="mt-3 text-gray-600 text-sm md:text-lg leading-6">{course.description}</p>
               </motion.div>
             </div>
 
@@ -163,7 +167,7 @@ export default function CourseEnroll() {
               className="space-y-8"
             >
               <div className="bg-gray-50 p-8 rounded-2xl">
-                <h2 className="text-xl font-semibold mb-6">Choose Preferred Plan</h2>
+                <h2 className="text-xl font-semibold mb-6">Choose Preferred Duration</h2>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   <motion.div
                     className={`py-6 px-8 rounded-2xl transition-all duration-300 ${

@@ -11,7 +11,7 @@ export default function Layout({ children }) {
   const routes = ['login', 'register']
 
   return (
-    <div className="min-h-screen relative">
+    <div className="min-h-screen relative scroll-smooth" style={{ scrollBehavior: 'smooth' }}>
       {!routes.includes(pathname) && <Navbar />}
       <main className="max-w-[98%] lg:max-w-[78%] mx-auto lg:py-8">
         {children}
