@@ -142,9 +142,9 @@ export default function EditProfile() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="bg-white shadow rounded-lg p-6">
+    <div className="min-h-[30vh] w-full lg:w-[50%] mx-auto bg-gray-50">
+      <div className="w-full p-12">
+        <div className="rounded-lg p-6">
           <h1 className="text-2xl font-bold text-gray-900 mb-6">
             Edit Profile
           </h1>
@@ -157,7 +157,7 @@ export default function EditProfile() {
 
           <form onSubmit={handleSubmit} className="space-y-6">
             {completion > 0 && (
-              <div className="bg-white rounded-lg shadow p-4">
+              <div className="rounded-lg p-4">
                 <div className="flex items-center justify-between">
                   <div>
                     <h3 className="text-sm font-medium text-gray-500">Profile Completion</h3>
@@ -213,7 +213,7 @@ export default function EditProfile() {
                 name="displayName"
                 value={formData.displayName}
                 onChange={handleChange}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-800 focus:ring-blue-800 sm:text-sm"
+                className="mt-1 block w-full p-2 rounded-md border-gray-300 shadow-sm focus:border-blue-800 focus:ring-blue-800 sm:text-sm"
                 placeholder="John Doe"
               />
             </div>
@@ -227,7 +227,7 @@ export default function EditProfile() {
                 value={formData.bio}
                 onChange={handleChange}
                 rows={4}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-800 focus:ring-blue-800 sm:text-sm"
+                className="mt-1 block w-full p-2 rounded-md border-gray-300 shadow-sm focus:border-blue-800 focus:ring-blue-800 sm:text-sm"
                 placeholder="Tell us about yourself..."
               />
             </div>
@@ -241,7 +241,7 @@ export default function EditProfile() {
                 name="phone"
                 value={formData.phone}
                 onChange={handleChange}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-800 focus:ring-blue-800 sm:text-sm"
+                className="mt-1 block w-full p-2 rounded-md border-gray-300 shadow-sm focus:border-blue-800 focus:ring-blue-800 sm:text-sm"
                 placeholder="+234..."
               />
             </div>
@@ -255,7 +255,7 @@ export default function EditProfile() {
                 name="location"
                 value={formData.location}
                 onChange={handleChange}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-800 focus:ring-blue-800 sm:text-sm"
+                className="mt-1 block w-full p-2 rounded-md border-gray-300 shadow-sm focus:border-blue-800 focus:ring-blue-800 sm:text-sm"
                 placeholder="City, Country"
               />
             </div>
@@ -274,7 +274,7 @@ export default function EditProfile() {
                     name="socialLinks.twitter"
                     value={formData.socialLinks.twitter}
                     onChange={handleChange}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-800 focus:ring-blue-800 sm:text-sm"
+                    className="mt-1 block w-full p-2 rounded-md border-gray-300 shadow-sm focus:border-blue-800 focus:ring-blue-800 sm:text-sm"
                     placeholder="https://twitter.com/username"
                   />
                 </div>
@@ -287,7 +287,7 @@ export default function EditProfile() {
                     name="socialLinks.linkedin"
                     value={formData.socialLinks.linkedin}
                     onChange={handleChange}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-800 focus:ring-blue-800 sm:text-sm"
+                    className="mt-1 block w-full p-2 rounded-md border-gray-300 shadow-sm focus:border-blue-800 focus:ring-blue-800 sm:text-sm"
                     placeholder="https://linkedin.com/in/username"
                   />
                 </div>
@@ -300,7 +300,7 @@ export default function EditProfile() {
                     name="socialLinks.github"
                     value={formData.socialLinks.github}
                     onChange={handleChange}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-800 focus:ring-blue-800 sm:text-sm"
+                    className="mt-1 block w-full p-2 rounded-md border-gray-300 shadow-sm focus:border-blue-800 focus:ring-blue-800 sm:text-sm"
                     placeholder="https://github.com/username"
                   />
                 </div>

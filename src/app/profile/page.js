@@ -61,9 +61,9 @@ export default function Profile() {
   }
 
   return (
-    <div className="min-h-screen/2 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="bg-white shadow rounded-lg p-6">
+    <div className="min-h-[30vh] bg-gray-50 w-full lg:max-w-[50%] mx-auto">
+      <div className=" px-4 sm:px-6 lg:px-4 py-4">
+        <div className="rounded-lg p-6">
           <div className="flex items-center space-x-4 mb-6">
             <div className="flex-shrink-0">
               <img
@@ -105,10 +105,7 @@ export default function Profile() {
               </div>
 
               <div className="flex justify-end">
-                <h2 className="text-lg font-medium text-gray-900 mb-4">
-                  Actions
-                </h2>
-                <div className="space-y-4">
+                <div className="flex flex-col space-y-4">
                   <Link
                     href="/profile/edit"
                     className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-800 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-800"

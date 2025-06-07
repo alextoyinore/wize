@@ -220,16 +220,22 @@ export default function Navbar() {
                             Dashboard
                           </Link>
                           <Link
-                            href="/courses"
+                            href="/dashboard/courses/all"
                             className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full"
                           >
                             Courses
                           </Link>
                           <Link
-                            href="/roomium"
+                            href="/dashboard/messages"
                             className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full"
                           >
                             Messages
+                          </Link>
+                          <Link
+                            href="/dashboard/announcements/all"
+                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full"
+                          >
+                            Announcements
                           </Link>
                           <Link
                             href="/profile"
@@ -237,8 +243,13 @@ export default function Navbar() {
                           >
                             Profile
                           </Link>
+                          {user?.role?.includes('admin') && user?.role?.includes('facilitator') && (
+                            <Link href="/admin/login" className="block px-2 py-2 text-base font-medium text-gray-700 transition-colors flex items-center">
+                              Go to Admin
+                            </Link>
+                          )}  
                           <Link
-                            href="/settings"
+                            href="/profile/settings"
                             className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full"
                           >
                             Settings
@@ -285,21 +296,24 @@ export default function Navbar() {
                 <Link href="/dashboard" className="block px-2 py-2 text-base font-medium text-gray-700 transition-colors flex items-center">
                   Dashboard
                 </Link>
-                <Link href="/courses" className="block px-2 py-2 text-base font-medium text-gray-700 transition-colors flex items-center">
+                <Link href="/dashboard/courses/all" className="block px-2 py-2 text-base font-medium text-gray-700 transition-colors flex items-center">
                   Courses
                 </Link>
-                <Link href="/roomium" className="block px-2 py-2 text-base font-medium text-gray-700 transition-colors flex items-center">
+                <Link href="/dashboard/messages" className="block px-2 py-2 text-base font-medium text-gray-700 transition-colors flex items-center">
                   Messages
                 </Link>
+                <Link href="/dashboard/announcements/all" className="block px-2 py-2 text-base font-medium text-gray-700 transition-colors flex items-center">
+                  Announcements
+                </Link> 
                 <Link href="/profile" className="block px-2 py-2 text-base font-medium text-gray-700 transition-colors flex items-center">
                   Profile
                 </Link>
-                <Link href="/settings" className="block px-2 py-2 text-base font-medium text-gray-700 transition-colors flex items-center">
+                <Link href="/profile/settings" className="block px-2 py-2 text-base font-medium text-gray-700 transition-colors flex items-center">
                   Settings
                 </Link>
-                {user?.role?.includes('admin') && (
+                {user?.role?.includes('admin') && user?.role?.includes('facilitator') && (
                   <Link href="/admin/login" className="block px-2 py-2 text-base font-medium text-gray-700 transition-colors flex items-center">
-                    Admin
+                    Go to Admin
                   </Link>
                 )}
                 <button
