@@ -53,7 +53,7 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {loading ? (
-              <div className="flex items-center justify-center h-48 w-full">
+              <div className="flex lg:col-span-3 items-center justify-center h-48 w-full">
                 <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
               </div>
             ) : (
@@ -110,7 +110,7 @@ export default function Home() {
       </section>
 
       {/* Why Choose Uwise Section */}
-      <section id="features" className="pr-5 mt-16 lg:mt-32 md:mt-36 flex flex-col justify-center">
+      <section id="features" className="mt-16 lg:mt-32 md:mt-36 flex flex-col justify-center">
         <div className="pr-4 lg:px-0">
           <div className="text-center mb-16">
             <h2 className="text-2xl md:text-4xl font-bold text-blue-800 mb-4">
@@ -121,9 +121,9 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="pr-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {/* Card 1 */}
-            <div className="group relative bg-white/50 p-6 rounded-lg transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+            <div className="group relative bg-white p-6 rounded-lg transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
               <div className="absolute -top-4 -right-4 bg-blue-100 rounded-full p-3">
                 <svg className="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
@@ -138,7 +138,7 @@ export default function Home() {
             </div>
 
             {/* Card 2 */}
-            <div className="group relative bg-white/50 p-6 rounded-lg transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+            <div className="group relative bg-white p-6 rounded-lg transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
               <div className="absolute -top-4 -right-4 bg-green-100 rounded-full p-3">
                 <svg className="w-6 h-6 text-green-600" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
@@ -153,7 +153,7 @@ export default function Home() {
             </div>
 
             {/* Card 3 */}
-            <div className="group relative bg-white/50 p-6 rounded-lg transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+            <div className="group relative bg-white p-6 rounded-lg transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
               <div className="absolute -top-4 -right-4 bg-purple-100 rounded-full p-3">
                 <svg className="w-6 h-6 text-purple-600" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
@@ -168,7 +168,7 @@ export default function Home() {
             </div>
 
             {/* Card 4 */}
-            <div className="group relative bg-white/50 p-6 rounded-lg transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+            <div className="group relative bg-white p-6 rounded-lg transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
               <div className="absolute -top-4 -right-4 bg-blue-100 rounded-full p-3">
                 <svg className="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M13 7h-2v5H7v2h4v5h2v-5h4v-2h-4V7zm-1-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
@@ -193,7 +193,7 @@ export default function Home() {
             <h2 className="text-2xl md:text-4xl font-bold text-blue-800 mb-4">
               What Our Students Say
             </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               Success stories from our students who've transformed their careers
             </p>
           </div>
