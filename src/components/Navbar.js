@@ -105,7 +105,7 @@ export default function Navbar() {
 
 
   return (
-    <nav className="bg-white/90 backdrop-blur-sm text-gray-900 sticky top-0 z-50 ">
+    <nav className={`${isOpen ? 'bg-blue-800 text-white' : 'bg-white/90 backdrop-blur-sm '} text-gray-900 sticky top-0 z-50 `}>
       <div className={`max-w-6xl mx-auto px-4 py-2 md:p-0 ${search.length && 'h-screen transition-all overflow-y-auto'}`}>
         <div className="flex justify-between h-16" ref={dropdownRef}>
           <div className="flex items-center space-x-4">
@@ -155,9 +155,9 @@ export default function Navbar() {
               className="inline-flex items-center justify-center p-2 rounded-md text-gray-900"
               aria-expanded="false"
             >
-              <span className="sr-only">Open main menu</span>
+              <span className="sr-only text-white">Open main menu</span>
               {isOpen ? (
-                <CloseIcon onClick={() => setIsOpen(!isOpen)} />
+                <CloseIcon className="text-white" onClick={() => setIsOpen(!isOpen)} />
               ) : (
                 <MenuIcon isOpen={isOpen} onClick={() => setIsOpen(!isOpen)} />
               )}
@@ -289,46 +289,46 @@ export default function Navbar() {
         </div>
 
         {/* Mobile menu */}
-        <div className={`${isOpen ? 'block' : 'hidden'} sm:hidden border-b border-gray-200`}>
+        <div className={`${isOpen ? 'block' : 'hidden'} sm:hidden text-white `}>
           <div className="pt-2 pb-3 space-y-1">
             {user ? (
               <>
-                <Link href="/dashboard" className="block px-2 py-2 text-base font-medium text-gray-700 transition-colors flex items-center">
+                <Link href="/dashboard" className="block px-2 py-2 text-base font-medium transition-colors flex items-center">
                   Dashboard
                 </Link>
-                <Link href="/dashboard/courses/all" className="block px-2 py-2 text-base font-medium text-gray-700 transition-colors flex items-center">
+                <Link href="/dashboard/courses/all" className="block px-2 py-2 text-base font-medium transition-colors flex items-center">
                   Courses
                 </Link>
-                <Link href="/dashboard/messages" className="block px-2 py-2 text-base font-medium text-gray-700 transition-colors flex items-center">
+                <Link href="/dashboard/messages" className="block px-2 py-2 text-base font-medium transition-colors flex items-center">
                   Messages
                 </Link>
-                <Link href="/dashboard/announcements/all" className="block px-2 py-2 text-base font-medium text-gray-700 transition-colors flex items-center">
+                <Link href="/dashboard/announcements/all" className="block px-2 py-2 text-base font-medium transition-colors flex items-center">
                   Announcements
                 </Link> 
-                <Link href="/profile" className="block px-2 py-2 text-base font-medium text-gray-700 transition-colors flex items-center">
+                <Link href="/profile" className="block px-2 py-2 text-base font-medium transition-colors flex items-center">
                   Profile
                 </Link>
-                <Link href="/profile/settings" className="block px-2 py-2 text-base font-medium text-gray-700 transition-colors flex items-center">
+                <Link href="/profile/settings" className="block px-2 py-2 text-base font-medium transition-colors flex items-center">
                   Settings
                 </Link>
                 {user?.role?.includes('admin') && user?.role?.includes('facilitator') && (
-                  <Link href="/admin/login" className="block px-2 py-2 text-base font-medium text-gray-700 transition-colors flex items-center">
+                  <Link href="/admin/login" className="block px-2 py-2 text-base font-medium transition-colors flex items-center">
                     Go to Admin
                   </Link>
                 )}
                 <button
                   onClick={() => handleSignOut()}
-                  className="block px-2 py-2 text-base font-medium text-gray-900 transition-colors"
+                  className="block px-2 py-2 text-base font-medium transition-colors"
                 >
                   Sign Out
                 </button>
               </>
             ) : (
               <>
-                <Link href={pathname.includes('/admin') ? '/admin/login' : '/login'} className="block px-2 py-2 text-base font-medium text-gray-700 transition-colors">
+                <Link href={pathname.includes('/admin') ? '/admin/login' : '/login'} className="block px-2 py-2 text-base font-medium transition-colors">
                   Login
                 </Link>
-                <Link href="/register" className="block px-2 py-2 text-base font-medium text-gray-700 transition-colors">
+                <Link href="/register" className="block px-2 py-2 text-base font-medium transition-colors">
                   Register
                 </Link>
               </>

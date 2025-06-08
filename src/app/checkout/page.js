@@ -16,6 +16,12 @@ export default function CheckoutPage() {
   useEffect(() => {
     fetchCart()
     fetchUserData()
+
+    // For Paystack
+    const script = document.createElement('script');
+    script.src = 'https://js.paystack.co/v1/inline.js';
+    script.async = true;
+    document.body.appendChild(script);
   }, [])
 
   const fetchUserData = async () => {
@@ -53,30 +59,51 @@ export default function CheckoutPage() {
     setTotal(total)
   }
 
-  const handleCheckout = async () => {
-    try {
-      const response = await fetch('/api/checkout', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          items: cart,
-          total,
-          email: userData?.email,
-        })
+  const payWithPaystack = async () => {
+    if (!window.PaystackPop) {
+      alert("Paystack script not loaded");
+      return;
+    }
+
+    const paystackResponse = await fetch('https://api.paystack.co/transaction/initialize', {
+      method: 'POST',
+      headers: {
+        // 'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${process.env.NEXT_PUBLIC_PAYSTACK_SECRET_KEY}`,
+      },
+      body: JSON.stringify({ amount: total * 100, email: userData?.email }),
+    })
+
+    const paystackData = await paystackResponse.json()
+
+    if(paystackResponse.ok){
+      const paystack = new window.PaystackPop()
+      paystack.resumeTransaction(paystackData.data.access_code)
+    
+      paystack.on('success', (transaction) => {
+        setError('Payment successful:', transaction)
       })
 
-      if (!response.ok) {
-        throw new Error('Failed to start checkout')
-      }
+      paystack.on('close', () => {
+        setError('Payment closed')
+      })
+    
+      paystack.on('error', (error) => {
+        setError('Payment error:', error)
+      }) 
 
-      const data = await response.json()
-      window.location.href = data.checkoutUrl
-    } catch (err) {
-      setError(err.message)
+      paystack.on('cancel', () => {
+        setError('Payment cancelled')
+      })
     }
+  };
+
+  const handleCheckout = async () => {
+    payWithPaystack()
   }
+
+
 
   if (loading) {
     return (
@@ -85,6 +112,7 @@ export default function CheckoutPage() {
       </div>
     )
   }
+
 
   if (error) {
     return (
@@ -109,6 +137,7 @@ export default function CheckoutPage() {
     )
   }
 
+
   if (cart.length === 0) {
     return (
       <div className="min-h-screen/2 flex items-center justify-center">
@@ -132,6 +161,7 @@ export default function CheckoutPage() {
     )
   }
 
+
   return (
     <div className="flex items-center justify-center min-h-[50vh]">
       <div className="max-w-full mx-auto px-4">
@@ -139,7 +169,7 @@ export default function CheckoutPage() {
           <div className="">
             <h1 className="text-3xl font-bold text-gray-900 mb-8">Checkout</h1>
 
-            <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-12">
               {/* Order Summary */}
               <div className="lg:col-span-3 space-y-6">
                 <div className="rounded-xl">

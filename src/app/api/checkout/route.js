@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import { getUserSession } from '@/lib/auth'
 import { connectToMongoDB } from '@/lib/mongodb'
-import { usersCollection } from '@/lib/mongodb'
+import { usersCollection, ordersCollection } from '@/lib/mongodb'
 import { v4 as uuidv4 } from 'uuid'
 
 export async function POST(request) {
@@ -38,7 +38,7 @@ export async function POST(request) {
     }
 
     // Save order to database
-    await usersCollection.insertOne({
+    await ordersCollection.insertOne({
       type: 'order',
       ...order
     })

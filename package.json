@@ -24,6 +24,7 @@
   "dependencies": {
     "@firebase/auth": "^1.10.4",
     "@firebase/firestore": "^4.7.14",
+    "@paystack/inline-js": "^2.22.6",
     "@tiptap/extension-code-block": "^2.10.0",
     "@tiptap/extension-image": "^2.10.0",
     "@tiptap/extension-link": "^2.10.0",

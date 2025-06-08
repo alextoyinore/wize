@@ -58,7 +58,7 @@ export default function Home() {
               </div>
             ) : (
                courses.map((course, index) => (
-              <div key={course._id} className="group bg-white/50 p-6 rounded-lg transition-all duration-300 cursor-pointer hover:border-blue-800/10 hover:border-2 hover:-translate-y-1">
+              <div key={course._id} className="group bg-grey-50 p-6 rounded-lg transition-all duration-300 cursor-pointer hover:border-blue-800/10 hover:border-2 hover:-translate-y-0">
                 <div className="relative h-48 mb-6">
                   <img 
                     src={course.image || '/images/course-default.jpg'} 
