@@ -106,7 +106,7 @@ export default function Navbar() {
 
   return (
     <nav className={`${isOpen ? 'bg-blue-800 text-white' : 'bg-white/90 backdrop-blur-sm '} text-gray-900 sticky top-0 z-50 `}>
-      <div className={`max-w-6xl mx-auto px-4 py-2 md:p-0 ${search.length && 'h-screen transition-all overflow-y-auto'}`}>
+      <div className={`max-w-6xl mx-auto md:w-[95%] lg:w-[76%] py-2 px-4 md:p-0 ${search.length && 'h-screen transition-all overflow-y-auto'}`}>
         <div className="flex justify-between h-16" ref={dropdownRef}>
           <div className="flex items-center space-x-4">
             <Link href={pathname.includes('admin') ? "/admin" : "/"} className="flex items-center rounded-md py-2 transition-colors">
