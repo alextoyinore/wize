@@ -18,10 +18,10 @@ export default function CheckoutPage() {
     fetchUserData()
 
     // For Paystack
-    const script = document.createElement('script');
-    script.src = 'https://js.paystack.co/v1/inline.js';
-    script.async = true;
-    document.body.appendChild(script);
+    // const script = document.createElement('script');
+    // script.src = 'https://js.paystack.co/v1/inline.js';
+    // script.async = true;
+    // document.body.appendChild(script);
   }, [])
 
   const fetchUserData = async () => {
@@ -77,26 +77,26 @@ export default function CheckoutPage() {
 
     const paystackData = await paystackResponse.json()
 
-    if(paystackResponse.ok){
-      const paystack = new window.PaystackPop()
-      paystack.resumeTransaction(paystackData.data.access_code)
+    // if(paystackResponse.ok){
+    //   const paystack = new window.PaystackPop()
+    //   paystack.resumeTransaction(paystackData.data.access_code)
     
-      paystack.on('success', (transaction) => {
-        setError('Payment successful:', transaction)
-      })
+    //   paystack.on('success', (transaction) => {
+    //     setError('Payment successful:', transaction)
+      // })
 
-      paystack.on('close', () => {
-        setError('Payment closed')
-      })
+      // paystack.on('close', () => {
+      //   setError('Payment closed')
+      // })
     
-      paystack.on('error', (error) => {
-        setError('Payment error:', error)
-      }) 
+      // paystack.on('error', (error) => {
+      //   setError('Payment error:', error)
+      // }) 
 
-      paystack.on('cancel', () => {
-        setError('Payment cancelled')
-      })
-    }
+      // paystack.on('cancel', () => {
+      //   setError('Payment cancelled')
+      // })
+    // }
   };
 
   const handleCheckout = async () => {
