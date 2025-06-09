@@ -69,8 +69,8 @@ export default function DashSidebar({ className }) {
       ];
 
       return (
-        <div className={`w-60 text-gray-600 border-r border-gray-100 ${className}`}>
-          <div className="p-4">
+        <div className={`hidden md:block w-45 text-gray-600 border-r border-gray-100 ${className}`}>
+          <div className="">
             <nav className="flex flex-col">
               {navItems.map((item) => (
                 <div key={item.href}>
@@ -78,10 +78,10 @@ export default function DashSidebar({ className }) {
                     <div className="">
                       <button
                         onClick={() => handleSectionToggle(item.name)}
-                        className={`px-4 py-3 text-sm rounded transition-all w-full flex justify-between items-center ${
+                        className={`px-4 py-3 text-sm transition-all w-full flex justify-between items-center ${
                           pathname === item.href || openSection === item.name
-                            ? 'bg-gray-100'
-                            : 'hover:bg-gray-50'
+                            ? 'bg-blue-50/50'
+                            : 'hover:bg-blue-50'
                         }`}
                       >
                         {item.name}
@@ -90,15 +90,15 @@ export default function DashSidebar({ className }) {
                         </svg>
                       </button>
                       {openSection === item.name && (
-                        <div className="flex flex-col bg-gray-50">
+                        <div className="flex flex-col bg-blue-50/20">
                           {item.subItems.map((subItem) => (
                             <Link
                               key={subItem.href}
                               href={subItem.href}
                               className={`px-4 py-3 w-full text-sm transition-colors ${
                                 pathname === subItem.href
-                                  ? 'bg-gray-50'
-                                  : 'hover:bg-gray-100'
+                                  ? 'bg-blue-50/50'
+                                  : 'hover:bg-blue-50'
                               }`}
                             >
                               {subItem.name}
@@ -113,8 +113,8 @@ export default function DashSidebar({ className }) {
                       href={item.href}
                       className={`px-4 py-3 w-full text-sm rounded transition-colors ${
                         pathname === item.href
-                          ? 'bg-gray-100'
-                          : 'hover:bg-gray-50'
+                          ? 'bg-blue-50/50'
+                          : 'hover:bg-blue-50'
                       }`}
                     >
                       {item.name}

@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import ShoppingCartIcon from '@/components/icons/ShoppingCartIcon'
 import Link from 'next/link'
 
-export default function CartIcon() {
+export default function CartIcon({className}) {
   const [cartCount, setCartCount] = useState(0)
 
   useEffect(() => {
@@ -23,7 +23,7 @@ export default function CartIcon() {
 
   return (
     <Link href="/cart" className="relative">
-      <ShoppingCartIcon className="h-5 w-5 text-gray-500" />
+      <ShoppingCartIcon className={`${className} h-5 w-5 text-gray-500`} />
       {cartCount > 0 && (
         <span className="absolute -top-1 -right-1 bg-blue-800 text-white text-xs px-1.5 py-0.5 rounded-full">
           {cartCount}

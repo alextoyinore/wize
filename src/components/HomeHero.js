@@ -4,11 +4,12 @@ import Image from 'next/image'
 import Partners from './Partners'
 import Link from 'next/link'
 
+
 export default function HomeHero({className}) {
     return <section className={"relative w-full " + className}>
     
     {/* Hero Content */}
-    <div className="relative w-[90%] lg:w-[97%] lg:p-0 mx-auto">
+    <div className="relative w-[90%] lg:w-full lg:p-0 mx-auto">
       <div className="flex flex-col md:flex-row items-center justify-between gap-12">
         {/* Left Content */}
         <div className="flex-1 text-center md:text-left">
@@ -27,7 +28,7 @@ export default function HomeHero({className}) {
             </Link>
             <Link
               href="/explore"
-              className="inline-flex items-center px-6 py-3 border border-gray-300 text-base font-medium rounded-md text-gray-700 bg-white transition-all duration-200 justify-center"
+              className="inline-flex items-center px-6 py-3 border border-gray-300 hover:border-blue-700 hover:text-blue-700 text-base font-medium rounded-md text-gray-700 bg-white transition-all duration-200 justify-center"
             >
               Explore Courses
             </Link>

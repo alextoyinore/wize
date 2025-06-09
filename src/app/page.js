@@ -4,6 +4,7 @@ import Footer from "@/components/Footer"
 import HomeHero from "@/components/HomeHero"
 import Partners from "@/components/Partners"
 import { useEffect, useState } from "react"
+import Link from "next/link"
 
 export default function Home() {
   const [courses, setCourses] = useState([])
@@ -41,7 +42,7 @@ export default function Home() {
 
       {/* Course Showcase Section */}
       <section className="my-16 lg:mt-32 flex flex-col justify-center">
-        <div className="max-w-6xl mx-auto px-4 lg:p-0">
+        <div className="max-w-6xl mx-auto lg:p-0">
           <div className="text-center mb-4">
             <h2 className="text-2xl md:text-4xl font-bold text-blue-800 mb-4">
               Explore Our Courses
@@ -110,8 +111,8 @@ export default function Home() {
       </section>
 
       {/* Why Choose Uwise Section */}
-      <section id="features" className="mt-16 lg:mt-32 md:mt-36 flex flex-col justify-center">
-        <div className="pr-4 lg:px-0">
+      <section id="features" className="mt-16 lg:mt-32 px-4 md:mt-36 flex flex-col justify-center">
+        <div className="">
           <div className="text-center mb-16">
             <h2 className="text-2xl md:text-4xl font-bold text-blue-800 mb-4">
               Why Choose Uwise?
@@ -121,9 +122,9 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="pr-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="pr-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {/* Card 1 */}
-            <div className="group relative bg-white/50 p-6 rounded-lg transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+            <div className="group relative bg-blue-50/50 p-6 border border-blue-100 rounded-lg transition-all duration-300 hover:border-blue-200 hover:bg-blue-50 hover:-translate-y-1">
               <div className="absolute -top-4 -right-4 bg-blue-100 rounded-full p-3">
                 <svg className="w-6 h-6 text-blue-800" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
@@ -138,7 +139,7 @@ export default function Home() {
             </div>
 
             {/* Card 2 */}
-            <div className="group relative bg-white/50 p-6 rounded-lg transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+            <div className="group relative bg-blue-50/50 p-6 border border-blue-100 rounded-lg transition-all duration-300 hover:border-blue-200 hover:bg-blue-50 hover:-translate-y-1">
               <div className="absolute -top-4 -right-4 bg-green-100 rounded-full p-3">
                 <svg className="w-6 h-6 text-green-600" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
@@ -153,7 +154,7 @@ export default function Home() {
             </div>
 
             {/* Card 3 */}
-            <div className="group relative bg-white/50 p-6 rounded-lg transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+            <div className="group relative bg-blue-50/50 p-6 border border-blue-100 rounded-lg transition-all duration-300 hover:border-blue-200 hover:bg-blue-50 hover:-translate-y-1">
               <div className="absolute -top-4 -right-4 bg-purple-100 rounded-full p-3">
                 <svg className="w-6 h-6 text-purple-600" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
@@ -168,7 +169,7 @@ export default function Home() {
             </div>
 
             {/* Card 4 */}
-            <div className="group relative bg-white/50 p-6 rounded-lg transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+            <div className="group relative bg-blue-50/50 p-6 border border-blue-100 rounded-lg transition-all duration-300 hover:border-blue-200 hover:bg-blue-50 hover:-translate-y-1">
               <div className="absolute -top-4 -right-4 bg-blue-100 rounded-full p-3">
                 <svg className="w-6 h-6 text-blue-800" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M13 7h-2v5H7v2h4v5h2v-5h4v-2h-4V7zm-1-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
@@ -188,7 +189,7 @@ export default function Home() {
 
       {/* Testimonials Section */}
       <section className="my-16 lg:mt-32 flex flex-col justify-center">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto px-4 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-2xl md:text-4xl font-bold text-blue-800 mb-4">
               What Our Students Say
@@ -200,7 +201,7 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Testimonial 1 */}
-            <div className="bg-blue-50/50 p-6 rounded-lg border border-blue-50">
+            <div className="bg-blue-50/50 p-6 rounded-lg border border-blue-100">
               <div className="flex items-center mb-4">
                 <div className="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center mr-4">
                   <svg className="w-8 h-8 text-blue-800" fill="currentColor" viewBox="0 0 24 24">
@@ -218,7 +219,7 @@ export default function Home() {
             </div>
 
             {/* Testimonial 2 */}
-            <div className="bg-blue-50/50 p-6 rounded-lg border border-blue-50">
+            <div className="bg-blue-50/50 p-6 rounded-lg border border-blue-100">
               <div className="flex items-center mb-4">
                 <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mr-4">
                   <svg className="w-8 h-8 text-green-600" fill="currentColor" viewBox="0 0 24 24">
@@ -236,7 +237,7 @@ export default function Home() {
             </div>
 
             {/* Testimonial 3 */}
-            <div className="bg-blue-50/50 p-6 rounded-lg border border-blue-50">
+            <div className="bg-blue-50/50 p-6 rounded-lg border border-blue-100">
               <div className="flex items-center mb-4">
                 <div className="w-16 h-16 rounded-full bg-purple-100 flex items-center justify-center mr-4">
                   <svg className="w-8 h-8 text-purple-600" fill="currentColor" viewBox="0 0 24 24">
@@ -315,6 +316,21 @@ export default function Home() {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section className="w-full flex justify-center rounded-lg bg-blue-50/50 p-6 md:p-12 border border-blue-100">
+        <div className="text-center md:text-start items-center flex flex-col gap-5 md:gap-16 justify-between md:flex-row w-[80%] md:w-[100%]">
+          <div className="flex flex-col gap-3">
+            <h2 className="font-bold text-3xl md:text-4xl text-blue-800">Your future begins now</h2>
+            <p className="text-gray-600">There's no better time than the present. Tomorrow belongs to those who see it today. Start your journey to a happier life today</p>
+          </div>
+          <Link
+            href="/register"
+            className="inline-flex items-center px-6 py-3 w-[100%] md:w-[50%] mx-auto border border-transparent text-base font-medium rounded-md text-white bg-blue-800 hover:bg-blue-700 transition-all duration-200 justify-center"
+          >
+            Get Started
+          </Link>
         </div>
       </section>
 

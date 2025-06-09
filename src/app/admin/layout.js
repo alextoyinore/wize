@@ -10,7 +10,7 @@ export default function AdminLayout({ children }) {
       {pathname !== '/admin/login' && (
         <Sidebar className='sticky h-screen-[calc(100vh-64px)] top-25 left-0 lg:block' />
       )}
-      <main className="flex-1 pl-6">
+      <main className="flex-1">
         {children}
       </main>
     </div>

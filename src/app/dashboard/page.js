@@ -44,7 +44,7 @@ export default function DashboardPage() {
 
   if (!user) {
     return (
-      <div className="min-h-[90vh] flex items-center justify-center">
+      <div className="min-h-[80vh] flex items-center justify-center">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
       </div>
     )

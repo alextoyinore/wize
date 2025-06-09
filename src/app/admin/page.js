@@ -7,7 +7,7 @@ export default function AdminDashboard() {
   const router = useRouter()
 
   return (
-      <div className="bg-white px-4 w-full">
+      <div className="w-full">
         <h1 className="text-2xl font-bold text-gray-900 mb-6">Admin Dashboard</h1>
         
         <div className="space-y-4">
@@ -29,3 +29,4 @@ export default function AdminDashboard() {
       </div>
   )
 }
+

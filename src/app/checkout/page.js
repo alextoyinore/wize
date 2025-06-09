@@ -167,7 +167,7 @@ export default function CheckoutPage() {
       <div className="max-w-full mx-auto px-4">
         <div className="bg-white rounded-2xl overflow-hidden">
           <div className="">
-            <h1 className="text-3xl font-bold text-gray-900 mb-8">Checkout</h1>
+            <h1 className="text-3xl font-bold text-gray-900 mb-8 mt-4">Checkout</h1>
 
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-12">
               {/* Order Summary */}

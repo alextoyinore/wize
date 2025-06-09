@@ -90,8 +90,9 @@ export default function Explore() {
     }
   }
 
+  
   return (
-    <div className="mx-auto px-4 lg:px-0">
+    <div className="mx-auto">
       {/* Search and Categories */}
       <div className="mb-8 mt-4 lg:mt-0">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
@@ -132,7 +133,7 @@ export default function Explore() {
 
       {/* Error Message */}
       {error && (
-        <div className="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+        <div className="mb-6 p-3 bg-red-100/50 border border-red-100 text-red-700 rounded">
           {error}
         </div>
       )}
