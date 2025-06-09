@@ -42,7 +42,7 @@ export default function Home() {
 
       {/* Course Showcase Section */}
       <section className="my-16 lg:mt-32 flex flex-col justify-center">
-        <div className="max-w-6xl mx-auto lg:p-0">
+        <div className="mx-auto px-4 lg:p-0">
           <div className="text-center mb-4">
             <h2 className="text-2xl md:text-4xl font-bold text-blue-800 mb-4">
               Explore Our Courses
@@ -201,7 +201,7 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Testimonial 1 */}
-            <div className="bg-blue-50/50 p-6 rounded-lg border border-blue-100">
+            <div className="bg-blue-50/50 p-6 rounded-lg border border-blue-100 hover:border-blue-200 hover:bg-blue-50 hover:-translate-y-1">
               <div className="flex items-center mb-4">
                 <div className="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center mr-4">
                   <svg className="w-8 h-8 text-blue-800" fill="currentColor" viewBox="0 0 24 24">
@@ -219,7 +219,7 @@ export default function Home() {
             </div>
 
             {/* Testimonial 2 */}
-            <div className="bg-blue-50/50 p-6 rounded-lg border border-blue-100">
+            <div className="bg-blue-50/50 p-6 rounded-lg border border-blue-100 hover:border-blue-200 hover:bg-blue-50 hover:-translate-y-1">
               <div className="flex items-center mb-4">
                 <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mr-4">
                   <svg className="w-8 h-8 text-green-600" fill="currentColor" viewBox="0 0 24 24">
@@ -237,7 +237,7 @@ export default function Home() {
             </div>
 
             {/* Testimonial 3 */}
-            <div className="bg-blue-50/50 p-6 rounded-lg border border-blue-100">
+            <div className="bg-blue-50/50 p-6 rounded-lg border border-blue-100 hover:border-blue-200 hover:bg-blue-50 hover:-translate-y-1">
               <div className="flex items-center mb-4">
                 <div className="w-16 h-16 rounded-full bg-purple-100 flex items-center justify-center mr-4">
                   <svg className="w-8 h-8 text-purple-600" fill="currentColor" viewBox="0 0 24 24">
@@ -323,7 +323,7 @@ export default function Home() {
         <div className="text-center md:text-start items-center flex flex-col gap-5 md:gap-16 justify-between md:flex-row w-[80%] md:w-[100%]">
           <div className="flex flex-col gap-3">
             <h2 className="font-bold text-3xl md:text-4xl text-blue-800">Your future begins now</h2>
-            <p className="text-gray-600">There's no better time than the present. Tomorrow belongs to those who see it today. Start your journey to a happier life today</p>
+            <p className="text-gray-600">There's no better time than the present. Tomorrow belongs to those who see it today. Start your journey to a better tomorrow</p>
           </div>
           <Link
             href="/register"

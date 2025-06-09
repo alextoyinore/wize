@@ -59,7 +59,7 @@ export default function CartPage() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-[50vh]">
+      <div className="flex items-center justify-center min-h-[35vh]">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
       </div>
     )
@@ -67,12 +67,12 @@ export default function CartPage() {
 
   if (error) {
     return (
-      <div className="flex items-center justify-center min-h-[50vh]">
+      <div className="flex items-center justify-center min-h-[35vh]">
         <div className="text-center">
           <motion.div 
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="bg-red-50 p-8 rounded-xl shadow-lg"
+            className=""
           >
             <h2 className="text-2xl font-bold text-red-600">Error</h2>
             <p className="mt-4 text-gray-600">{error}</p>
@@ -90,7 +90,7 @@ export default function CartPage() {
 
   if (cart.length === 0) {
     return (
-      <div className="flex items-center justify-center min-h-[50vh]">
+      <div className="flex items-center justify-center min-h-[35vh]">
         <div className="text-center">
           <motion.div 
             initial={{ opacity: 0, y: -20 }}
@@ -112,7 +112,7 @@ export default function CartPage() {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-[50vh]">
+    <div className="flex items-center justify-center min-h-[35vh]">
       <div className="max-w-full mx-auto px-4">
         <div className="bg-white rounded-2xl overflow-hidden">
           <div className="">

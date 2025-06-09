@@ -16,12 +16,6 @@ export default function CheckoutPage() {
   useEffect(() => {
     fetchCart()
     fetchUserData()
-
-    // For Paystack
-    // const script = document.createElement('script');
-    // script.src = 'https://js.paystack.co/v1/inline.js';
-    // script.async = true;
-    // document.body.appendChild(script);
   }, [])
 
   const fetchUserData = async () => {
@@ -60,10 +54,6 @@ export default function CheckoutPage() {
   }
 
   const payWithPaystack = async () => {
-    // if (!window.PaystackPop) {
-    //   alert("Paystack script not loaded");
-    //   return;
-    // }
 
     const paystackResponse = await fetch('https://api.paystack.co/transaction/initialize', {
       method: 'POST',
@@ -77,26 +67,10 @@ export default function CheckoutPage() {
 
     const paystackData = await paystackResponse.json()
 
-    // if(paystackResponse.ok){
-    //   const paystack = new window.PaystackPop()
-    //   paystack.resumeTransaction(paystackData.data.access_code)
-    
-    //   paystack.on('success', (transaction) => {
-    //     setError('Payment successful:', transaction)
-      // })
+    if(paystackData.ok) {
+      console.log(paystackData)
+    }
 
-      // paystack.on('close', () => {
-      //   setError('Payment closed')
-      // })
-    
-      // paystack.on('error', (error) => {
-      //   setError('Payment error:', error)
-      // }) 
-
-      // paystack.on('cancel', () => {
-      //   setError('Payment cancelled')
-      // })
-    // }
   };
 
   const handleCheckout = async () => {

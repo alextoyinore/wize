@@ -135,6 +135,10 @@ export default function Navbar() {
                 </Link>
               )}
 
+              <Link href="/partnerships" className="hidden md:block flex items-center space-x-2 text-sm">
+                <span className="text-gray-500 border-r border-gray-200 px-4 hover:text-blue-800">Partner With Us</span>
+              </Link>
+
               <div>
                 <form>
                   <input
@@ -162,16 +166,27 @@ export default function Navbar() {
               {isOpen ? (
                 <CloseIcon className="text-blue-300/50" onClick={() => setIsOpen(!isOpen)} />
               ) : (
-                <MenuIcon isOpen={isOpen} onClick={() => setIsOpen(!isOpen)} />
+                <div className='flex' onClick={()=> setIsOpen(!isOpen)}>
+                {
+                  user?.photoURL ? (
+                    <img
+                      src={user?.photoURL}
+                      alt={user?.displayName}
+                      className="h-7 w-7 rounded-full flex-shrink-0"
+                    />
+                  ) : (
+                    <span className="h-7 w-7 font-bold rounded-full bg-gray-100 flex items-center justify-center text-gray-400 flex-shrink-0">
+                      {user?.name?.charAt(0).toUpperCase() || user?.email?.charAt(0).toUpperCase() || 'U'}
+                    </span>
+                  ) 
+                }
+                </div>
               )}
             </button>
           </div>
 
           {/* Desktop menu */}
           <div className="hidden sm:flex sm:items-center sm:space-x-4">
-            <Link href="/partnerships" className="hidden md:block flex items-center space-x-2 text-sm">
-              <span className="text-gray-500 border-r border-gray-200 px-4 hover:text-blue-800">Partner With Us</span>
-            </Link>
             {
               user && !pathname.includes('admin') && <CartIcon />
             }
@@ -189,10 +204,10 @@ export default function Navbar() {
                             <img
                               src={user?.photoURL}
                               alt="Profile"
-                              className="h-8 w-8 rounded-full"
+                              className="h-7 w-7 rounded-full"
                             />
                           ) : (
-                            <span className="h-8 w-8 font-bold rounded-full bg-gray-100 flex items-center justify-center text-gray-400">
+                            <span className="h-7 w-7 font-bold rounded-full bg-gray-100 flex items-center justify-center text-gray-400">
                               {user?.name?.charAt(0).toUpperCase() || user?.email?.charAt(0).toUpperCase() || 'U'}
                             </span>
                           ) 
@@ -350,7 +365,7 @@ export default function Navbar() {
                 <hr className='border-0.5 border-blue-300/10 '/>
                 <button
                   onClick={() => handleSignOut()}
-                  className="block px-2 py-2 text-red-200 transition-colors"
+                  className="block px-2 py-2 text-white transition-colors"
                 >
                   Sign Out
                 </button>

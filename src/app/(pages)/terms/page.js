@@ -2,7 +2,7 @@
 
 export default function Terms() {
   return (
-    <div className="max-w-3xl mx-auto p-6 text-black dark:text-white space-y-6">
+    <div className="max-w-3xl min-h-[35vh] mx-auto p-6 text-black dark:text-white space-y-6">
       <h1 className="text-3xl font-bold">Terms and Conditions</h1>
       <p><strong>Effective Date:</strong> May 17, 2025</p>
       <p><strong>Last Updated:</strong> May 17, 2025</p>

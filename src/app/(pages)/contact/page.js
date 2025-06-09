@@ -1,6 +1,6 @@
 export default function ContactUs({classname}) {
     return (
-        <div>
+        <div className="min-h-[35vh]">
             Contact Us
         </div>
     )

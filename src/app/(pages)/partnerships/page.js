@@ -1,5 +1,5 @@
 export default function Partnerships() {
-    return <div className="lg:px-6 min-h-[30vh]">
+    return <div className="min-h-[35vh]">
         Partnerships
     </div>
 }
