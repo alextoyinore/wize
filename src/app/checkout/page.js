@@ -60,10 +60,10 @@ export default function CheckoutPage() {
   }
 
   const payWithPaystack = async () => {
-    if (!window.PaystackPop) {
-      alert("Paystack script not loaded");
-      return;
-    }
+    // if (!window.PaystackPop) {
+    //   alert("Paystack script not loaded");
+    //   return;
+    // }
 
     const paystackResponse = await fetch('https://api.paystack.co/transaction/initialize', {
       method: 'POST',
