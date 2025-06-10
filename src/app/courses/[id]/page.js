@@ -50,7 +50,7 @@ export default function CourseDetail() {
 
   if (loading) {
     return (
-      <div className="min-h-[50vh] flex items-center justify-center">
+      <div className="flex items-center justify-center">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
       </div>
     )
@@ -58,7 +58,7 @@ export default function CourseDetail() {
 
   if (error) {
     return (
-      <div className="min-h-[50vh] flex items-center justify-center">
+      <div className="flex items-center justify-center">
         <div className="text-center">
           <h2 className="text-2xl font-bold text-red-600">Error</h2>
           <p className="mt-2 text-gray-600">{error}</p>
@@ -69,7 +69,7 @@ export default function CourseDetail() {
 
   if (!course) {
     return (
-      <div className="min-h-[50vh] flex items-center justify-center">
+      <div className="flex items-center justify-center">
         <div className="text-center">
           <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -81,7 +81,7 @@ export default function CourseDetail() {
   }
 
   return (
-    <main className="min-h-screen">
+    <main className="">
       <div className="max-w-6xl mx-auto px-4 lg:p-0">
         <div className="bg-white overflow-hidden">
           <div className="">
@@ -89,28 +89,30 @@ export default function CourseDetail() {
             {/* Course Details */}
             <div className="flex flex-col md:flex-row gap-6 lg:gap-12">
               <div className="md:w-2/3">
-                <div className="relative h-[50vh]">
+                <div className="relative h-[50vh] rounded-xl">
                   <img 
                     src={course.image} 
                     alt={course.title}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover rounded-xl"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent rounded-xl"></div>
                   <div className="absolute bottom-4 left-4 text-white p-4">
                     <h1 className="text-4xl md:text-5xl font-bold mb-5 capitalize w-2/3">{course.title}</h1>
                     {/* <p className="text-white text-sm w-1/2">{course.description}</p> */}
-                    <p className="mt-2 text-gray-300 capitalize">{course.category}</p>
+                    <p className="mt-2 text-gray-300 capitalize">{course.category.replace(/-/g, ' ')}</p>
                   </div>
                 </div>
 
+                
                 <h2 className="text-2xl font-bold my-4 text-blue-800">Course Overview</h2>
-                <p className="text-gray-600 mb-6">{course.description}</p>
+                <p className="text-gray-600 my-6">{course.description}</p>
+                
                 <div className="space-y-6">
                   <div>
-                    <h3 className="font-medium text-gray-900 mb-4">What you'll learn</h3>
-                    <div className="flex flex-col gap-2">
+                    <h3 className="font-medium text-blue-800 mb-4">What you'll learn</h3>
+                    <div className="flex flex-col gap-3">
                       {course.whatYoullLearn.map((item, index) => (
-                        <div key={index} className="p-4 border border-gray-100 rounded-lg hover:border-gray-200 transition-colors">
+                        <div key={index} className="p-4 border border-gray-200 rounded-lg transition-colors">
                           <div className="flex items-center space-x-2">
                             <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -121,14 +123,37 @@ export default function CourseDetail() {
                       ))}
                     </div>
                   </div>
-                  <div>
-                    <h3 className="font-medium text-gray-900 mb-2 text-blue-800">Requirements</h3>
-                    <ul className="list-disc list-inside text-gray-600">
-                      {course.requirements.map((item, index) => (
-                        <li key={index}>{item}</li>
+                  
+                  {/* Curriculum */}
+                  <div className="mt-8">
+                    <h2 className="text-2xl font-bold mb-6 text-blue-800">Curriculum</h2>
+                    <div className="space-y-6">
+                      {course.curriculum.map((section, index) => (
+                        <div key={index} className="border border-gray-200 rounded-lg p-6">
+                          <h3 className="text-lg font-semibold mb-4">{section.title}</h3>
+                          <ul className="space-y-3">
+                            {section.lessons.map((lesson, lessonIndex) => (
+                              <li key={lessonIndex} className="flex items-center justify-between">
+                                <div className="flex-1">
+                                  <h4 className="font-medium text-gray-900">{lesson.title}</h4>
+                                  <p className="text-sm text-gray-500">{lesson.description}</p>
+                                </div>
+                                <div className="flex items-center space-x-2">
+                                  <span className="text-sm text-gray-500">{lesson.duration}</span>
+                                  {lesson.isLive && (
+                                    <span className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">
+                                      Live
+                                    </span>
+                                  )}
+                                </div>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
                       ))}
-                    </ul>
+                    </div>
                   </div>
+
                 </div>
               </div>
               
@@ -213,35 +238,16 @@ export default function CourseDetail() {
                   </div>
                 </div>
 
-                {/* Curriculum */}
-            <div className="mt-8">
-              <h2 className="text-2xl font-bold mb-6 text-blue-800">Curriculum</h2>
-              <div className="space-y-6">
-                {course.curriculum.map((section, index) => (
-                  <div key={index} className="border border-gray-200 rounded-lg p-6">
-                    <h3 className="text-lg font-semibold mb-4">{section.title}</h3>
-                    <ul className="space-y-3">
-                      {section.lessons.map((lesson, lessonIndex) => (
-                        <li key={lessonIndex} className="flex items-center justify-between">
-                          <div className="flex-1">
-                            <h4 className="font-medium text-gray-900">{lesson.title}</h4>
-                            <p className="text-sm text-gray-500">{lesson.description}</p>
-                          </div>
-                          <div className="flex items-center space-x-2">
-                            <span className="text-sm text-gray-500">{lesson.duration}</span>
-                            {lesson.isLive && (
-                              <span className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">
-                                Live
-                              </span>
-                            )}
-                          </div>
-                        </li>
+                <div className='mt-8'>
+                    <h3 className="font-medium mb-2 text-blue-800">Requirements</h3>
+                    <ul className="list-disc list-inside text-gray-600">
+                      {course.requirements.map((item, index) => (
+                        <li key={index}>{item}</li>
                       ))}
                     </ul>
                   </div>
-                ))}
-              </div>
-            </div>
+
+                
               </div>
             </div>
           </div>
