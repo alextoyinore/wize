@@ -9,7 +9,7 @@ export default function HomeHero({className}) {
     return <section className={"relative w-full " + className}>
     
     {/* Hero Content */}
-    <div className="relative w-[90%] lg:w-full lg:p-0 mx-auto">
+    <div className="relative w-full lg:w-full lg:p-0 mx-auto">
       <div className="flex flex-col md:flex-row items-center justify-between gap-12">
         {/* Left Content */}
         <div className="flex-1 text-center md:text-left">

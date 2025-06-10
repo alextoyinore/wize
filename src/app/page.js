@@ -42,7 +42,7 @@ export default function Home() {
 
       {/* Course Showcase Section */}
       <section className="my-16 lg:mt-32 flex flex-col justify-center">
-        <div className="mx-auto px-4 lg:p-0">
+        <div className="mx-auto lg:p-0">
           <div className="text-center mb-4">
             <h2 className="text-2xl md:text-4xl font-bold text-blue-800 mb-4">
               Explore Our Courses
@@ -111,7 +111,7 @@ export default function Home() {
       </section>
 
       {/* Why Choose Uwise Section */}
-      <section id="features" className="mt-16 lg:mt-32 px-4 md:mt-36 flex flex-col justify-center">
+      <section id="features" className="mt-16 lg:mt-32 md:mt-36 flex flex-col justify-center">
         <div className="">
           <div className="text-center mb-16">
             <h2 className="text-2xl md:text-4xl font-bold text-blue-800 mb-4">
@@ -189,7 +189,7 @@ export default function Home() {
 
       {/* Testimonials Section */}
       <section className="my-16 lg:mt-32 flex flex-col justify-center">
-        <div className="max-w-6xl mx-auto px-4 lg:px-8">
+        <div className="max-w-6xl mx-auto lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-2xl md:text-4xl font-bold text-blue-800 mb-4">
               What Our Students Say
@@ -261,7 +261,7 @@ export default function Home() {
 
       {/* How Uwise Works Section */}
       <section className="my-16 flex flex-col justify-center min-h-[70vh]">
-        <div className="max-w-6xl mx-auto px-4">
+        <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-2xl md:text-4xl font-bold text-blue-800">
               How Uwise Works

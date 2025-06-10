@@ -105,7 +105,7 @@ export default function Navbar() {
 
 
   return (
-    <nav className={`${isOpen ? 'bg-blue-800/90 backdrop-blur-sm' : 'bg-white/90 backdrop-blur-sm '} text-gray-900 sticky top-0 z-50 `}>
+    <nav className={`bg-white/90 backdrop-blur-sm text-gray-900 sticky top-0 z-50 `}>
       <div className={`max-w-6xl mx-auto md:w-[95%] lg:w-[76%] px-4 md:p-0 ${search.length && 'h-screen transition-all overflow-y-auto'}`}>
         <div className="flex justify-between h-16" ref={dropdownRef}>
           <div className="flex items-center space-x-4">
@@ -143,7 +143,7 @@ export default function Navbar() {
                 <form>
                   <input
                     onChange={(e)=> {setSearch(e.target.value); handleSearch(e)}}
-                    className={`outline-none focus:ring-0 px-5 py-1.5 rounded-full border text-sm ${isOpen ? 'text-blue-100 placeholder:text-blue-300/50 border-blue-300/50' : 'text-gray-600 border-gray-200 '} bg-transparent w-[75%] md:w-full `}
+                    className={`outline-none focus:ring-0 px-5 py-1.5 rounded-full border text-sm bg-transparent w-[75%] md:w-full `}
                     type='text'
                     placeholder='Search Uwise...'
                   />
@@ -155,16 +155,16 @@ export default function Navbar() {
           {/* Mobile menu button */}
           <div className="flex items-center sm:hidden">
             {
-              user && !pathname.includes('admin') && <CartIcon className={`${isOpen ? 'text-blue-300/50' : 'text-gray-600'}`} />
+              user && !pathname.includes('admin') && <CartIcon className={`text-gray-600`} />
             }
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="inline-flex items-center justify-center ml-2 md:m-0 p-2 rounded-md text-gray-900"
               aria-expanded="false"
             >
-              <span className="sr-only text-white">Open main menu</span>
+              <span className="sr-only text-gray-600">Open main menu</span>
               {isOpen ? (
-                <CloseIcon className="text-blue-300/50" onClick={() => setIsOpen(!isOpen)} />
+                <CloseIcon className="text-gray-600" onClick={() => setIsOpen(!isOpen)} />
               ) : (
                 <div className='flex' onClick={()=> setIsOpen(!isOpen)}>
                 {
@@ -188,7 +188,7 @@ export default function Navbar() {
           {/* Desktop menu */}
           <div className="hidden sm:flex sm:items-center sm:space-x-4">
             {
-              user && !pathname.includes('admin') && <CartIcon />
+              user && !pathname.includes('admin') && <CartIcon className={`text-gray-600`} />
             }
             {user ? (
               <>
@@ -307,7 +307,7 @@ export default function Navbar() {
         </div>
 
         {/* Mobile menu */}
-        <div className={`${isOpen ? 'block' : 'hidden'} sm:hidden text-blue-100 text-sm `}>
+        <div className={`${isOpen ? 'block' : 'hidden'} sm:hidden text-gray-600 text-sm `}>
           <div className=" pb-3 space-y-1">
             {user ? (
               <div className='flex flex-col gap-2'>
@@ -365,7 +365,7 @@ export default function Navbar() {
                 <hr className='border-0.5 border-blue-300/10 '/>
                 <button
                   onClick={() => handleSignOut()}
-                  className="block px-2 py-2 text-white transition-colors"
+                  className="block px-2 py-2 text-red-600 transition-colors"
                 >
                   Sign Out
                 </button>

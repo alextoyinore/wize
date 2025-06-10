@@ -13,7 +13,7 @@ export default function Layout({ children }) {
   return (
     <div className="min-h-screen relative scroll-smooth" style={{ scrollBehavior: 'smooth' }}>
       {!routes.includes(pathname) && <Navbar />}
-      <main className="max-w-[98%] lg:max-w-[78%] mx-auto lg:py-8 md:px-6">
+      <main className="max-w-[98%] lg:max-w-[78%] mx-auto px-4 lg:py-8 md:px-6">
         {children}
       </main>
       {!pathname.includes('admin') && !pathname.includes('login') && !pathname.includes('register') && !pathname.includes('dashboard') && <Footer />}
