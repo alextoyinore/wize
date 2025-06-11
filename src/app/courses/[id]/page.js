@@ -246,8 +246,6 @@ export default function CourseDetail() {
                       ))}
                     </ul>
                   </div>
-
-                
               </div>
             </div>
           </div>
