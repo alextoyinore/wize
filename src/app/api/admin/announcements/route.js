@@ -1,5 +1,5 @@
 import { getSession } from '@/lib/auth'
-import clientPromise, { objectId, announcementsCollection } from '@/lib/mongodb'
+import clientPromise, { announcementsCollection } from '@/lib/mongodb'
 import { NextResponse } from 'next/server'
 
 export async function GET(request) {
@@ -10,6 +10,15 @@ export async function GET(request) {
       return NextResponse.json(
         { success: false, error: 'Unauthorized: No valid session' },
         { status: 401 }
+      )
+    }
+
+    // Ensure MongoDB client is connected
+    const client = await clientPromise
+    if (!client) {
+      return NextResponse.json(
+        { success: false, error: 'Failed to connect to database' },
+        { status: 500 }
       )
     }
 
@@ -27,15 +36,28 @@ export async function GET(request) {
       query.courseId = courseId
     }
 
-    const announcements = await announcementsCollection.find(query)
-      .sort({ createdAt: -1 })
-      .toArray()
+    // Use try-catch for database operations
+    try {
+      const announcements = await announcementsCollection.find(query)
+        .sort({ createdAt: -1 })
+        .toArray()
 
-    return NextResponse.json({ success: true, announcements })
+      if (!announcements) {
+        return NextResponse.json({ success: true, announcements: [] })
+      }
+
+      return NextResponse.json({ success: true, announcements })
+    } catch (dbError) {
+      console.error('Database error:', dbError)
+      return NextResponse.json(
+        { success: false, error: 'Database error occurred' },
+        { status: 500 }
+      )
+    }
   } catch (error) {
     console.error('Error fetching announcements:', error)
     return NextResponse.json(
-      { success: false, error: 'Failed to fetch announcements' },
+      { success: false, error: error.message || 'Failed to fetch announcements' },
       { status: 500 }
     )
   }

@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import clientPromise, { announcementsCollection } from '@/lib/mongodb'
+import { announcementsCollection } from '@/lib/mongodb'
 
 export async function GET(request) {
   try {
