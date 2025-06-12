@@ -94,8 +94,8 @@ export default function Login() {
   }
 
   return (
-    <div className="h-screen-[calc(100vh-2rem)] flex items-center justify-center">
-      <div className="max-w-md w-full space-y-8 p-8 bg-white">
+    <div className="h-screen-[35vh] flex items-center justify-center">
+      <div className="max-w-md w-full space-y-8 p-4">
       <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-blue-800">
             Sign in

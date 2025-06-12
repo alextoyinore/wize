@@ -99,6 +99,27 @@ export default function CourseEnroll() {
 
     setAddingToCart(true)
     try {
+      // First check if course is already in cart
+      const cartResponse = await fetch('/api/cart', {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+
+      if (!cartResponse.ok) {
+        throw new Error('Failed to check cart')
+      }
+
+      const cartData = await cartResponse.json()
+      const isCourseInCart = cartData.cart.some(item => item.courseId === id)
+
+      if (isCourseInCart) {
+        // If course is already in cart, redirect to checkout
+        router.push('/checkout')
+        return
+      }
+
+      // If not in cart, proceed with adding
       const response = await fetch(`/api/courses/${id}/cart`, {
         method: 'POST',
         headers: {
