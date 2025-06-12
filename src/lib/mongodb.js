@@ -30,6 +30,8 @@ export const coursesCollection = db.collection('courses')
 export const categoriesCollection = db.collection('categories')
 export const announcementsCollection = db.collection('announcements')
 export const notificationsCollection = db.collection('notifications')
+export const ordersCollection = db.collection('orders')
+export const subscribersCollection = db.collection('subscribers')
 export const logsCollection = db.collection('logs')
 export const objectId = ObjectId
 

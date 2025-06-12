@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import { connectToMongoDB } from '@/lib/mongodb'
-import { usersCollection } from '@/lib/mongodb'
+import { usersCollection, subscribersCollection } from '@/lib/mongodb'
 
 export async function POST(request) {
   try {
@@ -14,7 +14,7 @@ export async function POST(request) {
     }
 
     // Check if email already exists
-    const existing = await usersCollection.findOne({ email })
+    const existing = await subscribersCollection.findOne({ email })
     if (existing) {
       return NextResponse.json(
         { error: 'This email is already subscribed' },
@@ -23,7 +23,7 @@ export async function POST(request) {
     }
 
     // Add to subscribers collection
-    await usersCollection.insertOne({
+    await subscribersCollection.insertOne({
       email,
       subscribedAt: new Date(),
       isSubscribed: true
