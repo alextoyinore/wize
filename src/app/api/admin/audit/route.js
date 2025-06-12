@@ -1,12 +1,13 @@
 import { NextResponse } from 'next/server'
-import { auth } from '@/lib/firebase'
+import { getSession } from '@/lib/auth'
 import { logsCollection } from '@/lib/mongodb'
+import { usersCollection } from '@/lib/mongodb'
+
 
 export async function GET(request) {
   try {
     // Check authentication
-    const token = request.headers.get('authorization')?.split('Bearer ')[1] || request.cookies.get('admin_token')?.value
-    const session = await auth.verifyIdToken(token)
+    const session = await getSession(request)
     
     if (!session) {
       return NextResponse.json(
@@ -16,7 +17,7 @@ export async function GET(request) {
     }
 
     // Check admin role
-    const user = await usersCollection.findOne({ _id: session.uid })
+    const user = await usersCollection.findOne({ email: session.email })
     if (!user?.role?.includes('super_admin')) {
       return NextResponse.json(
         { error: 'Unauthorized' },
@@ -60,10 +61,11 @@ export async function GET(request) {
   }
 }
 
+
 export async function GET(request) {
   try {
-    const session = await auth.verifyIdToken(request.cookies.get('admin_token')?.value)
-    const user = await usersCollection.findOne({ _id: session.uid })
+    const session = await getSession(request)
+    const user = await usersCollection.findOne({ email: session.email })
 
     if (!user?.role?.includes('super_admin')) {
       return NextResponse.json(
@@ -77,7 +79,7 @@ export async function GET(request) {
     const limit = parseInt(searchParams.get('limit') || '20')
     const search = searchParams.get('search') || ''
 
-    const auditData = await getAuditLogs(session.uid, page, limit, search)
+    const auditData = await getAuditLogs(session.email, page, limit, search)
     return NextResponse.json({
       logs: auditData.logs,
       totalPages: auditData.totalPages,

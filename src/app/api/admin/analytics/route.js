@@ -1,12 +1,11 @@
 import { NextResponse } from 'next/server'
 import { usersCollection } from '@/lib/mongodb'
-import { auth } from '@/lib/firebase'
+import { getSession } from '@/lib/auth'
 
 export async function GET(request) {
   try {
     // Check authentication
-    const token = request.headers.get('authorization')?.split('Bearer ')[1] || request.cookies.get('admin_token')?.value
-    const session = await auth.verifyIdToken(token)
+    const session = await getSession(request)
     
     if (!session) {
       return NextResponse.json(
@@ -16,7 +15,7 @@ export async function GET(request) {
     }
 
     // Check admin role
-    const user = await usersCollection.findOne({ _id: session.uid })
+    const user = await usersCollection.findOne({ email: session.email })
     if (!user?.role?.includes('super_admin')) {
       return NextResponse.json(
         { error: 'Unauthorized' },
