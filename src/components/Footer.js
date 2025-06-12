@@ -96,32 +96,32 @@ export default function Footer() {
                     </div>
 
                     <div className="">
-                            <h3 className="text-xl font-semibold mb-2">Stay Updated</h3>
-                            <form onSubmit={handleSubmit} className="flex gap-2 max-w-md mx-auto">
-                                <input
-                                    type="email"
-                                    placeholder="Enter your email"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    className="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                    required
-                                />
-                                <button
-                                    type="submit"
-                                    className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-                                >
-                                    Subscribe
-                                </button>
-                            </form>
-                            <p className="text-gray-600 mt-2">Subscribe to our newsletter for the latest updates and exclusive offers</p>
+                        <h3 className="text-xl font-semibold mb-2">Stay Updated</h3>
+                        <form onSubmit={handleSubmit} className="lg:col-span-2 flex flex-wrap md:flex-nowrap gap-2 max-w-md mx-auto">
+                            <input
+                                type="email"
+                                placeholder="Enter your email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                className="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                required
+                            />
+                            <button
+                                type="submit"
+                                className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                            >
+                                Subscribe
+                            </button>
+                        </form>
+                        <p className="text-gray-600 mt-2">Subscribe to our newsletter for the latest updates and exclusive offers</p>
 
-                            {subscriptionMessage && (
-                                <p className={`mt-2 ${subscriptionMessage.includes('Thank you') ? 'text-green-600' : 'text-red-600'}`}>
-                                    {subscriptionMessage}
-                                </p>
-                            )}
+                        {subscriptionMessage && (
+                            <p className={`mt-2 ${subscriptionMessage.includes('Thank you') ? 'text-green-600' : 'text-red-600'}`}>
+                                {subscriptionMessage}
+                            </p>
+                        )}
 
-                        </div>
+                    </div>
                 </div>
                 <div className="mt-8 mb-4 pt-8 border-t border-gray-200 text-center">
                     <p className="text-gray-600">
