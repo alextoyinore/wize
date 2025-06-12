@@ -83,7 +83,7 @@ export default function CourseDetail() {
   return (
     <main className="">
       <div className="max-w-6xl mx-auto px-4 lg:p-0">
-        <div className="bg-white overflow-hidden">
+        <div className="overflow-hidden">
           <div className="">
 
             {/* Course Details */}
@@ -112,7 +112,7 @@ export default function CourseDetail() {
                     <h3 className="font-medium text-blue-800 mb-4">What you'll learn</h3>
                     <div className="flex flex-col gap-3">
                       {course.whatYoullLearn.map((item, index) => (
-                        <div key={index} className="p-4 border border-gray-200 rounded-lg transition-colors">
+                        <div key={index} className="bg-white p-4 border border-gray-200 rounded-lg transition-colors">
                           <div className="flex items-center space-x-2">
                             <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -129,7 +129,7 @@ export default function CourseDetail() {
                     <h2 className="text-2xl font-bold mb-6 text-blue-800">Curriculum</h2>
                     <div className="space-y-6">
                       {course.curriculum.map((section, index) => (
-                        <div key={index} className="border border-gray-200 rounded-lg p-6">
+                        <div key={index} className="bg-white border border-gray-200 rounded-lg p-6">
                           <h3 className="text-lg font-semibold mb-4">{section.title}</h3>
                           <ul className="space-y-3">
                             {section.lessons.map((lesson, lessonIndex) => (

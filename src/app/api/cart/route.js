@@ -41,11 +41,10 @@ export async function GET(request) {
   }
 }
 
-export async function DELETE(request, { params }) {
+export async function DELETE(request) {
   try {
     const session = await getUserSession(request)
-    const { id } = params
-
+    
     if (!session) {
       return NextResponse.json(
         { error: 'Unauthorized' },
@@ -53,11 +52,31 @@ export async function DELETE(request, { params }) {
       )
     }
 
-    const result = await usersCollection.updateOne(
+    const { courseId } = await request.json()
+    
+    if (!courseId) {
+      return NextResponse.json(
+        { error: 'Course ID is required' },
+        { status: 400 }
+      )
+    }
+
+    const user = await usersCollection.findOne({ email: session.email })
+    
+    if (!user || !user.cart) {
+      return NextResponse.json({ cart: [] })
+    }
+
+    // Remove course from cart
+    const updatedCart = user.cart.filter(item => item.courseId !== courseId)
+    
+    // Update user's cart
+    await usersCollection.updateOne(
       { email: session.email },
-      { $pull: { cart: { courseId: id } } }
+      { $set: { cart: updatedCart } }
     )
 
+    return NextResponse.json({ cart: updatedCart })
     if (!result.acknowledged) {
       return NextResponse.json(
         { error: 'Failed to remove from cart' },

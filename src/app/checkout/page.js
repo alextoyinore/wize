@@ -138,8 +138,8 @@ export default function CheckoutPage() {
 
   return (
     <div className="flex items-center justify-center min-h-[50vh]">
-      <div className="max-w-full mx-auto px-4">
-        <div className="bg-white rounded-2xl overflow-hidden">
+      <div className="mx-auto px-4">
+        <div className="overflow-hidden">
           <div className="">
             <h1 className="text-3xl font-bold text-gray-900 mb-8 mt-4">Checkout</h1>
 

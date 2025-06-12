@@ -88,27 +88,6 @@ export default function CourseEnroll() {
     handleAddToCart()
 
     router.push('/checkout')
-
-    // try {
-    //   const response = await fetch(`/api/courses/${id}/checkout`, {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //       'Authorization': `Bearer ${token}`
-    //     },
-    //     body: JSON.stringify({ plan: selectedPlan })
-    //   })
-
-    //   const data = await response.json()
-      
-    //   if (!response.ok) {
-    //     throw new Error(data.error || 'Failed to start checkout')
-    //   }
-
-    //   window.location.href = data.checkoutUrl
-    // } catch (err) {
-    //   setError(err.message)
-    // }
   }
 
   const handleAddToCart = async () => {
@@ -146,8 +125,8 @@ export default function CourseEnroll() {
 
   return (
     <div className="min-h-[50vh]">
-      <div className="max-w-full mx-auto px-4">
-        <div className="bg-white rounded-2xl overflow-hidden">
+      <div className="max-w-full mx-auto">
+        <div className="bg-blue-50/50 border border-blue-100 p-8 rounded-2xl overflow-hidden">
           <div className="">
             <div className="flex items-center justify-between mb-8">
               <motion.div 
@@ -166,14 +145,14 @@ export default function CourseEnroll() {
               transition={{ delay: 0.2, duration: 0.5 }}
               className="space-y-8"
             >
-              <div className="bg-gray-50 p-8 rounded-2xl">
+              <div className="p-8 rounded-2xl">
                 <h2 className="text-xl font-semibold mb-6">Choose Preferred Duration</h2>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   <motion.div
                     className={`py-6 px-8 rounded-2xl transition-all duration-300 ${
                       selectedPlan === 'three-month'
-                        ? 'bg-white shadow-lg'
-                        : 'bg-gray-50 hover:bg-gray-100'
+                        ? 'bg-blue-100 border border-blue-100'
+                        : 'bg-blue-50 border border-blue-100 hover:border-blue-200'
                     }`}
                     whileHover={{ scale: 1.02 }}
                     onClick={() => setSelectedPlan('three-month')}
@@ -199,8 +178,8 @@ export default function CourseEnroll() {
                   <motion.div
                     className={`py-6 px-8 rounded-2xl transition-all duration-300 ${
                       selectedPlan === 'six-month'
-                        ? 'bg-white shadow-lg'
-                        : 'bg-gray-50 hover:bg-gray-100'
+                        ? 'bg-blue-100 border border-blue-100'
+                        : 'bg-blue-50 border border-blue-100 hover:border-blue-200'
                     }`}
                     whileHover={{ scale: 1.02 }}
                     onClick={() => setSelectedPlan('six-month')}
@@ -230,8 +209,8 @@ export default function CourseEnroll() {
                   <motion.div
                     className={`py-6 px-8 rounded-2xl transition-all duration-300 ${
                       selectedPlan === 'one-year'
-                        ? 'bg-white shadow-lg'
-                        : 'bg-gray-50 hover:bg-gray-100'
+                        ? 'bg-blue-100 border border-blue-100'
+                        : 'bg-blue-50 border border-blue-100 hover:border-blue-200'
                     }`}
                     whileHover={{ scale: 1.02 }}
                     onClick={() => setSelectedPlan('one-year')}
@@ -268,7 +247,7 @@ export default function CourseEnroll() {
             <div className="flex items-center justify-end gap-4 mt-8">
               <button
                 onClick={handleAddToCart}
-                className="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+                className="bg-white px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
                 disabled={addingToCart}
               >
                 {addingToCart ? (

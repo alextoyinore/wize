@@ -19,7 +19,7 @@ export default function Terms() {
       {/* Terms Content */}
       <section className="py-8">
         <div className="container mx-auto">
-          <div className="lg:bg-blue-50/50 lg:border lg:border-blue-100 lg:rounded-2xl lg:px-8 lg:py-16">
+          <div className="lg:bg-blue-50/50 lg:border lg:border-blue-100 lg:rounded-2xl lg:p-16">
             <article className="lg:grid md:grid-cols-3 gap-8">
                 <h2 className="text-2xl font-bold my-4 lg:mb-6">1. Definitions</h2>
                 <div className="space-y-6 col-span-2">
@@ -209,9 +209,11 @@ export default function Terms() {
                       <br />
                       Email: <Link href="mailto:support@uwise.ng" className="text-blue-800 underline">support@uwise.ng</Link>
                       <br />
-                      Phone: +234 [Insert Number]
+                      Phone: +234 7079825808
                       <br />
-                      Address: [Insert Office Address]
+                      Address: 1, Tunji Idowu Abule-Egba
+                      <br />
+                      Lagos, Nigeria
                     </p>
                   </div>
                 </div>

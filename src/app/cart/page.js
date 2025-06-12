@@ -43,19 +43,27 @@ export default function CartPage() {
 
   const removeFromCart = async (courseId) => {
     try {
-      const response = await fetch(`/api/cart/${courseId}`, {
-        method: 'DELETE'
+      const response = await fetch('/api/cart', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ courseId })
       })
 
+      const data = await response.json()
+      
       if (!response.ok) {
-        setError('Failed to remove from cart')
+        setError(data.error || 'Failed to remove from cart')
+        return
       }
 
       fetchCart()
     } catch (err) {
-      setError(err.message)
+      setError(err.message || 'An error occurred while removing from cart')
     }
   }
+
 
   if (loading) {
     return (
@@ -114,9 +122,11 @@ export default function CartPage() {
   return (
     <div className="flex items-center justify-center min-h-[35vh]">
       <div className="max-w-full mx-auto px-4">
-        <div className="bg-white rounded-2xl overflow-hidden">
+        <div className="rounded-2xl overflow-hidden bg-blue-50/50 border border-blue-100 p-8">
           <div className="">
-            <h1 className="text-3xl font-bold text-gray-900 mb-8">Your Cart</h1>
+            <h1 className="text-center text-3xl font-bold text-gray-900 mb-8">Your Cart</h1>
+            <p className="text-center">You have {cart.length} courses in your cart</p>
+            <p className="text-center text-sm text-gray-600 mb-8">Click on the 'x' to remove it from your cart</p>
 
             <div className="space-y-6">
               {cart.map((item) => (

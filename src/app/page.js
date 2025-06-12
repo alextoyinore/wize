@@ -33,9 +33,6 @@ export default function Home() {
   return (
     <main className="">
 
-      {/* Background Gradient */}
-      <div className="absolute w-full inset-0 bg-gradient-to-r md:rounded-2xl from-blue-100 to-green-100 opacity-10 -z-50"></div>
-      
       <HomeHero className="mt-16" />
 
       {/* <Partners className="" /> */}

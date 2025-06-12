@@ -27,7 +27,7 @@ export default function ContactUs({ classname = "" }) {
                                         type="text"
                                         id="name"
                                         name="name"
-                                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-transparent"
+                                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                                         placeholder="Your name"
                                     />
                                 </div>
@@ -39,7 +39,7 @@ export default function ContactUs({ classname = "" }) {
                                         type="email"
                                         id="email"
                                         name="email"
-                                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-transparent"
+                                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                                         placeholder="your.email@example.com"
                                     />
                                 </div>
@@ -51,7 +51,7 @@ export default function ContactUs({ classname = "" }) {
                                         id="message"
                                         name="message"
                                         rows="4"
-                                        className="w-full bg-transparent px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                                         placeholder="Your message here..."
                                     />
                                 </div>
@@ -76,9 +76,9 @@ export default function ContactUs({ classname = "" }) {
                                     <div>
                                         <h3 className="text-lg font-semibold mb-1">Our Location</h3>
                                         <p className="text-gray-600">
-                                            123 Education Street<br />
-                                            Learning City, LC 12345<br />
-                                            United States
+                                            1, Tunji Idowu, Abule Egba<br />
+                                            Lagos, Nigeria <br />
+                                            
                                         </p>
                                     </div>
                                 </div>

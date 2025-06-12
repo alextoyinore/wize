@@ -19,7 +19,7 @@ export default function Privacy() {
       {/* Privacy Policy Content */}
       <section className="py-8">
         <div className="container mx-auto">
-          <div className="lg:bg-blue-50/50 lg:border lg:border-blue-100 lg:rounded-2xl lg:px-8 lg:py-16">
+          <div className="lg:bg-blue-50/50 lg:border lg:border-blue-100 lg:rounded-2xl lg:p-16">
             <article className="lg:grid md:grid-cols-3 gap-8">
               <h2 className="text-2xl font-bold my-4 lg:mb-6">1. Introduction</h2>
               <div className="space-y-6 col-span-2">

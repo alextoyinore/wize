@@ -23,11 +23,17 @@ export default function Footer() {
                     <div className="">
                         <h3 className="text-xl font-semibold mb-4">Quick Links</h3>
                         <ul className="space-y-2">
-                            <li><Link href="/about" className="text-gray-600 hover:text-blue-800 transition-colors duration-200">About Us</Link></li>
                             <li><Link href="/courses" className="text-gray-600 hover:text-blue-800 transition-colors duration-200">Courses</Link></li>
                             <li><Link href="/pricing" className="text-gray-600 hover:text-blue-800 transition-colors duration-200">Pricing</Link></li>
+                        </ul>
+                    </div>
+                    <div className="">
+                        <h3 className="text-xl font-semibold mb-4">Pages</h3>
+                        <ul className="space-y-2">
+                            <li><Link href="/about" className="text-gray-600 hover:text-blue-800 transition-colors duration-200">About Us</Link></li>
                             <li><Link href="/partnerships" className="text-gray-600 hover:text-blue-800 transition-colors duration-200">Partnerships</Link></li>
-                            <li><Link href="/blog" className="text-gray-600 hover:text-blue-800 transition-colors duration-200">Blog</Link></li>
+                            <li><Link href="/contact" className="text-gray-600 hover:text-blue-800 transition-colors duration-200">Contact</Link></li>
+                            <li><Link href="/faqs" className="text-gray-600 hover:text-blue-800 transition-colors duration-200">FAQs</Link></li>
                         </ul>
                     </div>
                     <div className="">
@@ -36,8 +42,6 @@ export default function Footer() {
                             <li><Link href="/terms" className="text-gray-600 hover:text-blue-800 transition-colors duration-200">Terms & Conditions</Link></li>
                             <li><Link href="/privacy" className="text-gray-600 hover:text-blue-800 transition-colors duration-200">Privacy Policy</Link></li>
                             <li><Link href="/cookies" className="text-gray-600 hover:text-blue-800 transition-colors duration-200">Cookie Policy</Link></li>
-                            <li><Link href="/contact" className="text-gray-600 hover:text-blue-800 transition-colors duration-200">Contact</Link></li>
-                            <li><Link href="/faqs" className="text-gray-600 hover:text-blue-800 transition-colors duration-200">FAQs</Link></li>
                         </ul>
                     </div>
 
@@ -45,7 +49,7 @@ export default function Footer() {
                         <h3 className="text-xl font-semibold mb-4">Contact Us</h3>
                         <ul className="space-y-2">
                             <li><Link href="mailto:info@uwise.com" className="text-gray-600 hover:text-blue-800 transition-colors duration-200">info@uwise.com</Link></li>
-                            <li><Link href="tel:+2348123456789" className="text-gray-600 hover:text-blue-800 transition-colors duration-200">+234 812 345 6789</Link></li>
+                            <li><Link href="tel:+2347079825808" className="text-gray-600 hover:text-blue-800 transition-colors duration-200">+234 707 982 5808</Link></li>
                         </ul>
                     </div>
                 </div>
