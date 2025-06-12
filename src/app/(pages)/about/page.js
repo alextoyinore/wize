@@ -66,31 +66,40 @@ export default function About() {
                     <div className="grid md:grid-cols-3 gap-8">
                         {/* Team member cards */}
                         <div className="bg-blue-50/50 border border-blue-100 p-6 rounded-lg transition-all hover:bg-blue-50">
-                        <div className="flex gap-5 flex-wrap items-center">
-                            <div className="w-16 h-16 mb-4 rounded-full bg-blue-200"></div>
-                            <div>
-                                <h3 className="text-xl font-semibold">John Doe</h3>
-                                <p className="text-gray-600">CEO & Founder</p>
+                            <div className="flex gap-5 items-center">
+                                <div className="w-16 h-16 mb-4 rounded-full flex-shrink-0 bg-blue-200"></div>
+                                <div>
+                                    <h3 className="text-xl font-semibold">John Doe</h3>
+                                    <p className="text-gray-600">CEO & Founder</p>
+                                </div>
                             </div>
-                        </div>
+                            <p className="text-gray-600 mt-4">
+                                John Doe is the CEO and Founder of Wize. With over 20 years of experience in the education technology industry, John has a proven track record of driving innovation and delivering exceptional results.
+                            </p>
                         </div>
                         <div className="bg-blue-50/50 border border-blue-100 p-6 rounded-lg transition-all hover:bg-blue-50">
-                            <div className="flex gap-5 flex-wrap items-center">
-                                <div className="w-16 h-16 mb-4 rounded-full bg-blue-200"></div>
+                            <div className="flex gap-5 items-center">
+                                <div className="w-16 h-16 mb-4 rounded-full flex-shrink-0 bg-blue-200"></div>
                                 <div>
                                     <h3 className="text-xl font-semibold">Jane Smith</h3>
                                     <p className="text-gray-600">Chief Technology Officer</p>
                                 </div>
                             </div>
+                            <p className="text-gray-600 mt-4">
+                                Jane Smith is the Chief Technology Officer of Wize. With over 15 years of experience in software development, Jane has a proven track record of building scalable and innovative solutions.
+                            </p>
                         </div>
                         <div className="bg-blue-50/50 border border-blue-100 p-6 rounded-lg transition-all hover:bg-blue-50">
-                            <div className="flex gap-5 flex-wrap items-center">
-                                <div className="w-16 h-16 mb-4 rounded-full bg-blue-200"></div>
+                            <div className="flex gap-5 items-center">
+                                <div className="w-16 h-16 mb-4 rounded-full flex-shrink-0 bg-blue-200"></div>
                                 <div>
                                     <h3 className="text-xl font-semibold">Mike Johnson</h3>
                                     <p className="text-gray-600">Head of Education</p>
                                 </div>
                             </div>
+                            <p className="text-gray-600 mt-4">
+                                Mike Johnson is the Head of Education at Wize. With over 25 years of experience in education, Mike has a proven track record of delivering high-quality education and innovative teaching methods.
+                            </p>
                         </div>
                     </div>
                 </div>
