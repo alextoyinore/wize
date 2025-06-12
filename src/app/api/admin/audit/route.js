@@ -1,35 +1,67 @@
 import { NextResponse } from 'next/server'
 import { auth } from '@/lib/firebase'
-import { usersCollection } from '@/lib/mongodb'
-import { cache } from 'react'
+import { connectToMongoDB, logsCollection } from '@/lib/mongodb'
 
-// Cache audit logs for 1 minute
-const getAuditLogs = cache(async (userId, page = 1, limit = 20, search = '') => {
-  const skip = (page - 1) * limit
-  const searchQuery = search ? { $text: { $search: search } } : {}
-  
-  const [logs, total] = await Promise.all([
-    usersCollection.find({
-      ...searchQuery,
-      type: 'audit'
+export async function GET(request) {
+  try {
+    // Check authentication
+    const token = request.headers.get('authorization')?.split('Bearer ')[1] || request.cookies.get('admin_token')?.value
+    const session = await auth.verifyIdToken(token)
+    
+    if (!session) {
+      return NextResponse.json(
+        { error: 'Unauthorized' },
+        { status: 401 }
+      )
+    }
+
+    // Check admin role
+    const user = await usersCollection.findOne({ _id: session.uid })
+    if (!user?.role?.includes('super_admin')) {
+      return NextResponse.json(
+        { error: 'Unauthorized' },
+        { status: 403 }
+      )
+    }
+
+    // Connect to MongoDB
+    await connectToMongoDB()
+
+    // Get query parameters
+    const { search = '', page = 1, limit = 20 } = Object.fromEntries(request.url.split('?')[1]?.split('&').map(p => p.split('=')) || [])
+    const skip = (parseInt(page) - 1) * parseInt(limit)
+    const searchQuery = search ? { message: { $regex: search, $options: 'i' } } : {}
+
+    // Get audit logs
+    const [logs, total] = await Promise.all([
+      logsCollection.find({
+        ...searchQuery,
+        type: 'audit'
+      })
+      .sort({ timestamp: -1 })
+      .skip(skip)
+      .limit(parseInt(limit))
+      .toArray(),
+
+      logsCollection.countDocuments({
+        ...searchQuery,
+        type: 'audit'
+      })
+    ])
+
+    return NextResponse.json({
+      logs,
+      total,
+      totalPages: Math.ceil(total / parseInt(limit))
     })
-    .sort({ timestamp: -1 })
-    .skip(skip)
-    .limit(limit)
-    .toArray(),
-
-    usersCollection.countDocuments({
-      ...searchQuery,
-      type: 'audit'
-    })
-  ])
-
-  return {
-    logs,
-    total,
-    totalPages: Math.ceil(total / limit)
+  } catch (error) {
+    console.error('Error fetching audit logs:', error)
+    return NextResponse.json(
+      { error: error.message || 'Failed to fetch audit logs' },
+      { status: 500 }
+    )
   }
-})
+}
 
 export async function GET(request) {
   try {
@@ -62,3 +94,4 @@ export async function GET(request) {
     )
   }
 }
+
