@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { connectToMongoDB, usersCollection } from '@/lib/mongodb'
+import { usersCollection } from '@/lib/mongodb'
 import { auth } from '@/lib/firebase'
 
 export async function GET(request) {
@@ -23,9 +23,6 @@ export async function GET(request) {
         { status: 403 }
       )
     }
-
-    // Connect to MongoDB
-    await connectToMongoDB()
 
     const now = Date.now()
 
@@ -81,3 +78,4 @@ export async function GET(request) {
     )
   }
 }
+

@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import { auth } from '@/lib/firebase'
-import { connectToMongoDB, logsCollection } from '@/lib/mongodb'
+import { logsCollection } from '@/lib/mongodb'
 
 export async function GET(request) {
   try {
@@ -23,9 +23,6 @@ export async function GET(request) {
         { status: 403 }
       )
     }
-
-    // Connect to MongoDB
-    await connectToMongoDB()
 
     // Get query parameters
     const { search = '', page = 1, limit = 20 } = Object.fromEntries(request.url.split('?')[1]?.split('&').map(p => p.split('=')) || [])
