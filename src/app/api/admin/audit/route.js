@@ -62,35 +62,35 @@ export async function GET(request) {
 }
 
 
-export async function GET(request) {
-  try {
-    const session = await getSession(request)
-    const user = await usersCollection.findOne({ email: session.email })
+// export async function GET(request) {
+//   try {
+//     const session = await getSession(request)
+//     const user = await usersCollection.findOne({ email: session.email })
 
-    if (!user?.role?.includes('super_admin')) {
-      return NextResponse.json(
-        { error: 'Unauthorized' },
-        { status: 403 }
-      )
-    }
+//     if (!user?.role?.includes('super_admin')) {
+//       return NextResponse.json(
+//         { error: 'Unauthorized' },
+//         { status: 403 }
+//       )
+//     }
 
-    const { searchParams } = new URL(request.url)
-    const page = parseInt(searchParams.get('page') || '1')
-    const limit = parseInt(searchParams.get('limit') || '20')
-    const search = searchParams.get('search') || ''
+//     const { searchParams } = new URL(request.url)
+//     const page = parseInt(searchParams.get('page') || '1')
+//     const limit = parseInt(searchParams.get('limit') || '20')
+//     const search = searchParams.get('search') || ''
 
-    const auditData = await getAuditLogs(session.email, page, limit, search)
-    return NextResponse.json({
-      logs: auditData.logs,
-      totalPages: auditData.totalPages,
-      totalLogs: auditData.total
-    })
-  } catch (error) {
-    console.error('Error fetching audit logs:', error)
-    return NextResponse.json(
-      { error: 'Failed to fetch audit logs' },
-      { status: 500 }
-    )
-  }
-}
+//     const auditData = await getAuditLogs(session.email, page, limit, search)
+//     return NextResponse.json({
+//       logs: auditData.logs,
+//       totalPages: auditData.totalPages,
+//       totalLogs: auditData.total
+//     })
+//   } catch (error) {
+//     console.error('Error fetching audit logs:', error)
+//     return NextResponse.json(
+//       { error: 'Failed to fetch audit logs' },
+//       { status: 500 }
+//     )
+//   }
+// }
 
