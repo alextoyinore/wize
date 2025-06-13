@@ -13,6 +13,7 @@ export default function EditTrackPage({ params }) {
     description: '',
     duration: '',
     category: '',
+    courses: [],
     requirements: []
   })
   const router = useRouter()
