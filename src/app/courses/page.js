@@ -1,6 +1,7 @@
+'use client'
+
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
-import { getSession } from '@/lib/auth'
 
 export default function CoursesPage() {
   const [careerTracks, setCareerTracks] = useState([])
@@ -8,15 +9,10 @@ export default function CoursesPage() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
+
   useEffect(() => {
     const fetchCoursesAndTracks = async () => {
       try {
-        // Get session for authentication
-        const session = await getSession()
-        if (!session) {
-          throw new Error('Not authenticated')
-        }
-
         // Fetch career tracks
         const tracksResponse = await fetch('/api/tracks')
         if (!tracksResponse.ok) {
@@ -44,11 +40,12 @@ export default function CoursesPage() {
     fetchCoursesAndTracks()
   }, [])
 
+
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
+      <div className="flex items-center justify-center min-h-[32vh]">
         <motion.div
-          className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-500"
+          className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"
           animate={{ rotate: 360 }}
           transition={{ duration: 1, repeat: Infinity }}
         />
@@ -56,9 +53,10 @@ export default function CoursesPage() {
     )
   }
 
+
   if (error) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
+      <div className="flex items-center justify-center min-h-[32vh]">
         <div className="text-center text-red-500">
           <h2 className="text-2xl font-bold mb-4">Error Loading Courses</h2>
           <p>{error}</p>
@@ -68,7 +66,7 @@ export default function CoursesPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 md:px-0 py-8">
       <h1 className="text-4xl font-bold text-blue-800 mb-8 text-center">
         Career Tracks & Courses
       </h1>
@@ -77,7 +75,7 @@ export default function CoursesPage() {
       <section className="mb-16">
         <h2 className="text-3xl font-bold mb-8 text-blue-700">Career Tracks</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {careerTracks.map((track) => (
+          {careerTracks.length > 0 ? careerTracks.map((track) => (
             <motion.div
               key={track._id}
               initial={{ opacity: 0, y: 20 }}
@@ -94,7 +92,9 @@ export default function CoursesPage() {
                 </div>
               </div>
             </motion.div>
-          ))}
+          )) : (
+            <p>No career tracks found</p>
+          )}
         </div>
       </section>
 
@@ -102,7 +102,7 @@ export default function CoursesPage() {
       <section>
         <h2 className="text-3xl font-bold mb-8 text-blue-700">All Courses</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {courses.map((course) => (
+          {courses.length > 0 ? courses.map((course) => (
             <motion.div
               key={course._id}
               initial={{ opacity: 0, y: 20 }}
@@ -124,9 +124,12 @@ export default function CoursesPage() {
                 </div>
               </div>
             </motion.div>
-          ))}
+          )) : (
+            <p>No courses found</p>
+          )}
         </div>
       </section>
     </div>
   )
 }
+
