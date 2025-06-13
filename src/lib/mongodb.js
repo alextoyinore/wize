@@ -33,6 +33,7 @@ export const notificationsCollection = db.collection('notifications')
 export const ordersCollection = db.collection('orders')
 export const subscribersCollection = db.collection('subscribers')
 export const logsCollection = db.collection('logs')
+export const careerTracksCollection = db.collection('career_tracks')
 export const objectId = ObjectId
 
 // Export the client promise for direct database access

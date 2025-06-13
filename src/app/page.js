@@ -316,10 +316,11 @@ export default function Home() {
         </div>
       </section>
 
+
       <section className="w-full flex justify-center rounded-lg bg-blue-50/50 p-6 md:p-12 border border-blue-100">
         <div className="text-center md:text-start items-center flex flex-col gap-5 md:gap-16 justify-between md:flex-row w-[80%] md:w-[100%]">
           <div className="flex flex-col gap-3">
-            <h2 className="font-bold text-3xl md:text-4xl text-blue-800">Your future begins now</h2>
+            <h2 className="font-bold text-3xl md:text-4xl text-blue-800">Wealth begins with learning</h2>
             <p className="text-gray-600">There's no better time than the present. Tomorrow belongs to those who see it today. Start your journey to a better tomorrow</p>
           </div>
           <Link

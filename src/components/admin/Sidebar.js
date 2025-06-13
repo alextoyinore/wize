@@ -46,6 +46,20 @@ export default function Sidebar({ className }) {
       ]
     },
     {
+      name: 'Tracks',
+      href: '/admin/tracks',
+      subItems: [
+        {
+          name: 'All',
+          href: '/admin/tracks'
+        },
+        {
+          name: 'New',
+          href: '/admin/tracks/new'
+        }
+      ]
+    },
+    {
       name: 'Categories',
       href: '/admin/categories',
     },
