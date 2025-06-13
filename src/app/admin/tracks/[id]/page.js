@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { getSession } from '@/lib/auth'
 import { useRouter } from 'next/navigation'
 
 export default function EditTrackPage({ params }) {
@@ -22,12 +21,6 @@ export default function EditTrackPage({ params }) {
   useEffect(() => {
     const fetchTrack = async () => {
       try {
-        const session = await getSession()
-        if (!session?.user?.role?.includes('admin')) {
-          router.push('/login')
-          return
-        }
-
         const response = await fetch(`/api/tracks/${params.id}`)
         if (!response.ok) {
           throw new Error('Failed to fetch track')
